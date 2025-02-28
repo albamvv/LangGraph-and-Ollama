@@ -2,7 +2,7 @@
 
 https://pytorch.org/get-started/locally/
 
-## 1️⃣ Langchain getting started
+## 1️⃣ Langchain
 
 This Python code sets up and uses the LangChain Ollama library to interact with a local instance of the LLaMA 3.2 (1B) model for generating responses to user queries. Here's a breakdown of what it does:
 
@@ -41,3 +41,37 @@ Other parameters (not explicitly defined in the code).
 - It uses the LLaMA 3.2 (1B) model to process and respond to queries.
 - The .env variables are loaded but not actively used in the script.
 - The temperature and token limit settings control the model’s response style and length.
+
+
+### 2️⃣ LanGraph
+
+### Import Required Libraries
+- The script loads environment variables using dotenv, interacts with the operating system via os, and sets up a chatbot using LangChain and Ollama.
+- The StateGraph from langgraph is used to manage conversation flow.
+
+### Load Environment Variables
+- load_dotenv() loads variables from a .env file, which are typically used for API keys or configurations.
+
+### Initializes the Ollama language model.
+### Tests the chatbot with a sample input.
+### Defines a State class to hold conversation messages.
+### Creates a chatbot function that processes user messages.
+### Builds a conversation flow using a StateGraph.
+### Attempts to visualize the graph (which may need fixing).
+### Tests the chatbot with predefined inputs.
+### Implements an interactive chat loop.
+
+
+### 3️⃣
+
+### 
+###
+###
+###
+
+### 4️⃣
+
+### 
+###
+###
+###
