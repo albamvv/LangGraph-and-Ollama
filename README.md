@@ -51,15 +51,24 @@ Other parameters (not explicitly defined in the code).
 
 ### Load Environment Variables
 - load_dotenv() loads variables from a .env file, which are typically used for API keys or configurations.
-
 ### Initializes the Ollama language model.
+- This initializes an Ollama-based chatbot model (llama3.2:3b), which is a local AI model running at http://localhost:11434
 ### Tests the chatbot with a sample input.
+- Sends the message "Hi" to the chatbot and prints the response.
 ### Defines a State class to hold conversation messages.
+- Defines a State class, which holds a list of messages. This state is used to track the conversation.
 ### Creates a chatbot function that processes user messages.
+- This function processes user messages by invoking the language model and returning a response.
 ### Builds a conversation flow using a StateGraph.
+- A StateGraph is created to manage conversation flow.
+- The chatbot node is added, and edges define the sequence of interaction (START → chatbot → END).
 ### Attempts to visualize the graph (which may need fixing).
+- This attempts to generate and display a graph visualization of the conversation flow. (This part may cause an error; see my previous fix for this issue.)
 ### Tests the chatbot with predefined inputs.
+- These lines invoke the chatbot with predefined messages to test its responses.
 ### Implements an interactive chat loop.
+- Starts an interactive chat loop.
+- The user types a message, the chatbot responds, and this continues until the user types 'q', 'quit', or 'exit'.
 
 
 ### 3️⃣
