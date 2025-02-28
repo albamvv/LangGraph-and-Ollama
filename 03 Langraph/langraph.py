@@ -49,9 +49,9 @@ Annotated[list, add_messages] is a hint that messages should be modified by add_
 # Define the state structure for the chatbot
 class State(TypedDict):
     # State contains a list of messages, processed using add_messages
+    #{"message":"your message"}
     messages: Annotated[list, add_messages]
-
-'''
+ 
 # Define the chatbot function, which takes the current state and generates a response
 def chatbot(state: State):
     response = llm.invoke(state["messages"])  # Invoke the LLM with the current messages
@@ -63,21 +63,57 @@ graph_builder = StateGraph(State)
 # Add a chatbot node to handle messages
 graph_builder.add_node("chatbot", chatbot)
 
+
 # Define edges (transitions) between different states
+# START --> chatbot --> END
 graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chatbot
 graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
 
 # Compile the graph
 graph = graph_builder.compile()
+#print("graph-> ",graph) # <langgraph.graph.state.CompiledStateGraph object at 0x000001E33B6855B0>
 
 # Display the graph structure as an image
-display(Image(graph.get_graph().draw_mermaid_png()))
+#print(type(graph.get_graph().draw_mermaid_png()))
+image_bytes = graph.get_graph().draw_mermaid_png()
+# Guardar los bytes en un archivo PNG
+with open("langraph_flow.png", "wb") as f:
+    f.write(image_bytes)
+
+# Abrir la imagen automáticamente (funciona en Windows, macOS y Linux)
+os.system("langraph_flow.png")  # En Windows
 
 # Invoke the graph with initial messages
 graph.invoke({"messages": ["Hi", "myself is Laxmi Kant"]})
-graph.invoke({"messages": ["Hello"]})
+# response es un diccionario con una clave "messages" que contiene una lista de objetos HumanMessage y AIMessage
+response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
+'''
+"messages": [
+    HumanMessage(
+    content='tell me something about the sea in ten words', 
+    additional_kwargs={}, 
+    response_metadata={}, 
+    id='0a8be607-6256-4e4b-9c44-a0bb40ed478f'),
 
+    AIMessage(
+    content="The ocean covers over 70% of our planet's surface area.", 
+    additional_kwargs={}, 
+    response_metadata={'model': 'llama3.2:3b', 'created_at': '2025-02-28T19:35:23.7577641Z', 'done': True,
+    'done_reason': 'stop', 'total_duration': 2499060200, 'load_duration': 18716700, 'prompt_eval_count': 34, 
+    'prompt_eval_duration': 577000000, 'eval_count': 15, 'eval_duration': 1902000000, 
+    'message': Message(role='assistant', content='', images=None, tool_calls=None)
+    }, 
+    id='run-dc928c7a-36a5-4b38-8e8c-e21feb39ccfd-0',
+    usage_metadata={'input_tokens': 34, 'output_tokens': 15, 'total_tokens': 49}
+    )
+]
+'''
+print("response-> ",response)
+# Extraer la respuesta del asistente
+ai_response = response["messages"][-1].content 
+print("AI response-> ",ai_response)  # Imprime solo el texto de la respuesta
 
+'''
 # Continuous chat loop for user interaction
 while True:
     user_input = input("You: ")  # Get user input
