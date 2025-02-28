@@ -7,8 +7,16 @@ from typing import Annotated, TypedDict
 from langgraph.graph import StateGraph, START, END  # StateGraph is used to build a structured conversation flow
 from langgraph.graph.message import add_messages 
 from langchain_ollama import ChatOllama
-from IPython.display import display  # Import IPython utilities to visualize the graph
+from IPython.display import display, Image # Import IPython utilities to visualize the graph
 
+'''
+This Python script sets up a chatbot using LangChain and the Ollama model. 
+It loads environment variables, initializes a language model (llama3.2:3b), and defines a chatbot function that processes user messages. 
+A state graph is built using StateGraph to manage conversation flow. The chatbot receives input, generates responses, 
+and maintains conversation history. The graph structure is visualized using IPython. 
+The script includes a loop for continuous user interaction, allowing users to chat with the bot until they exit by typing 'q', 'quit', or 'exit'.
+https://langchain-ai.github.io/langgraph/reference/graphs/
+'''
 
 # Load environment variables from the .env file
 load_dotenv()
