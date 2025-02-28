@@ -45,6 +45,8 @@ Other parameters (not explicitly defined in the code).
 
 ## 2️⃣ LanGraph
 
+### Information
+
 - https://www.langchain.com/langgraph
 
 - https://github.com/langchain-ai/langgraph
