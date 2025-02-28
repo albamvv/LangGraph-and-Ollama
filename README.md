@@ -43,7 +43,7 @@ Other parameters (not explicitly defined in the code).
 - The temperature and token limit settings control the model’s response style and length.
 
 
-### 2️⃣ LanGraph
+## 2️⃣ LanGraph
 
 ### Import Required Libraries
 - The script loads environment variables using dotenv, interacts with the operating system via os, and sets up a chatbot using LangChain and Ollama.
