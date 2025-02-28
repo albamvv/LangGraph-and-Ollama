@@ -16,6 +16,7 @@ A state graph is built using StateGraph to manage conversation flow. The chatbot
 and maintains conversation history. The graph structure is visualized using IPython. 
 The script includes a loop for continuous user interaction, allowing users to chat with the bot until they exit by typing 'q', 'quit', or 'exit'.
 https://langchain-ai.github.io/langgraph/reference/graphs/
+https://python.langchain.com/docs/tutorials/llm_chain/ 
 '''
 
 # Load environment variables from the .env file
@@ -26,18 +27,31 @@ api_key = os.getenv("LANGCHAIN_API_KEY")  # API key for LangChain (if needed)
 endpoint = os.getenv("LANGCHAIN_ENDPOINT")  # Endpoint URL for LangChain API (if needed)
 tracing = os.getenv("LANGSMITH_TRACING")  # Tracing option for debugging (if needed)
 
+# Debugging: Print the retrieved environment variables (commented out)
+# print(f"API Key: {api_key}")
+# print(f"Endpoint: {endpoint}")
+# print(f"Tracing: {tracing}")
+
+
 # Initialize the ChatOllama model with the specified configuration
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
-
+#print("llm-> ",llm)
 # Test the model with a simple greeting message
-response = llm.invoke("Hi")
-print('response-> ', response.content)
+response = llm.invoke("tell me something about the sea in 5 lines")
+#print('response-> ', response.content)
 
+
+'''
+State is a TypedDict that defines a chatbot's state.
+messages is a list processed using add_messages
+Annotated[list, add_messages] is a hint that messages should be modified by add_messages.
+'''
 # Define the state structure for the chatbot
 class State(TypedDict):
     # State contains a list of messages, processed using add_messages
     messages: Annotated[list, add_messages]
 
+'''
 # Define the chatbot function, which takes the current state and generates a response
 def chatbot(state: State):
     response = llm.invoke(state["messages"])  # Invoke the LLM with the current messages
@@ -73,3 +87,5 @@ while True:
     
     response = graph.invoke({"messages": [user_input]})  # Process user input through the graph
     print("Assistant:", response["messages"][-1].content)  # Print the chatbot's response
+
+'''
