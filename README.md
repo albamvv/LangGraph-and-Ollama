@@ -43,7 +43,7 @@ Other parameters (not explicitly defined in the code).
 - The temperature and token limit settings control the model’s response style and length.
 
 
-## 2️⃣ LanGraph
+## 2️⃣ LanGraph 🦜🕸️
 
 ### Information
 
@@ -51,8 +51,11 @@ Other parameters (not explicitly defined in the code).
 
 - https://github.com/langchain-ai/langgraph
 
-- Documentation: https://langchain-ai.github.io/langgraph/tutorials/introduction/ 
-- 🦜🕸️Github: https://github.com/langchain-ai/langgraph 
+- Tutorial: https://langchain-ai.github.io/langgraph/tutorials/introduction/ 
+- Github: https://github.com/langchain-ai/langgraph 
+- Network: https://networkx.org/ 
+- LanGraph packages: https://github.com/langchain-ai/langgraph/blob/main/libs/langgraph/langgraph/graph/__init__.py 
+- Classes : https://github.com/langchain-ai/langgraph/blob/main/libs/langgraph/langgraph/graph/graph.py
 
 ### Import Required Libraries
 - The script loads environment variables using dotenv, interacts with the operating system via os, and sets up a chatbot using LangChain and Ollama.
