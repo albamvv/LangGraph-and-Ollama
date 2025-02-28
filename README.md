@@ -45,12 +45,12 @@ Other parameters (not explicitly defined in the code).
 
 ## 2️⃣ LanGraph
 
-https://www.langchain.com/langgraph
+- https://www.langchain.com/langgraph
 
-https://github.com/langchain-ai/langgraph
+- https://github.com/langchain-ai/langgraph
 
-Documentation: https://langchain-ai.github.io/langgraph/tutorials/introduction/ 
-🦜🕸️Github: https://github.com/langchain-ai/langgraph 
+- Documentation: https://langchain-ai.github.io/langgraph/tutorials/introduction/ 
+- 🦜🕸️Github: https://github.com/langchain-ai/langgraph 
 
 ### Import Required Libraries
 - The script loads environment variables using dotenv, interacts with the operating system via os, and sets up a chatbot using LangChain and Ollama.
