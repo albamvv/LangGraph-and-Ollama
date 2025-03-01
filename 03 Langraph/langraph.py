@@ -113,7 +113,7 @@ print("response-> ",response)
 ai_response = response["messages"][-1].content 
 print("AI response-> ",ai_response)  # Imprime solo el texto de la respuesta
 
-'''
+
 # Continuous chat loop for user interaction
 while True:
     user_input = input("You: ")  # Get user input
@@ -124,4 +124,3 @@ while True:
     response = graph.invoke({"messages": [user_input]})  # Process user input through the graph
     print("Assistant:", response["messages"][-1].content)  # Print the chatbot's response
 
-'''
