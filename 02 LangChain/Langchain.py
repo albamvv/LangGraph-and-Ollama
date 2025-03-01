@@ -49,6 +49,8 @@ response = llm.invoke(sentence)
 # Print the model's response to the console
 #print(response.content)
 
+#print("metadata-> ",response.response_metadata)
+
 '''
 response = ""
 for chunk in llm.stream('¿Cuáles son las causas y consecuencias del cambio climático?. Responde en 5 frases'):
