@@ -78,6 +78,7 @@ soupsieve==2.6
 SQLAlchemy==2.0.38
 stack-data==0.6.3
 sympy==1.13.1
+tavily-python==0.5.1
 tenacity==9.0.0
 threadpoolctl==3.5.0
 tiktoken==0.9.0
