@@ -5,6 +5,10 @@ from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
 from langchain_ollama import ChatOllama
 
+'''
+This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). 
+The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
+'''
 
 llm = ChatOllama(model="llama3.2:3b", base_url = "http://localhost:11434")
 

@@ -83,12 +83,47 @@ Other parameters (not explicitly defined in the code).
 - The user types a message, the chatbot responds, and this continues until the user types 'q', 'quit', or 'exit'.
 
 
-### 3️⃣
+### 3️⃣ Chatbot Langraph
+This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
 
-### 
+### Imports:
+- TavilySearchResults: A tool for web search.
+- ToolNode, tools_condition: Used to create and manage tools in LangGraph.
+- HumanMessage, tool: Essential for LangChain's tool-based interactions.
+- ChatOllama: A local LLM interface.
+### Defining the LLM (ChatOllama):
+
+- llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
+- This initializes the chatbot using the LLaMA 3.2 model running locally.
+### Defining Tools:
+
+- internet_search: Uses TavilySearchResults to fetch real-time web data.
+- llm_search: Uses the LLM to generate responses from its trained knowledge.
+### Binding Tools to LLM:
+- The chatbot is configured to use either the LLM or the internet search tool based on the query.
+### State and Memory Management:
+- State: Stores messages exchanged in the conversation.
+- MemorySaver(): Saves conversation history.
+### Building the Graph-Based Chatbot:
+- Nodes:
+"chatbot": Handles conversation flow.
+"tools": Executes the selected tool (either LLM or web search).
+- Edges:
+The chatbot node decides whether to use a tool.
+The tool node processes the query and returns results to the chatbot.
+### Visualization:
+- graph.get_graph().draw_mermaid_png(): Generates a visual representation of the chatbot's logic.
+### Running the Chatbot:
+- The chatbot operates in a while True loop.
+- The user can input queries, and responses are fetched using the graph-based chatbot.
+- The program exits when the user types "exit", "quit", or "q".
+### Summary
+- This chatbot integrates LangGraph for structured interactions.
+- It uses LLaMA 3.2 for AI-generated responses and TavilySearchResults for real-time web search.
+- The chatbot decides whether to answer from its own knowledge or search the internet.
+- It continuously interacts with users until they choose to exit.
 ###
-###
-###
+
 
 ### 4️⃣
 
