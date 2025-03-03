@@ -26,7 +26,6 @@ tracing = os.getenv("LANGSMITH_TRACING")  # Tracing option for debugging (if nee
 
 # Initialize the ChatOllama model with the specified configuration
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
-#print("llm-> ",llm)
 # Test the model with a simple greeting message
 response = llm.invoke("tell me something about the sea in 5 lines")
 #print('response-> ', response.content)
