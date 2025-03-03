@@ -27,8 +27,6 @@ state2: State = {
 }
 
 
-
-
 new_messages = ["Quiero saber el clima", "¿Puedes ayudarme?"]
 
 processed_messages = add_messages(state1["messages"],new_messages)

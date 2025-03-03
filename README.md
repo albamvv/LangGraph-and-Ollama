@@ -86,6 +86,8 @@ Other parameters (not explicitly defined in the code).
 ### 3️⃣ Chatbot Langraph
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
 
+Generate api key -> https://app.tavily.com/home 
+
 ### Imports:
 - TavilySearchResults: A tool for web search.
 - ToolNode, tools_condition: Used to create and manage tools in LangGraph.
@@ -122,7 +124,6 @@ The tool node processes the query and returns results to the chatbot.
 - It uses LLaMA 3.2 for AI-generated responses and TavilySearchResults for real-time web search.
 - The chatbot decides whether to answer from its own knowledge or search the internet.
 - It continuously interacts with users until they choose to exit.
-###
 
 
 ### 4️⃣
