@@ -83,7 +83,7 @@ Other parameters (not explicitly defined in the code).
 - The user types a message, the chatbot responds, and this continues until the user types 'q', 'quit', or 'exit'.
 
 
-### 3️⃣ Tool calling
+## 3️⃣ Tool calling
 
 - LLM Automatically calls the function based on the query
 - Function parameters are automatically passed to the function
@@ -92,7 +92,42 @@ Other parameters (not explicitly defined in the code).
 
 ![Alt text](assets/tool_calling.JPG)
 
-### 4️⃣ Chatbot Langraph
+### Custom Tools
+### Calling In-Built 
+#### DuckDuckGo Search
+https://python.langchain.com/docs/integrations/tools/ 
+DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
+- search = DuckDuckGoSearchRun()
+Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
+Esta clase permite realizar búsquedas en la web sin rastreo, a diferencia de Google.
+
+- search.invoke("What is today's stock market news?")
+Ejecuta la búsqueda con la consulta "What is today's stock market news?".
+Retorna los resultados de la búsqueda en tiempo real.
+
+#### Tavily Search
+#### Wikipedia
+#### PubMed
+PubMed® comprises more than 35 million citations for biomedical literature from MEDLINE, life science journals, and online books. Citations may include links to full text content from PubMed Central and publisher web sites.
+#### Tool Calling with LLM
+
+### Generate Final Result with Tool Calling
+
+
+query = "What is medicine for lung cancer?"
+# Se guarda la pregunta en una lista messages, representada como un HumanMessage.
+```bash 
+query = "What is medicine for lung cancer?"
+messages = [HumanMessage(query)]
+```
+messages-> [HumanMessage(content='What is medicine for lung cancer?', additional_kwargs={}, response_metadata={})]
+```bash 
+ai_msg = llm_with_tools.invoke(messages)
+messages.append(ai_msg) # Append AI's response to the messages
+print("messages-> ",type(messages))
+```
+
+## 4️⃣ Chatbot Langraph
 
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
 
