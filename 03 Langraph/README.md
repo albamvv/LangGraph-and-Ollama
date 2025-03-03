@@ -95,7 +95,7 @@ Generate api key -> https://app.tavily.com/home
 The chatbot node decides whether to use a tool.
 The tool node processes the query and returns results to the chatbot.
 ### Visualization:
-- graph.get_graph().draw_mermaid_png(): Generates a visual representation of the chatbot's logic.
+
 ![Alt text](assets/chatbot_langraph_flow.png)
 ### Running the Chatbot:
 - The chatbot operates in a while True loop.
