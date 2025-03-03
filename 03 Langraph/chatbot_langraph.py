@@ -2,11 +2,13 @@
 from langchain_community.tools.tavily_search import TavilySearchResults  # Web search tool 
 from langchain_community.tools import TavilySearchResults
 from langgraph.prebuilt import ToolNode, tools_condition  # Prebuilt components for LangGraph  
-
+from typing import Annotated, TypedDict 
 from langchain_core.messages import HumanMessage  # Handles message exchange in LangChain  
 from langchain_core.tools import tool  # Decorator to define tools  
 from langchain_ollama import ChatOllama  # Interface for using the Ollama LLM  
-
+from langgraph.checkpoint.memory import MemorySaver # Import memory management for saving conversation state  
+from langgraph.graph.message import add_messages 
+from langgraph.graph import StateGraph
 '''
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). 
 The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
@@ -22,10 +24,8 @@ def internet_search(query: str):
     """
     Search the web for real-time and latest information.
     This is useful for getting news updates, stock market trends, weather forecasts, etc.
-    
     Args:
         query (str): The search query.
-    
     Returns:
         response (dict): Search results retrieved from the web.
     """
@@ -35,19 +35,16 @@ def internet_search(query: str):
         include_answer=True,  # Include a concise answer in the response  
         include_raw_content=True,  # Retrieve raw content from search results  
     )
-
     response = search.invoke(query)  # Execute the search query  
     return response
 
-'''
+
 @tool
 def llm_search(query: str):
     """
     Use the LLM model for general and basic information.
-    
     Args:
         query (str): The user’s question.
-    
     Returns:
         response (str): LLM-generated response.
     """
@@ -60,11 +57,14 @@ tools = [internet_search, llm_search]
 # Bind the tools to the LLM, allowing it to decide when to use them  
 llm_with_tools = llm.bind_tools(tools)
 
-
-# Import memory management for saving conversation state  
-from langgraph.checkpoint.memory import MemorySaver  
-
-memory = MemorySaver()  # Initialize memory for tracking conversations  
+# Define the state structure for the chatbot
+class State(TypedDict):
+    messages: Annotated[list, add_messages]
+ 
+# Define the chatbot function, which takes the current state and generates a response
+def chatbot(state: State):
+    response = llm_with_tools.invoke(state["messages"])  # Invoke the LLM with the current messages
+    return {"messages": [response]}  # Return the response as part of the state
 
 # Create a LangGraph state machine for managing chatbot interactions  
 graph_builder = StateGraph(State)  
@@ -77,7 +77,11 @@ tool_node = ToolNode(tools=tools)
 graph_builder.add_node("tools", tool_node)  
 
 # Define conditions for switching between chatbot and tools  
-graph_builder.add_conditional_edges("chatbot", tools_condition)  
+graph_builder.add_conditional_edges("chatbot", tools_condition) 
+
+''' 
+memory = MemorySaver()  # Initialize memory for tracking conversations  
+ 
 
 # Set up the interaction flow between nodes  
 graph_builder.add_edge("tools", "chatbot")  
