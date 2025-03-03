@@ -1,7 +1,8 @@
 # LangChain
 
-https://pytorch.org/get-started/locally/
-
+- https://pytorch.org/get-started/locally/
+- Reference to the ChatOllama documentation:
+https://python.langchain.com/api_reference/ollama/chat_models/langchain_ollama.chat_models.ChatOllama.html#langchain_ollama.chat_models.ChatOllama
 
 
 This Python code sets up and uses the LangChain Ollama library to interact with a local instance of the LLaMA 3.2 (1B) model for generating responses to user queries. Here's a breakdown of what it does:

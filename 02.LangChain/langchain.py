@@ -13,14 +13,8 @@ tracing = os.getenv("LANGSMITH_TRACING")  # Tracing option for debugging (if nee
 
 # Define the base URL for the local Ollama server
 base_url = "http://localhost:11434"
-
 # Specify the language model to use
 model = 'llama3.2:1b'
-
-'''
-Reference to the ChatOllama documentation:
-https://python.langchain.com/api_reference/ollama/chat_models/langchain_ollama.chat_models.ChatOllama.html#langchain_ollama.chat_models.ChatOllama
-'''
 
 # Initialize the Ollama-based language model (LLM) with specific parameters
 llm = ChatOllama(
