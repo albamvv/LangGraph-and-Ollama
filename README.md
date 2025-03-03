@@ -88,6 +88,9 @@ This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LL
 
 Generate api key -> https://app.tavily.com/home 
 
+![Alt text](assets/tool_explanation.JPG)
+
+
 ### Imports:
 - TavilySearchResults: A tool for web search.
 - ToolNode, tools_condition: Used to create and manage tools in LangGraph.
