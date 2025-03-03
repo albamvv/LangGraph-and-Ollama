@@ -11,11 +11,6 @@ api_key = os.getenv("LANGCHAIN_API_KEY")  # API key for LangChain (if needed)
 endpoint = os.getenv("LANGCHAIN_ENDPOINT")  # Endpoint URL for LangChain API (if needed)
 tracing = os.getenv("LANGSMITH_TRACING")  # Tracing option for debugging (if needed)
 
-# Debugging: Print the retrieved environment variables (commented out)
-# print(f"API Key: {api_key}")
-# print(f"Endpoint: {endpoint}")
-# print(f"Tracing: {tracing}")
-
 # Define the base URL for the local Ollama server
 base_url = "http://localhost:11434"
 
