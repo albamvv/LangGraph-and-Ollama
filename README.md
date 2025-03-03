@@ -95,8 +95,8 @@ Other parameters (not explicitly defined in the code).
 ### Custom Tools
 ### Calling In-Built 
 #### DuckDuckGo Search
-https://python.langchain.com/docs/integrations/tools/ 
-DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
+- https://python.langchain.com/docs/integrations/tools/ 
+- DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
 - search = DuckDuckGoSearchRun()
 Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
 Esta clase permite realizar búsquedas en la web sin rastreo, a diferencia de Google.
