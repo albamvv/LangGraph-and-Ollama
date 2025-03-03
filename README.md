@@ -119,12 +119,11 @@ messages = [HumanMessage(query)]
 ```
 ![Alt text](assets/messages1.JPG)
 
-messages-> [HumanMessage(content='What is medicine for lung cancer?', additional_kwargs={}, response_metadata={})]
 ```bash 
 ai_msg = llm_with_tools.invoke(messages)
 messages.append(ai_msg) # Append AI's response to the messages
-print("messages-> ",type(messages))
 ```
+![Alt text](assets/messages2.JPG)
 
 ## 4️⃣ Chatbot Langraph
 

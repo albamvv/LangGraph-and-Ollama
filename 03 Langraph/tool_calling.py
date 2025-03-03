@@ -215,19 +215,18 @@ tool_calls = tool_calls_response.tool_calls
 
 # ---------------------------------------------------------------------
 query = "What is medicine for lung cancer?"
+
 # Se guarda la pregunta en una lista messages, representada como un HumanMessage.
 messages = [HumanMessage(query)]
 print('messages->',messages)
-#print('------------------')
-#messages-> [HumanMessage(content='What is medicine for lung cancer?', additional_kwargs={}, response_metadata={})]
-ai_msg = llm_with_tools.invoke(messages) # LLM processes the query
-#print("ai_msg-> ",ai_msg)
-#ai_msg->  content='' additional_kwargs={} response_metadata={'model': 'llama3.2:3b', 'created_at': '2025-03-03T12:33:58.9114827Z', 'done': True, 'done_reason': 'stop', 'total_duration': 3828343600, 'load_duration': 55061300, 'prompt_eval_count': 356, 'prompt_eval_duration': 977000000, 'eval_count': 21, 'eval_duration': 2792000000, 'message': Message(role='assistant', content='', images=None, tool_calls=None)} id='run-25dec1fb-f784-4250-8416-2e04cdd65280-0' 
-#tool_calls=[{'name': 'pubmed_search', 'args': {'query': 'medicine for lung cancer'}, 'id': 'a48172e0-3ec6-4ab8-89e9-0853d3ce9a97', 'type': 'tool_call'}] usage_metadata={'input_tokens': 356, 'output_tokens': 21, 'total_tokens': 377}
-messages.append(ai_msg) # Append AI's response to the messages
-#print("messages-> ",type(messages))
+print('------------------')
 
+# LLM processes the query
+ai_msg = llm_with_tools.invoke(messages) 
 
+# Append AI's response to the messages
+messages.append(ai_msg) 
+print("messages-> ",messages)
 
 for tool_call in ai_msg.tool_calls:
     #print("tool call->", tool_call)
