@@ -9,6 +9,7 @@ from langchain_ollama import ChatOllama  # Interface for using the Ollama LLM
 from langgraph.checkpoint.memory import MemorySaver # Import memory management for saving conversation state  
 from langgraph.graph.message import add_messages 
 from langgraph.graph import StateGraph
+import os  # Provides functions to interact with the operating system
 '''
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). 
 The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
@@ -79,20 +80,23 @@ graph_builder.add_node("tools", tool_node)
 # Define conditions for switching between chatbot and tools  
 graph_builder.add_conditional_edges("chatbot", tools_condition) 
 
-''' 
-memory = MemorySaver()  # Initialize memory for tracking conversations  
- 
-
 # Set up the interaction flow between nodes  
 graph_builder.add_edge("tools", "chatbot")  
 graph_builder.set_entry_point("chatbot")  # Define the starting point  
 
+memory = MemorySaver()  # Initialize memory for tracking conversations  
 # Compile the graph and enable memory tracking  
-graph = graph_builder.compile(checkpointer=memory)  
+graph = graph_builder.compile()
+#graph = graph_builder.compile(checkpointer=memory)  
 
 # Display a graphical representation of the chatbot’s workflow  
-display(Image(graph.get_graph().draw_mermaid_png()))  
+image_bytes = graph.get_graph().draw_mermaid_png()
+with open("chatbot_langraph_flow.png", "wb") as f:
+    f.write(image_bytes)
+#os.system("chatbot_langraph_flow.png")  # En Windows
 
+
+''' 
 # Example: Query the chatbot about Earth  
 config = {"configurable": {"thread_id": 1}}  
 output = graph.invoke({"messages": ["Tell me about the earth in 3 points"]}, config=config)  

@@ -8,7 +8,7 @@
 - It is one of the essential requirements of the Agent
 - Not all LLM supports tool calling.
 
-![Alt text](../assets/tool_calling.JPG)
+![Alt text](assets/tool_calling.JPG)
 
 ### Custom Tools
 ### Calling In-Built 
@@ -96,6 +96,7 @@ The chatbot node decides whether to use a tool.
 The tool node processes the query and returns results to the chatbot.
 ### Visualization:
 - graph.get_graph().draw_mermaid_png(): Generates a visual representation of the chatbot's logic.
+![Alt text](assets/chatbot_langraph_flow.png)
 ### Running the Chatbot:
 - The chatbot operates in a while True loop.
 - The user can input queries, and responses are fetched using the graph-based chatbot.
