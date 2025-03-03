@@ -95,6 +95,7 @@ Generate api key -> https://app.tavily.com/home
 The chatbot node decides whether to use a tool.
 The tool node processes the query and returns results to the chatbot.
 ### Visualization:
+In LangGraph, when you define a StateGraph, you do not need to explicitly define the start and end nodes. The library automatically assigns these states based on the workflow structure.
 
 ![Alt text](assets/chatbot_langraph_flow.png)
 ### Running the Chatbot:

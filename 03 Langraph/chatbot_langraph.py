@@ -69,10 +69,8 @@ def chatbot(state: State):
 
 # Create a LangGraph state machine for managing chatbot interactions  
 graph_builder = StateGraph(State)  
-
 # Add chatbot processing node  
 graph_builder.add_node("chatbot", chatbot)  
-
 # Create a node for handling external tools (LLM and web search)  
 tool_node = ToolNode(tools=tools)  
 graph_builder.add_node("tools", tool_node)  
@@ -93,7 +91,7 @@ graph = graph_builder.compile()
 image_bytes = graph.get_graph().draw_mermaid_png()
 with open("chatbot_langraph_flow.png", "wb") as f:
     f.write(image_bytes)
-#os.system("chatbot_langraph_flow.png")  # En Windows
+os.system("chatbot_langraph_flow.png")  # En Windows
 
 
 ''' 
