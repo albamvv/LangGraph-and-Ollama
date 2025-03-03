@@ -83,7 +83,17 @@ Other parameters (not explicitly defined in the code).
 - The user types a message, the chatbot responds, and this continues until the user types 'q', 'quit', or 'exit'.
 
 
-### 3️⃣ Chatbot Langraph
+### 3️⃣ Tool calling
+
+- LLM Automatically calls the function based on the query
+- Function parameters are automatically passed to the function
+- It is one of the essential requirements of the Agent
+- Not all LLM supports tool calling.
+
+![Alt text](assets/tool_calling.JPG)
+
+### 4️⃣ Chatbot Langraph
+
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
 
 Generate api key -> https://app.tavily.com/home 

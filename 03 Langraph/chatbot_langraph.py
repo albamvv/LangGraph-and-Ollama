@@ -1,5 +1,6 @@
 # Importing necessary components from LangChain and LangGraph  
-from langchain_community.tools.tavily_search import TavilySearchResults  # Web search tool  
+from langchain_community.tools.tavily_search import TavilySearchResults  # Web search tool 
+from langchain_community.tools import TavilySearchResults
 from langgraph.prebuilt import ToolNode, tools_condition  # Prebuilt components for LangGraph  
 
 from langchain_core.messages import HumanMessage  # Handles message exchange in LangChain  
@@ -15,9 +16,6 @@ The chatbot is capable of answering user queries either by using an LLM or by se
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
 #print(llm.invoke("hi"))
 
-
-
-'''
 
 @tool
 def internet_search(query: str):
@@ -41,6 +39,7 @@ def internet_search(query: str):
     response = search.invoke(query)  # Execute the search query  
     return response
 
+'''
 @tool
 def llm_search(query: str):
     """
