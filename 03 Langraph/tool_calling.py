@@ -218,8 +218,8 @@ query = "What is medicine for lung cancer?"
 
 # Se guarda la pregunta en una lista messages, representada como un HumanMessage.
 messages = [HumanMessage(query)]
-print('messages->',messages)
-print('------------------')
+#print('messages->',messages)
+#print('------------------')
 
 # LLM processes the query
 ai_msg = llm_with_tools.invoke(messages) 
@@ -234,8 +234,8 @@ for tool_call in ai_msg.tool_calls:
     selected_tool = list_of_tools[name]  # Find the tool from the dictionary
     tool_msg = selected_tool.invoke(tool_call)  # Execute the tool
     messages.append(tool_msg)  # Append the tool response
-#print("---------------------------")
-#print("messages-> ",messages)
+print("---------------------------")
+print("messages-> ",messages)
       
 # Se vuelve a invocar al LLM con la nueva información
 response = llm_with_tools.invoke(messages)

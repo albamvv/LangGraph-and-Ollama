@@ -125,6 +125,16 @@ messages.append(ai_msg) # Append AI's response to the messages
 ```
 ![Alt text](assets/messages2.JPG)
 
+```bash 
+for tool_call in ai_msg.tool_calls:
+    name = tool_call['name'].lower()  # Get the tool name
+    selected_tool = list_of_tools[name]  # Find the tool from the dictionary
+    tool_msg = selected_tool.invoke(tool_call)  # Execute the tool
+    messages.append(tool_msg)  # Append the tool response
+```
+
+![Alt text](assets/messages3.JPG)
+
 ## 4️⃣ Chatbot Langraph
 
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
