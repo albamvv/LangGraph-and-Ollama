@@ -222,21 +222,22 @@ messages = [HumanMessage(query)]
 #print('------------------')
 
 # LLM processes the query
+# AIMessage representa la respuesta del modelo, que puede incluir una llamada a herramientas.
 ai_msg = llm_with_tools.invoke(messages) 
 
 # Append AI's response to the messages
 messages.append(ai_msg) 
-print("messages-> ",messages)
+#print("messages-> ",messages)
 
 for tool_call in ai_msg.tool_calls:
     #print("tool call->", tool_call)
     name = tool_call['name'].lower()  # Get the tool name
     selected_tool = list_of_tools[name]  # Find the tool from the dictionary
+    # ToolMessage representa la respuesta de la herramienta después de ser ejecutada.
     tool_msg = selected_tool.invoke(tool_call)  # Execute the tool
     messages.append(tool_msg)  # Append the tool response
-print("---------------------------")
-print("messages-> ",messages)
+#("messages-> ",messages)
       
 # Se vuelve a invocar al LLM con la nueva información
 response = llm_with_tools.invoke(messages)
-#print("Response->" ,response.content)
+print("Response->" ,response.content)

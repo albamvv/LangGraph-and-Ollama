@@ -135,6 +135,12 @@ for tool_call in ai_msg.tool_calls:
 
 ![Alt text](assets/messages3.JPG)
 
+```bash 
+# Se vuelve a invocar al LLM con la nueva información
+response = llm_with_tools.invoke(messages)
+print("Response->" ,response.content)
+```
+![Alt text](assets/response.JPG)
 ## 4️⃣ Chatbot Langraph
 
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
