@@ -96,8 +96,14 @@ The chatbot node decides whether to use a tool.
 The tool node processes the query and returns results to the chatbot.
 ### Visualization:
 In LangGraph, when you define a StateGraph, you do not need to explicitly define the start and end nodes. The library automatically assigns these states based on the workflow structure.
-
 ![Alt text](assets/chatbot_langraph_flow.png)
+
+### Example: Query the chatbot about Earth  
+Tu información está estructurada como un diccionario que contiene una lista de mensajes en messages. Cada mensaje puede ser de tipo:
+- HumanMessage → Mensaje del usuario
+- AIMessage → Respuesta de la IA
+- ToolMessage → Respuesta de una herramienta externa usada por la IA
+
 ### Running the Chatbot:
 - The chatbot operates in a while True loop.
 - The user can input queries, and responses are fetched using the graph-based chatbot.

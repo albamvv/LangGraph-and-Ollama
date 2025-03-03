@@ -91,15 +91,17 @@ graph = graph_builder.compile()
 image_bytes = graph.get_graph().draw_mermaid_png()
 with open("chatbot_langraph_flow.png", "wb") as f:
     f.write(image_bytes)
-os.system("chatbot_langraph_flow.png")  # En Windows
+#os.system("chatbot_langraph_flow.png")  # En Windows
 
 
-''' 
 # Example: Query the chatbot about Earth  
 config = {"configurable": {"thread_id": 1}}  
 output = graph.invoke({"messages": ["Tell me about the earth in 3 points"]}, config=config)  
-output  
+#print("output-> ",output)
+tool_message = output["messages"][2]  # Accede directamente
+print(tool_message.content)  # Ver el contenido
 
+'''
 # Start an interactive chatbot loop  
 while True:
     user_input = input()  # Wait for user input  
