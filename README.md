@@ -117,6 +117,8 @@ PubMed® comprises more than 35 million citations for biomedical literature from
 query = "What is medicine for lung cancer?"
 messages = [HumanMessage(query)]
 ```
+![Alt text](assets/messages1.JPG)
+
 messages-> [HumanMessage(content='What is medicine for lung cancer?', additional_kwargs={}, response_metadata={})]
 ```bash 
 ai_msg = llm_with_tools.invoke(messages)
