@@ -113,9 +113,6 @@ PubMed® comprises more than 35 million citations for biomedical literature from
 
 ### Generate Final Result with Tool Calling
 
-
-query = "What is medicine for lung cancer?"
-# Se guarda la pregunta en una lista messages, representada como un HumanMessage.
 ```bash 
 query = "What is medicine for lung cancer?"
 messages = [HumanMessage(query)]
