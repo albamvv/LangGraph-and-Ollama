@@ -1,13 +1,4 @@
-# Import necessary libraries
-from dotenv import load_dotenv  # Used to load environment variables from a .env file
-from langchain_ollama import ChatOllama  # LangChain integration for Ollama models
-import os  # Provides functions to interact with the operating system
-
-from typing import Annotated, TypedDict 
-from langgraph.graph import StateGraph, START, END  # StateGraph is used to build a structured conversation flow
-from langgraph.graph.message import add_messages 
-from langchain_ollama import ChatOllama
-from IPython.display import display, Image # Import IPython utilities to visualize the graph
+from imports import *
 
 '''
 This Python script sets up a chatbot using LangChain and the Ollama model. 
@@ -47,8 +38,8 @@ messages is a list processed using add_messages
 Annotated[list, add_messages] is a hint that messages should be modified by add_messages.
 '''
 # Define the state structure for the chatbot
+# State contains a list of messages, processed using add_messages
 class State(TypedDict):
-    # State contains a list of messages, processed using add_messages
     #{"message":"your message"}
     messages: Annotated[list, add_messages]
  
@@ -79,7 +70,6 @@ image_bytes = graph.get_graph().draw_mermaid_png()
 # Guardar los bytes en un archivo PNG
 with open("langraph_flow.png", "wb") as f:
     f.write(image_bytes)
-
 # Abrir la imagen automáticamente (funciona en Windows, macOS y Linux)
 os.system("langraph_flow.png")  # En Windows
 

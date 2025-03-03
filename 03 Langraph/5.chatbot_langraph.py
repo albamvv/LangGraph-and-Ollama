@@ -1,15 +1,5 @@
-# Importing necessary components from LangChain and LangGraph  
-from langchain_community.tools.tavily_search import TavilySearchResults  # Web search tool 
-from langchain_community.tools import TavilySearchResults
-from langgraph.prebuilt import ToolNode, tools_condition  # Prebuilt components for LangGraph  
-from typing import Annotated, TypedDict 
-from langchain_core.messages import HumanMessage  # Handles message exchange in LangChain  
-from langchain_core.tools import tool  # Decorator to define tools  
-from langchain_ollama import ChatOllama  # Interface for using the Ollama LLM  
-from langgraph.checkpoint.memory import MemorySaver # Import memory management for saving conversation state  
-from langgraph.graph.message import add_messages 
-from langgraph.graph import StateGraph
-import os  # Provides functions to interact with the operating system
+from imports import *
+
 '''
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). 
 The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
@@ -67,6 +57,8 @@ def chatbot(state: State):
     response = llm_with_tools.invoke(state["messages"])  # Invoke the LLM with the current messages
     return {"messages": [response]}  # Return the response as part of the state
 
+memory = MemorySaver()  # Initialize memory for tracking conversations  
+
 # Create a LangGraph state machine for managing chatbot interactions  
 graph_builder = StateGraph(State)  
 # Add chatbot processing node  
@@ -82,10 +74,9 @@ graph_builder.add_conditional_edges("chatbot", tools_condition)
 graph_builder.add_edge("tools", "chatbot")  
 graph_builder.set_entry_point("chatbot")  # Define the starting point  
 
-memory = MemorySaver()  # Initialize memory for tracking conversations  
 # Compile the graph and enable memory tracking  
-graph = graph_builder.compile()
-#graph = graph_builder.compile(checkpointer=memory)  
+#graph = graph_builder.compile()
+graph = graph_builder.compile(checkpointer=memory)  
 
 # Display a graphical representation of the chatbot’s workflow  
 image_bytes = graph.get_graph().draw_mermaid_png()
@@ -99,9 +90,10 @@ config = {"configurable": {"thread_id": 1}}
 output = graph.invoke({"messages": ["Tell me about the earth in 3 points"]}, config=config)  
 #print("output-> ",output)
 tool_message = output["messages"][2]  # Accede directamente
-print(tool_message.content)  # Ver el contenido
+#print(tool_message.content)  # Ver el contenido
 
-'''
+
+
 # Start an interactive chatbot loop  
 while True:
     user_input = input()  # Wait for user input  
@@ -112,4 +104,4 @@ while True:
     output = graph.invoke({"messages": [user_input]}, config=config)  # Get chatbot response  
     print(output)  # Display the response  
 
-    '''
+
