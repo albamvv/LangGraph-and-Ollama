@@ -8,7 +8,7 @@
 - It is one of the essential requirements of the Agent
 - Not all LLM supports tool calling.
 
-![Alt text](assets/tool_calling.JPG)
+![Alt text](../assets/tool_calling.JPG)
 
 ### Custom Tools
 ### Calling In-Built 
