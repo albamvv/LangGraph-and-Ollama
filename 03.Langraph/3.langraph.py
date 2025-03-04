@@ -17,6 +17,7 @@ tracing = os.getenv("LANGSMITH_TRACING")  # Tracing option for debugging (if nee
 # Initialize the ChatOllama model with the specified configuration
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
 response = llm.invoke("tell me something about the sea in 5 lines")
+print("response->",response)
 
 # Define the state structure for the chatbot. State contains a list of messages, processed using add_messages
 class State(TypedDict):
