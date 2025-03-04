@@ -25,18 +25,15 @@ llm = ChatOllama(
     # Additional parameters can be added here...
 )
 
-# Debugging: Print the LLM object (commented out)
-# print("llm-> ", llm)
+#Debugging: Print the LLM object (commented out)
+#print("llm-> ", llm)
 
 # Define the input sentence (query) for the model
-sentence = "hi"  # First test input (English)
-sentence = "¿Cuáles son las causas y consecuencias del cambio climático?"  # Spanish query
-
+sentence = "¿Cuáles son las causas y consecuencias del cambio climático?" 
 # Invoke the model with the given sentence and store the response
 response = llm.invoke(sentence)
-
 # Print the model's response to the console
-#print(response.content)
+print(response.content)
 
 #print("metadata-> ",response.response_metadata)
 

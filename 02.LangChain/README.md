@@ -16,17 +16,29 @@ This Python code sets up and uses the LangChain Ollama library to interact with 
 
 ## Initialize the language model (llm):
 
-- **The ChatOllama class is instantiated with:***
+- **The ChatOllama class is instantiated with:**
     - base_url: The URL where the Ollama server is running.
     - model: The specific LLaMA model version.
     - temperature: Set to 0.8, meaning responses will have a moderate level of randomness.
     - num_predict: Limited to 256 tokens for response generation.
     - Other parameters (not explicitly defined in the code).
+```bash 
+print("llm-> ", llm)
+```
+llm->  model='llama3.2:1b' num_predict=256 temperature=0.8 base_url='http://localhost:11434'
 ## Generate a response from the model:
 
-- A Spanish sentence, "¿Cuáles son las causas y consecuencias del cambio climático?", is assigned to sentence.
+- A query is assigned to sentence.
 - The model is invoked with llm.invoke(sentence), generating a response.
 - The response content is printed to the console.
+```bash 
+# Define the input sentence (query) for the model
+sentence = "¿Cuáles son las causas y consecuencias del cambio climático?" 
+# Invoke the model with the given sentence and store the response
+response = llm.invoke(sentence)
+# Print the model's response to the console
+print(response.content)
+```
 ## Key Takeaways:
 - The script connects to a locally hosted Ollama instance.
 - It uses the LLaMA 3.2 (1B) model to process and respond to queries.
