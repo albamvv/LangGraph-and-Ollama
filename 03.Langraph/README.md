@@ -135,10 +135,11 @@ graph_builder.add_node("chatbot", chatbot)
 # Define edges (transitions) between different states # START --> chatbot --> END
 graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chatbot
 graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
-# Compile the graph
-graph = graph_builder.compile()
+graph = graph_builder.compile() # Compile the graph
+response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
 ```
 ![Alt text](assets/langraph_messages2.JPG)
+
 5. **Visualizes the chatbot flow** by generating an image `langraph_flow.png`.  
 6. **Runs a continuous chat loop** until the user decides to exit.  
 

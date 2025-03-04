@@ -39,12 +39,8 @@ graph = graph_builder.compile() # Compile the graph
 # Save and open the graph image
 save_and_open_graph(graph)
 
-# Invoke the graph with initial messages
-graph.invoke({"messages": ["Hi", "myself is Laxmi Kant"]})
-# response is a dictionary with a 'messages' key that contains a list of HumanMessage and AIMessage objects.
+# Invoke the graph with initial messages. Response is a dictionary with a 'messages' key that contains a list of HumanMessage and AIMessage objects.
 response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
-print("response-> ",response)
-
 # Extraer la respuesta del asistente
 ai_response = response["messages"][-1].content 
 #print("AI response-> ",ai_response)  # Imprime solo el texto de la respuesta
