@@ -109,7 +109,7 @@ Also, the **Ollama** server must be running at `http://localhost:11434`.
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
 response = llm.invoke("tell me something about the sea in 5 lines")
    ```
-![Alt text](assets/03.messages1.JPG)
+![Alt text](assets/langraph_messages1.JPG)
 
 **Response content:**
 response->  The sea is a vast and mysterious body of saltwater that covers over 70% of the Earth's surface. It plays a crucial role in regulating the planet's climate and weather patterns. The sea also supports an incredible array of marine life, from tiny plankton to massive blue whales. Its depth ranges from just a few meters to over 11,000 meters in the Mariana Trench. The sea has been a source of inspiration for humans throughout history, influencing art, literature, and mythology.
@@ -138,6 +138,7 @@ graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot res
 # Compile the graph
 graph = graph_builder.compile()
 ```
+![Alt text](assets/langraph_messages2.JPG)
 5. **Visualizes the chatbot flow** by generating an image `langraph_flow.png`.  
 6. **Runs a continuous chat loop** until the user decides to exit.  
 

@@ -28,7 +28,6 @@ def chatbot(state: State):
     response = llm.invoke(state["messages"])  # Invoke the LLM with the current messages
     return {"messages": [response]}  # Return the response as part of the state
 
-
 # Create a state graph to manage the chatbot's flow
 graph_builder = StateGraph(State)
 graph_builder.add_node("chatbot", chatbot)# Add a chatbot node to handle messages
@@ -42,24 +41,10 @@ save_and_open_graph(graph)
 
 # Invoke the graph with initial messages
 graph.invoke({"messages": ["Hi", "myself is Laxmi Kant"]})
-# response es un diccionario con una clave "messages" que contiene una lista de objetos HumanMessage y AIMessage
+# response is a dictionary with a 'messages' key that contains a list of HumanMessage and AIMessage objects.
 response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
-'''
-"messages": [
-    HumanMessage(
-    content='tell me something about the sea in ten words', 
-    additional_kwargs={}, response_metadata={}, id='0a8be607-6256-4e4b-9c44-a0bb40ed478f'),
+print("response-> ",response)
 
-    AIMessage(
-    content="The ocean covers over 70% of our planet's surface area.", 
-    additional_kwargs={}, 
-    response_metadata={'model': 'llama3.2:3b', 'created_at': '2025-02-28T19:35:23.....}, 
-    id='run-dc928c7a-36a5-4b38-8e8c-e21feb39ccfd-0',
-    usage_metadata={'input_tokens': 34, 'output_tokens': 15, 'total_tokens': 49}
-    )
-]
-'''
-#print("response-> ",response)
 # Extraer la respuesta del asistente
 ai_response = response["messages"][-1].content 
 #print("AI response-> ",ai_response)  # Imprime solo el texto de la respuesta
