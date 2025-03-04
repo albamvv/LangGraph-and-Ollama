@@ -250,10 +250,6 @@ To run this script, you need the following dependencies:
 - **Ollama**
 - **TavilySearch** (for real-time web search)
 
-Install the dependencies using:
-```bash
-pip install langchain langgraph ollama tavily-search
-```
 
 #### Usage
 ##### 1. Start the chatbot
