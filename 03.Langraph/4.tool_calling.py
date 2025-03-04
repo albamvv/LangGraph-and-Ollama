@@ -74,21 +74,12 @@ else:
 #----------------------------- Generate Final Result with Tool Calling --------------------------------
 
 # Create a list of messages with the user's query as a HumanMessage
-messages = [HumanMessage(query5)] 
-tool_calls_response = llm_with_tools.invoke(messages) 
-print("tool_calls_response",tool_calls_response)
-messages.append(tool_calls_response) # Append the tool_calls response to the message list
+messages = [HumanMessage(query4)]
+tool_calls_response = llm_with_tools.invoke(messages) # AIMessage representa la respuesta del modelo, que puede incluir una llamada a herramientas.
+messages.append(tool_calls_response) # Append AI's response to the messages
 tool_calls = tool_calls_response.tool_calls # Extract the tool calls from the response for further processing
 
-# ---------------------------------------------------------------------
-
-messages = [HumanMessage(query4)]
-ai_msg = llm_with_tools.invoke(messages) # AIMessage representa la respuesta del modelo, que puede incluir una llamada a herramientas.
-print('ai_msg',ai_msg)
-messages.append(ai_msg) # Append AI's response to the messages
-
-for tool_call in ai_msg.tool_calls:
-    #print("tool call->", tool_call)
+for tool_call in tool_calls_response.tool_calls:
     name = tool_call['name'].lower()  # Get the tool name
     selected_tool = list_of_tools[name]  # Find the tool from the dictionary
     # ToolMessage representa la respuesta de la herramienta después de ser ejecutada.
