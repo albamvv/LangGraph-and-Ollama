@@ -269,7 +269,14 @@ llm_with_tools = llm.bind_tools(tools)
 response = llm_with_tools.invoke(query5)
 ```
 - Append the tool's response.
+```bash
+messages.append(tool_calls_response) 
+```
 - Reinvoke the LLM with the enriched conversation.
+```bash
+response = llm_with_tools.invoke(messages)
+```
+
 4. Display the final response.
 
 ### 4️⃣ Chatbot using LangGraph, LangChain, and Ollama
