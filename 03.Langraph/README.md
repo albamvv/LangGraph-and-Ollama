@@ -142,7 +142,16 @@ response=graph.invoke({"messages": ["tell me something about the sea in ten word
 
 5. **Visualizes the chatbot flow** by generating an image `langraph_flow.png`.  
 6. **Runs a continuous chat loop** until the user decides to exit.  
-
+```bash
+while True:
+    user_input = input("You: ")  # Get user input
+    if user_input in ['q', 'quit', 'exit']:  # Exit condition
+        print("Bye!")
+        break
+    
+    response = graph.invoke({"messages": [user_input]})  # Process user input through the graph
+    print("Assistant:", response["messages"][-1].content)  # Print the chatbot's response
+```
 ### 📄 Example Usage
 
 ```text
