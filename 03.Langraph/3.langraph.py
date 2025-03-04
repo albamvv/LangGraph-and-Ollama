@@ -1,11 +1,9 @@
 from imports import *
+from utils import save_and_open_graph
 
 '''
-This Python script sets up a chatbot using LangChain and the Ollama model. 
-It loads environment variables, initializes a language model (llama3.2:3b), and defines a chatbot function that processes user messages. 
-A state graph is built using StateGraph to manage conversation flow. The chatbot receives input, generates responses, 
-and maintains conversation history. The graph structure is visualized using IPython. 
-The script includes a loop for continuous user interaction, allowing users to chat with the bot until they exit by typing 'q', 'quit', or 'exit'.
+This repository contains a Python script that implements a chatbot using LangChain, LangGraph, and the Ollama (llama3.2:3b) model.  
+The chatbot manages conversations using a state graph and allows continuous interaction with the user.
 '''
 
 # Load environment variables from the .env file
@@ -16,20 +14,12 @@ api_key = os.getenv("LANGCHAIN_API_KEY")  # API key for LangChain (if needed)
 endpoint = os.getenv("LANGCHAIN_ENDPOINT")  # Endpoint URL for LangChain API (if needed)
 tracing = os.getenv("LANGSMITH_TRACING")  # Tracing option for debugging (if needed)
 
-
 # Initialize the ChatOllama model with the specified configuration
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
 response = llm.invoke("tell me something about the sea in 5 lines")
 print('response-> ', response.content)
 
-
-'''
-State is a TypedDict that defines a chatbot's state.
-messages is a list processed using add_messages
-Annotated[list, add_messages] is a hint that messages should be modified by add_messages.
-'''
-# Define the state structure for the chatbot
-# State contains a list of messages, processed using add_messages
+# Define the state structure for the chatbot. State contains a list of messages, processed using add_messages
 class State(TypedDict):
     #{"message":"your message"}
     messages: Annotated[list, add_messages]
@@ -42,22 +32,14 @@ def chatbot(state: State):
 
 # Create a state graph to manage the chatbot's flow
 graph_builder = StateGraph(State)
-# Add a chatbot node to handle messages
-graph_builder.add_node("chatbot", chatbot)
+graph_builder.add_node("chatbot", chatbot)# Add a chatbot node to handle messages
 # Define edges (transitions) between different states # START --> chatbot --> END
 graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chatbot
 graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
-# Compile the graph
-graph = graph_builder.compile()
+graph = graph_builder.compile() # Compile the graph
 
-# Display the graph structure as an image
-#print(type(graph.get_graph().draw_mermaid_png()))
-image_bytes = graph.get_graph().draw_mermaid_png()
-# Guardar los bytes en un archivo PNG
-with open("langraph_flow.png", "wb") as f:
-    f.write(image_bytes)
-# Abrir la imagen automáticamente (funciona en Windows, macOS y Linux)
-os.system("langraph_flow.png")  # En Windows
+# Save and open the graph image
+save_and_open_graph(graph)
 
 # Invoke the graph with initial messages
 graph.invoke({"messages": ["Hi", "myself is Laxmi Kant"]})
@@ -78,12 +60,12 @@ response=graph.invoke({"messages": ["tell me something about the sea in ten word
     )
 ]
 '''
-print("response-> ",response)
+#print("response-> ",response)
 # Extraer la respuesta del asistente
 ai_response = response["messages"][-1].content 
-print("AI response-> ",ai_response)  # Imprime solo el texto de la respuesta
+#print("AI response-> ",ai_response)  # Imprime solo el texto de la respuesta
 
-
+'''
 # Continuous chat loop for user interaction
 while True:
     user_input = input("You: ")  # Get user input
@@ -94,3 +76,4 @@ while True:
     response = graph.invoke({"messages": [user_input]})  # Process user input through the graph
     print("Assistant:", response["messages"][-1].content)  # Print the chatbot's response
 
+'''
