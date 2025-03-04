@@ -62,11 +62,11 @@ list_of_tools = {tool.name: tool for tool in tools}
 # This code integrates an LLM with custom tools and processes a query to determine if any tool should be invoked.
 llm_with_tools = llm.bind_tools(tools)
 #Calls the appropriate tool (if necessary).Generates a response.
-response = llm_with_tools.invoke(query5)
+tool_calls_response = llm_with_tools.invoke(query5)
 #print("estructura de la respuesta->", response.tool_calls)  # Muestra la estructura real
 
-if response.tool_calls:
-    selected_tool = response.tool_calls[0]['name']  # Acceder al nombre de la herramienta
+if tool_calls_response.tool_calls:
+    selected_tool = tool_calls_response.tool_calls[0]['name']  # Acceder al nombre de la herramienta
     print(f"The selected tool is: {selected_tool}")
 else:
     print("No tool was selected.")
@@ -74,36 +74,18 @@ else:
 #----------------------------- Generate Final Result with Tool Calling --------------------------------
 
 # Create a list of messages with the user's query as a HumanMessage
-messages = [HumanMessage(query5)]
-
-# Invoke the LLM with tools using the provided messages
-tool_calls_response = llm_with_tools.invoke(messages)
-#print("tool calls-> ",tool_calls)
-# tool calls->  content='' additional_kwargs={} response_metadata={'model': 'llama3.2:3b', 'created_at': '2025-03-03T12:03:10.4621722Z', 'done': True, 'done_reason': 'stop', 'total_duration': 3589878600, 'load_duration': 66508700, 'prompt_eval_count': 357, 'prompt_eval_duration': 129000000, 'eval_count': 22, 'eval_duration': 3392000000, 'message': Message(role='assistant', content='', images=None, tool_calls=None)} id='run-1da51719-1f35-4922-bf0b-aeeeec6b91f2-0' 
-# tool_calls=[{'name': 'multiply', 'args': {'a': 2, 'b': 3}, 'id': '74fdaf4b-6710-46bf-a1eb-fc3d3e6afc55', 'type': 'tool_call'}] usage_metadata={'input_tokens': 357, 'output_tokens': 22, 'total_tokens': 379}
-
-# Append the tool_calls response to the message list
-messages.append(tool_calls_response)
-#print("messages-> ",messages)
-
-# Extract the tool calls from the response for further processing
-tool_calls = tool_calls_response.tool_calls
-#print('tool_calls-> ',tool_calls)
-#tool_calls->  [{'name': 'multiply', 'args': {'a': 2, 'b': 3}, 'id': 'e2425e61-21e7-4cb8-a2b1-ef831cb42cf3', 'type': 'tool_call'}]
+messages = [HumanMessage(query5)] 
+tool_calls_response = llm_with_tools.invoke(messages) 
+print("tool_calls_response",tool_calls_response)
+messages.append(tool_calls_response) # Append the tool_calls response to the message list
+tool_calls = tool_calls_response.tool_calls # Extract the tool calls from the response for further processing
 
 # ---------------------------------------------------------------------
 
-# Se guarda la pregunta en una lista messages, representada como un HumanMessage.
 messages = [HumanMessage(query4)]
-#print('messages->',messages)
-
-# LLM processes the query
-# AIMessage representa la respuesta del modelo, que puede incluir una llamada a herramientas.
-ai_msg = llm_with_tools.invoke(messages) 
-
-# Append AI's response to the messages
-messages.append(ai_msg) 
-#print("messages-> ",messages)
+ai_msg = llm_with_tools.invoke(messages) # AIMessage representa la respuesta del modelo, que puede incluir una llamada a herramientas.
+print('ai_msg',ai_msg)
+messages.append(ai_msg) # Append AI's response to the messages
 
 for tool_call in ai_msg.tool_calls:
     #print("tool call->", tool_call)
