@@ -1,69 +1,28 @@
-from langchain_ollama import ChatOllama 
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough 
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.tools import DuckDuckGoSearchRun
-from langchain_community.tools import TavilySearchResults
-from langchain_community.tools import WikipediaQueryRun
-from langchain_community.utilities import WikipediaAPIWrapper
-from langchain_community.tools.pubmed.tool import PubmedQueryRun
-from langchain_core.messages import HumanMessage, AIMessage
-from langchain_core.tools import tool
+from imports import *
+from utils import add,multiply,multiply2
 
-from dotenv import load_dotenv  # Used to load environment variables from a .env file
 load_dotenv()
-
 llm = ChatOllama(model='llama3.2:3b', base_url='http://localhost:11434')
-#print(llm.invoke('hi').content)
 
 ### -------------------------------- Tool Creation ---------------------------------------
 
-@tool
-def add(a, b):
-    """
-    Add two integer numbers together
-    
-    Args:
-    a: First Integer
-    b: Second Integer
-    """
-    return a + b
-
-@tool
-def multiply(a, b):
-    """
-    Multiply two integer numbers together
-    
-    Args:
-    a: First Integer
-    b: Second Integer
-    """
-    return a * b
-
 #print("atributos-> ",dir(add))  # Muestra todos los atributos disponibles en `add`
 #print(add.name, add.description, add.args, add.args_schema.model_json_schema())
-
 #print("suma-> ",add.invoke({'a': 1, 'b': 2}))
 #print("multiplicacion->",multiply.invoke({'a': 67, 'b': 2}))
 
-#tools es una lista que contiene las funciones add y multiply, que han sido decoradas con @tool.
-#Esto significa que estas funciones son herramientas registradas y pueden ser llamadas por un agente de IA.
-tools = [add, multiply]
-#bind_tools(tools) asigna las herramientas al modelo llm.
-#Ahora, el modelo puede llamar automáticamente estas funciones cuando sea necesario.
-#Si llm es un modelo de LangChain (como OpenAI, Llama, etc.), esto le permite razonar sobre cuándo y cómo usar estas herramientas
-llm_with_tools = llm.bind_tools(tools)
+# Lista que contiene las funciones add y multiply, que han sido decoradas con @tool.
+tools = [add, multiply] #Ahora, el modelo puede llamar automáticamente estas funciones cuando sea necesario.
+llm_with_tools = llm.bind_tools(tools) #bind_tools(tools) asigna las herramientas al modelo llm.
 
 question  = "what is 1 plus 2?"
 tool_response=llm_with_tools.invoke(question).tool_calls
 #print("tool_response-> ",tool_response) 
 # tool_response->  [{'name': 'add', 'args': {'a': 1, 'b': 2}, 'id': '52877c2b-27d1-45f7-aeff-dd62ce2b8cef', 'type': 'tool_call'}]
-
 question  = "what is 1 multiplied by 2?"
 tool_response2=llm_with_tools.invoke(question).tool_calls
 #print("tool_response2-> ",tool_response2)
 # tool_response2->  [{'name': 'multiply', 'args': {'a': 1, 'b': 2}, 'id': '33954844-e730-4a21-a9a3-f381e0e9f6d0', 'type': 'tool_call'}]
-
 question  = "what is 1 multiplied by 2, also what is 11 plus 22?"
 tool_response3=llm_with_tools.invoke(question).tool_calls
 #print("tool_response3-> ",tool_response3)
@@ -71,11 +30,9 @@ tool_response3=llm_with_tools.invoke(question).tool_calls
 # {'name': 'add', 'args': {'a': 11, 'b': 22}, 'id': 'cd800eca-b2fb-4db2-8086-8b24a20e6c61', 'type': 'tool_call'}]
 
 
-
 #-------------------------------------------- Calling In-Built Tool --------------------------------------------
 
 # DuckDuckGo Search
-# There are so many other paid options are also available like Tavily, Google, Bing, etc.
 # https://python.langchain.com/docs/integrations/tools/
 
 # Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
@@ -137,19 +94,10 @@ def tavily_search(query):
     )
     response = search.invoke(query)
     return response
-@tool
-def multiply(a:int, b:int)->int:
-    """
-    Multiply two integer numbers together 
-    Args:
-    a: First Integer
-    b: Second Integer
-    """
-    return int(a) * int(b)
 
 
 # Define a list of tools, each representing a different search function or operation
-tools = [wikipedia_search, pubmed_search, tavily_search, multiply]
+tools = [wikipedia_search, pubmed_search, tavily_search, multiply2]
 
 # Create a dictionary where the keys are the tool names and the values are the tool objects
 list_of_tools = {tool.name: tool for tool in tools}

@@ -17,6 +17,36 @@ def save_and_open_graph(graph, filename="langraph_flow.png"):
     # Open the image file (compatible with Windows, macOS, and Linux)
     #os.system(filename)
 
+@tool
+def add(a, b):
+    """
+    Add two integer numbers together
+    
+    Args:
+    a: First Integer
+    b: Second Integer
+    """
+    return a + b
+
+@tool
+def multiply(a, b):
+    """
+    Multiply two integer numbers together
+    
+    Args:
+    a: First Integer
+    b: Second Integer
+    """
+    return a * b
+@tool
+def multiply2(a:int, b:int)->int:
+    """
+    Multiply two integer numbers together 
+    Args:
+    a: First Integer
+    b: Second Integer
+    """
+    return int(a) * int(b)
 
 @tool
 def internet_search(query: str):
@@ -38,7 +68,7 @@ def internet_search(query: str):
     return response
 
 @tool
-def llm_search(query: str):
+def llm_search(query: str,llm_instance):
     """
     Use the LLM model for general and basic information.
     Args:
@@ -46,6 +76,6 @@ def llm_search(query: str):
     Returns:
         response (str): LLM-generated response.
     """
-    response = llm.invoke(query)  # Query the local LLaMA 3.2 model  
+    response = llm_instance.invoke(query)  # Query the local LLaMA 3.2 model  
     return response
 

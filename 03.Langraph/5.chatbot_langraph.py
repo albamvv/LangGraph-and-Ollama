@@ -1,5 +1,4 @@
 from imports import *
-from utils import internet_search,llm_search,save_and_open_graph  # Import the externalized function
 
 '''
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). 
@@ -9,8 +8,42 @@ The chatbot is capable of answering user queries either by using an LLM or by se
 # Initialize the LLM using the LLaMA 3.2 model, hosted locally  
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
 
-tools = [internet_search, llm_search] # Lista de herramientas disponibles 
-llm_with_tools = llm.bind_tools(tools) # Bind the tools to the LLM, allowing it to decide when to use them 
+@tool
+def internet_search(query: str):
+    """
+    Search the web for real-time and latest information.
+    This is useful for getting news updates, stock market trends, weather forecasts, etc.
+    Args:
+        query (str): The search query.
+    Returns:
+        response (dict): Search results retrieved from the web.
+    """
+    search = TavilySearchResults(
+        max_results=3,  # Limit the number of search results  
+        search_depth='advanced',  # Perform an in-depth search  
+        include_answer=True,  # Include a concise answer in the response  
+        include_raw_content=True,  # Retrieve raw content from search results  
+    )
+    response = search.invoke(query)  # Execute the search query  
+    return response
+
+@tool
+def llm_search(query: str):
+    """
+    Use the LLM model for general and basic information.
+    Args:
+        query (str): The user’s question.
+    Returns:
+        response (str): LLM-generated response.
+    """
+    response = llm.invoke(query)  # Query the local LLaMA 3.2 model  
+    return response
+
+# Define a list of available tools (LLM and web search)  
+tools = [internet_search, llm_search]
+
+# Bind the tools to the LLM, allowing it to decide when to use them  
+llm_with_tools = llm.bind_tools(tools)
 
 # Define the state structure for the chatbot
 class State(TypedDict):
@@ -25,15 +58,28 @@ memory = MemorySaver()  # Initialize memory for tracking conversations
 
 # Create a LangGraph state machine for managing chatbot interactions  
 graph_builder = StateGraph(State)  
-graph_builder.add_node("chatbot", chatbot)  # Add chatbot processing node  
-tool_node = ToolNode(tools=tools)# Create a node for handling external tools (LLM and web search)  
+# Add chatbot processing node  
+graph_builder.add_node("chatbot", chatbot)  
+# Create a node for handling external tools (LLM and web search)  
+tool_node = ToolNode(tools=tools)  
 graph_builder.add_node("tools", tool_node)  
-graph_builder.add_conditional_edges("chatbot", tools_condition) # Define conditions for switching between chatbot and tools  
-graph_builder.add_edge("tools", "chatbot")  # Set up the interaction flow between nodes  
+
+# Define conditions for switching between chatbot and tools  
+graph_builder.add_conditional_edges("chatbot", tools_condition) 
+
+# Set up the interaction flow between nodes  
+graph_builder.add_edge("tools", "chatbot")  
 graph_builder.set_entry_point("chatbot")  # Define the starting point  
+
+# Compile the graph and enable memory tracking  
 #graph = graph_builder.compile()
-graph = graph_builder.compile(checkpointer=memory)  # Compile the graph and enable memory tracking  
-save_and_open_graph(graph)# Save and open the graph image
+graph = graph_builder.compile(checkpointer=memory)  
+
+# Display a graphical representation of the chatbot’s workflow  
+image_bytes = graph.get_graph().draw_mermaid_png()
+with open("chatbot_langraph_flow.png", "wb") as f:
+    f.write(image_bytes)
+#os.system("chatbot_langraph_flow.png")  # En Windows
 
 
 # Example: Query the chatbot about Earth  
@@ -42,6 +88,8 @@ output = graph.invoke({"messages": ["Tell me about the earth in 3 points"]}, con
 #print("output-> ",output)
 tool_message = output["messages"][2]  # Accede directamente
 #print(tool_message.content)  # Ver el contenido
+
+
 
 # Start an interactive chatbot loop  
 while True:
