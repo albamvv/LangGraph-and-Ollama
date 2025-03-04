@@ -128,7 +128,7 @@ Bye!
 ### 📷 Flow Visualization
 The script generates an image `langraph_flow.png` representing the chatbot's structure in a state graph.
 
-## 🏗️ Future Improvements
+### 🏗️ Future Improvements
 - Implement conversation history storage.  
 - Integrate with an external API to enhance responses.  
 - Add more nodes to the graph to handle different query types.  
