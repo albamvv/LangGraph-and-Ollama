@@ -49,6 +49,44 @@ def multiply2(a:int, b:int)->int:
     return int(a) * int(b)
 
 @tool
+def wikipedia_search(query):
+    """
+    Search wikipedia for general information.
+    Args:
+    query: The search query
+    """
+    wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
+    response = wikipedia.invoke(query)
+    return response
+
+@tool
+def pubmed_search(query):
+    """
+    Search pubmed for medical and life sciences queries.
+    Args:
+    query: The search query
+    """
+    search = PubmedQueryRun()
+    response = search.invoke(query)
+    return response
+
+@tool
+def tavily_search(query):
+    """
+    Search the web for realtime and latest information.for examples, news, stock market, weather updates etc.
+    Args:
+    query: The search query
+    """
+    search = TavilySearchResults(
+        max_results=5,
+        search_depth="advanced",
+        include_answer=True,
+        include_raw_content=True,
+    )
+    response = search.invoke(query)
+    return response
+
+@tool
 def internet_search(query: str):
     """
     Search the web for real-time and latest information.

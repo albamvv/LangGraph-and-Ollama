@@ -1,5 +1,6 @@
 from imports import *
-from utils import add,multiply,multiply2
+from utils import add,multiply,multiply2,wikipedia_search, pubmed_search, tavily_search
+from constant import query1,query2,query3,query4,query5
 
 load_dotenv()
 llm = ChatOllama(model='llama3.2:3b', base_url='http://localhost:11434')
@@ -33,8 +34,6 @@ tool_response3=llm_with_tools.invoke(question).tool_calls
 #-------------------------------------------- Calling In-Built Tool --------------------------------------------
 
 # DuckDuckGo Search
-# https://python.langchain.com/docs/integrations/tools/
-
 # Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
 search = DuckDuckGoSearchRun()
 #print(search.invoke("What is today's stock market news?"))
@@ -57,74 +56,13 @@ question = "What is LLM?"
 
 # -------------------------------------- Tool Calling with LLM -------------------------------------
 
-@tool
-def wikipedia_search(query):
-    """
-    Search wikipedia for general information.
-    Args:
-    query: The search query
-    """
-    wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
-    response = wikipedia.invoke(query)
-    return response
-
-@tool
-def pubmed_search(query):
-    """
-    Search pubmed for medical and life sciences queries.
-    Args:
-    query: The search query
-    """
-    search = PubmedQueryRun()
-    response = search.invoke(query)
-    return response
-
-@tool
-def tavily_search(query):
-    """
-    Search the web for realtime and latest information.for examples, news, stock market, weather updates etc.
-    Args:
-    query: The search query
-    """
-    search = TavilySearchResults(
-        max_results=5,
-        search_depth="advanced",
-        include_answer=True,
-        include_raw_content=True,
-    )
-    response = search.invoke(query)
-    return response
-
-
 # Define a list of tools, each representing a different search function or operation
 tools = [wikipedia_search, pubmed_search, tavily_search, multiply2]
-
-# Create a dictionary where the keys are the tool names and the values are the tool objects
-list_of_tools = {tool.name: tool for tool in tools}
-
-# Output the dictionary containing the tools
-#print("lista de herramientas->",list_of_tools)
-
-# This code integrates an LLM (Large Language Model) with custom tools and processes a query to determine if any tool should be invoked.
-
-# bind_tools(tools) links the model (llm) with the available tools (e.g., Wikipedia search, PubMed search, Tavily search, or a multiplication function).
-# Now, the LLM can automatically decide whether a tool should be used to answer a query.
+list_of_tools = {tool.name: tool for tool in tools} 
+# This code integrates an LLM with custom tools and processes a query to determine if any tool should be invoked.
 llm_with_tools = llm.bind_tools(tools)
-
-#query = "What is the latest news"
-# query = "What is today's stock market news?"
-# query = "What is LLM?"
-# query = "How to treat lung cancer?"
-query  = "what is 2 * 3?"
-
-'''
-This sends the query to llm_with_tools, which:
-- Processes the question.
-- Determines if a tool is needed.
-- Calls the appropriate tool (if necessary).
-- Generates a response.
-'''
-response = llm_with_tools.invoke(query)
+#Calls the appropriate tool (if necessary).Generates a response.
+response = llm_with_tools.invoke(query5)
 #print("estructura de la respuesta->", response.tool_calls)  # Muestra la estructura real
 
 if response.tool_calls:
@@ -133,18 +71,10 @@ if response.tool_calls:
 else:
     print("No tool was selected.")
 
-
-
 #----------------------------- Generate Final Result with Tool Calling --------------------------------
 
-# query = "What is the latest news"
-# query = "What is today's stock market news?"
-# query = "What is LLM?"
-# query = "How to treat lung cancer?"
-query = "what is 2 * 3?"
-
 # Create a list of messages with the user's query as a HumanMessage
-messages = [HumanMessage(query)]
+messages = [HumanMessage(query5)]
 
 # Invoke the LLM with tools using the provided messages
 tool_calls_response = llm_with_tools.invoke(messages)
@@ -162,12 +92,10 @@ tool_calls = tool_calls_response.tool_calls
 #tool_calls->  [{'name': 'multiply', 'args': {'a': 2, 'b': 3}, 'id': 'e2425e61-21e7-4cb8-a2b1-ef831cb42cf3', 'type': 'tool_call'}]
 
 # ---------------------------------------------------------------------
-query = "What is medicine for lung cancer?"
 
 # Se guarda la pregunta en una lista messages, representada como un HumanMessage.
-messages = [HumanMessage(query)]
+messages = [HumanMessage(query4)]
 #print('messages->',messages)
-#print('------------------')
 
 # LLM processes the query
 # AIMessage representa la respuesta del modelo, que puede incluir una llamada a herramientas.

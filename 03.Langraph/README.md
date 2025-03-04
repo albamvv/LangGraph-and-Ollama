@@ -229,6 +229,49 @@ Tu información está estructurada como un diccionario que contiene una lista de
 - It continuously interacts with users until they choose to exit.
 
 
+### 4️⃣ Tool calling
+
+#### Overview
+
+This script demonstrates how to integrate an LLM (Large Language Model) with various tools to process and respond to queries. The model is configured using ChatOllama and can dynamically invoke functions such as arithmetic operations and web searches.
+- https://python.langchain.com/docs/integrations/tools/
+
+#### Key Features
+1. **Tool Creation and Invocation**
+- Functions (add, multiply, etc.) are defined and bound to the LLM, allowing it to automatically call them when needed.
+- The model can interpret user queries and decide whether a tool should be used for calculations or searches.
+
+2. **Built-in Search Integration**
+- Includes search tools like Wikipedia, PubMed, and Tavily for retrieving information.
+- DuckDuckGo search functionality is also included for fetching stock market news or general queries.
+
+3. **Handling Tool Calls**
+- Queries are processed by checking if a tool needs to be invoked.
+- The script extracts the required tool's name, executes it, and appends the results to the conversation.
+- The LLM is reinvoked with the updated context to generate a final response.
+
+#### Workflow
+1. Define and register tools.
+```bash
+tools = [wikipedia_search, pubmed_search, tavily_search, multiply2]
+list_of_tools = {tool.name: tool for tool in tools}
+```
+2. Bind tools to the LLM.
+- bind_tools(tools) links the model (llm) with the available tools (e.g., Wikipedia search, PubMed search, Tavily search, or a multiplication function).
+- Now, the LLM can automatically decide whether a tool should be used to answer a query.
+```bash
+llm_with_tools = llm.bind_tools(tools)
+```
+3. Process user queries:
+- Determine if a tool is required.
+- Invoke the appropriate tool.
+```bash
+response = llm_with_tools.invoke(query5)
+```
+- Append the tool's response.
+- Reinvoke the LLM with the enriched conversation.
+4. Display the final response.
+
 ### 4️⃣ Chatbot using LangGraph, LangChain, and Ollama
 
 
