@@ -111,6 +111,7 @@ response = llm.invoke("tell me something about the sea in 5 lines")
    ```
 **Response content:**
 response->  The sea is a vast and mysterious body of saltwater that covers over 70% of the Earth's surface. It plays a crucial role in regulating the planet's climate and weather patterns. The sea also supports an incredible array of marine life, from tiny plankton to massive blue whales. Its depth ranges from just a few meters to over 11,000 meters in the Mariana Trench. The sea has been a source of inspiration for humans throughout history, influencing art, literature, and mythology.
+
 3. **Defines the chatbot state** using `TypedDict`.  
 State is a TypedDict that defines a chatbot's state. messages is a list processed using add_messages
 Annotated[list, add_messages] is a hint that messages should be modified by add_messages.
