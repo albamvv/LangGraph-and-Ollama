@@ -6,8 +6,6 @@ It loads environment variables, initializes a language model (llama3.2:3b), and 
 A state graph is built using StateGraph to manage conversation flow. The chatbot receives input, generates responses, 
 and maintains conversation history. The graph structure is visualized using IPython. 
 The script includes a loop for continuous user interaction, allowing users to chat with the bot until they exit by typing 'q', 'quit', or 'exit'.
-https://langchain-ai.github.io/langgraph/reference/graphs/
-https://python.langchain.com/docs/tutorials/llm_chain/ 
 '''
 
 # Load environment variables from the .env file
@@ -18,17 +16,11 @@ api_key = os.getenv("LANGCHAIN_API_KEY")  # API key for LangChain (if needed)
 endpoint = os.getenv("LANGCHAIN_ENDPOINT")  # Endpoint URL for LangChain API (if needed)
 tracing = os.getenv("LANGSMITH_TRACING")  # Tracing option for debugging (if needed)
 
-# Debugging: Print the retrieved environment variables (commented out)
-# print(f"API Key: {api_key}")
-# print(f"Endpoint: {endpoint}")
-# print(f"Tracing: {tracing}")
-
 
 # Initialize the ChatOllama model with the specified configuration
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
-# Test the model with a simple greeting message
 response = llm.invoke("tell me something about the sea in 5 lines")
-#print('response-> ', response.content)
+print('response-> ', response.content)
 
 
 '''
@@ -80,18 +72,12 @@ response=graph.invoke({"messages": ["tell me something about the sea in ten word
 "messages": [
     HumanMessage(
     content='tell me something about the sea in ten words', 
-    additional_kwargs={}, 
-    response_metadata={}, 
-    id='0a8be607-6256-4e4b-9c44-a0bb40ed478f'),
+    additional_kwargs={}, response_metadata={}, id='0a8be607-6256-4e4b-9c44-a0bb40ed478f'),
 
     AIMessage(
     content="The ocean covers over 70% of our planet's surface area.", 
     additional_kwargs={}, 
-    response_metadata={'model': 'llama3.2:3b', 'created_at': '2025-02-28T19:35:23.7577641Z', 'done': True,
-    'done_reason': 'stop', 'total_duration': 2499060200, 'load_duration': 18716700, 'prompt_eval_count': 34, 
-    'prompt_eval_duration': 577000000, 'eval_count': 15, 'eval_duration': 1902000000, 
-    'message': Message(role='assistant', content='', images=None, tool_calls=None)
-    }, 
+    response_metadata={'model': 'llama3.2:3b', 'created_at': '2025-02-28T19:35:23.....}, 
     id='run-dc928c7a-36a5-4b38-8e8c-e21feb39ccfd-0',
     usage_metadata={'input_tokens': 34, 'output_tokens': 15, 'total_tokens': 49}
     )

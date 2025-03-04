@@ -1,5 +1,11 @@
 # LangGraph-and-Ollama
-
+This Python script sets up a chatbot using LangChain and the Ollama model. 
+It loads environment variables, initializes a language model (llama3.2:3b), and defines a chatbot function that processes user messages. 
+A state graph is built using StateGraph to manage conversation flow. The chatbot receives input, generates responses, 
+and maintains conversation history. The graph structure is visualized using IPython. 
+The script includes a loop for continuous user interaction, allowing users to chat with the bot until they exit by typing 'q', 'quit', or 'exit'.
+- https://langchain-ai.github.io/langgraph/reference/graphs/
+- https://python.langchain.com/docs/tutorials/llm_chain/ 
 
 ## 1️⃣ Tool calling
 
@@ -60,7 +66,75 @@ print("Response->" ,response.content)
 ```
 ![Alt text](assets/response.JPG)
 
-## 2️⃣ Chatbot Langraph
+## 2️⃣ LanGraph 🦜🕸️ Chatbot with LangChain and LangGraph
+
+
+
+This repository contains a Python script that implements a chatbot using **LangChain**, **LangGraph**, and the **Ollama (llama3.2:3b)** model.  
+The chatbot manages conversations using a state graph and allows continuous interaction with the user.
+
+### 📌 Requirements
+
+Before running the script, make sure you have the following dependencies installed:
+
+```bash
+pip install langchain langgraph python-dotenv
+```
+
+Also, the **Ollama** server must be running at `http://localhost:11434`.
+
+### 🚀 Execution
+
+1. **Configure environment variables**: The script loads variables from a `.env` file. Set the following variables if needed:
+   ```env
+   LANGCHAIN_API_KEY=your_api_key
+   LANGCHAIN_ENDPOINT=your_endpoint
+   LANGSMITH_TRACING=false
+   ```
+
+2. **Run the script**:
+   ```bash
+   python 3.langraph.py
+   ```
+
+3. **Interact with the chatbot**:  
+   - Type a message to get a response from the bot.  
+   - To exit, enter `q`, `quit`, or `exit`.  
+
+### 🛠️ Script Functionality
+
+1. **Loads environment variables**.  
+2. **Initializes the language model** `llama3.2:3b`.  
+3. **Defines the chatbot state** using `TypedDict`.  
+4. **Creates a state graph** with `LangGraph`:  
+   - The chatbot processes messages and maintains conversation history.  
+   - Responses are generated using `ChatOllama`.  
+5. **Visualizes the chatbot flow** by generating an image `langraph_flow.png`.  
+6. **Runs a continuous chat loop** until the user decides to exit.  
+
+### 📄 Example Usage
+
+```text
+You: Hello
+Assistant: Hi! How can I help you?
+
+You: Tell me something about the sea in 10 words
+Assistant: The ocean covers more than 70% of the Earth's surface.
+
+You: exit
+Bye!
+```
+
+### 📷 Flow Visualization
+The script generates an image `langraph_flow.png` representing the chatbot's structure in a state graph.
+
+## 🏗️ Future Improvements
+- Implement conversation history storage.  
+- Integrate with an external API to enhance responses.  
+- Add more nodes to the graph to handle different query types.  
+
+
+## 3️⃣ Chatbot Langraph
 
 This script sets up a chatbot using LangGraph, LangChain, and Ollama (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
 
