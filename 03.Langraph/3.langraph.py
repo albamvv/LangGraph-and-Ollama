@@ -44,16 +44,11 @@ def chatbot(state: State):
 graph_builder = StateGraph(State)
 # Add a chatbot node to handle messages
 graph_builder.add_node("chatbot", chatbot)
-
-
-# Define edges (transitions) between different states
-# START --> chatbot --> END
+# Define edges (transitions) between different states # START --> chatbot --> END
 graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chatbot
 graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
-
 # Compile the graph
 graph = graph_builder.compile()
-#print("graph-> ",graph) # <langgraph.graph.state.CompiledStateGraph object at 0x000001E33B6855B0>
 
 # Display the graph structure as an image
 #print(type(graph.get_graph().draw_mermaid_png()))
