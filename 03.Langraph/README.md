@@ -105,6 +105,11 @@ Also, the **Ollama** server must be running at `http://localhost:11434`.
 
 1. **Loads environment variables**.  
 2. **Initializes the language model** `llama3.2:3b`.  
+ ```bash
+   llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
+    response = llm.invoke("tell me something about the sea in 5 lines")
+    print('response-> ', response.content)
+   ```
 3. **Defines the chatbot state** using `TypedDict`.  
 4. **Creates a state graph** with `LangGraph`:  
    - The chatbot processes messages and maintains conversation history.  
