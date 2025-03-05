@@ -9,6 +9,7 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 - We will start with simple linear flow and then add more complex flows
 - For this example, We will use Chinook database which is sample database available for sqlite
 - You can tryout this for any database sqlite or mysql or postgresql by changing the connection string
+- Chinook database -> docs.yugabyte.com/preview/sample-data/chinook/
 
 ## Features
 - **Natural Language to SQL:** Converts user questions into SQL queries using an LLM.
@@ -73,9 +74,4 @@ SQLAlchemy
 Requests
 ```
 
-## Contributing
-Feel free to submit issues and pull requests to improve the project!
-
-## License
-This project is licensed under the MIT License.
 
