@@ -99,6 +99,112 @@ print("Response->" ,response.content)
 
 
 
+# 2️⃣ LanGraph 🦜🕸️ Chatbot with LangChain and LangGraph
+
+This repository contains a Python script that implements a chatbot using **LangChain**, **LangGraph**, and the **Ollama (llama3.2:3b)** model.  
+The chatbot manages conversations using a state graph and allows continuous interaction with the user.
+
+## 📌 Requirements
+
+Before running the script, make sure you have the following dependencies installed:
+
+```bash
+pip install langchain langgraph python-dotenv
+```
+
+Also, the **Ollama** server must be running at `http://localhost:11434`.
+
+## 🚀 Execution
+
+1. **Configure environment variables**: The script loads variables from a `.env` file. Set the following variables if needed:
+   ```env
+   LANGCHAIN_API_KEY=your_api_key
+   LANGCHAIN_ENDPOINT=your_endpoint
+   LANGSMITH_TRACING=false
+   ```
+
+2. **Run the script**:
+   ```bash
+   python 3.langraph.py
+   ```
+
+3. **Interact with the chatbot**:  
+   - Type a message to get a response from the bot.  
+   - To exit, enter `q`, `quit`, or `exit`.  
+
+## 🛠️ Script Functionality
+
+1. **Loads environment variables**.  
+2. **Initializes the language model** `llama3.2:3b`.  
+ ```bash
+llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
+response = llm.invoke("tell me something about the sea in 5 lines")
+   ```
+![Alt text](assets/langraph_messages1.JPG)
+
+**Response content:**
+response->  The sea is a vast and mysterious body of saltwater that covers over 70% of the Earth's surface. It plays a crucial role in regulating the planet's climate and weather patterns. The sea also supports an incredible array of marine life, from tiny plankton to massive blue whales. Its depth ranges from just a few meters to over 11,000 meters in the Mariana Trench. The sea has been a source of inspiration for humans throughout history, influencing art, literature, and mythology.
+
+3. **Defines the chatbot state** using `TypedDict`.  
+State is a TypedDict that defines a chatbot's state. messages is a list processed using add_messages
+Annotated[list, add_messages] is a hint that messages should be modified by add_messages.
+ ```bash
+class State(TypedDict):
+    #{"message":"your message"}
+    messages: Annotated[list, add_messages]
+def chatbot(state: State):
+    response = llm.invoke(state["messages"])  # Invoke the LLM with the current messages
+    return {"messages": [response]}  # Return the response as part of the state
+```
+4. **Creates a state graph** with `LangGraph`:  
+   - The chatbot processes messages and maintains conversation history.  
+   - Responses are generated using `ChatOllama`.  
+   graph_builder = StateGraph(State)
+ ```bash
+# Add a chatbot node to handle messages
+graph_builder.add_node("chatbot", chatbot)
+# Define edges (transitions) between different states # START --> chatbot --> END
+graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chatbot
+graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
+graph = graph_builder.compile() # Compile the graph
+response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
+```
+![Alt text](assets/langraph_messages2.JPG)
+
+5. **Visualizes the chatbot flow** by generating an image `langraph_flow.png`.  
+6. **Runs a continuous chat loop** until the user decides to exit.  
+```bash
+while True:
+    user_input = input("You: ")  # Get user input
+    if user_input in ['q', 'quit', 'exit']:  # Exit condition
+        print("Bye!")
+        break
+    
+    response = graph.invoke({"messages": [user_input]})  # Process user input through the graph
+    print("Assistant:", response["messages"][-1].content)  # Print the chatbot's response
+```
+## 📄 Example Usage
+
+```text
+You: Hello
+Assistant: Hi! How can I help you?
+
+You: Tell me something about the sea in 10 words
+Assistant: The ocean covers more than 70% of the Earth's surface.
+
+You: exit
+Bye!
+```
+
+## 📷 Flow Visualization
+The script generates an image `langraph_flow.png` representing the chatbot's structure in a state graph.
+
+## 🏗️ Future Improvements
+- Implement conversation history storage.  
+- Integrate with an external API to enhance responses.  
+- Add more nodes to the graph to handle different query types.
+
+
 
 
 
