@@ -33,3 +33,11 @@ Each project has its own `README.md` with details on installation, usage, and fu
 | [Text to MySQL](project_1_text_to_mysql/README.md) | Converts natural language to MySQL queries |
 | [SQL Optimizer](project_2_sql_optimizer/README.md) | Enhances SQL queries using AI |
 | [SQL Chatbot](project_3_sql_chatbot/README.md) | AI-powered chatbot for database interaction |
+
+## 🔧 Installation
+Each project may have specific dependencies, but to install the common ones:
+```sh
+pip install -r requirements.txt
+```
+
+## 
