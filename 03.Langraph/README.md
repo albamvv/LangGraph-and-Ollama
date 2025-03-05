@@ -99,7 +99,7 @@ print("Response->" ,response.content)
 
 
 
-# 2️⃣ LanGraph 🦜🕸️ Chatbot with LangChain and LangGraph
+# 2️⃣ LanGraph 🦜🕸️ 
 
 This repository contains a Python script that implements a chatbot using **LangChain**, **LangGraph**, and the **Ollama (llama3.2:3b)** model.  
 The chatbot manages conversations using a state graph and allows continuous interaction with the user.
@@ -203,6 +203,71 @@ The script generates an image `langraph_flow.png` representing the chatbot's str
 - Implement conversation history storage.  
 - Integrate with an external API to enhance responses.  
 - Add more nodes to the graph to handle different query types.
+
+
+# 4️⃣ Chatbot using LangGraph, LangChain, and Ollama
+
+
+## Overview
+This script sets up a chatbot utilizing **LangGraph**, **LangChain**, and **Ollama** (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
+
+## Features
+- **Local LLM (LLaMA 3.2)**: The chatbot can answer general queries using a locally hosted **LLaMA 3.2 model**.
+- **Internet Search**: For real-time data such as news, stock trends, or weather, the chatbot can retrieve relevant web search results.
+- **State Management**: Uses **LangGraph** for managing chatbot interactions.
+- **Tool Integration**: LLM and web search tools are seamlessly integrated.
+- **Interactive Mode**: Runs a chatbot loop that continuously accepts user input.
+
+## Requirements
+To run this script, you need the following dependencies:
+- **Python 3.8+**
+- **LangGraph**
+- **LangChain**
+- **Ollama**
+- **TavilySearch** (for real-time web search)
+
+
+## Usage
+### 1. Start the chatbot
+Run the script in a terminal:
+```bash
+python chatbot_langraph.py
+```
+
+### 2. Query the chatbot
+- Type a question, and the chatbot will respond based on the LLM or web search.
+- To exit, type `exit`, `quit`, or `q`.
+
+### Example:
+```
+> Tell me about the earth in 3 points
+1. The Earth is the third planet from the Sun.
+2. It is the only known planet to support life.
+3. About 71% of its surface is covered in water.
+```
+
+### How It Works
+1. **Initialize the LLM**: The script sets up **LLaMA 3.2** as the primary language model.
+2. **Define Tools**:
+   - `internet_search(query)`: Performs a web search to retrieve real-time information.
+   - `llm_search(query)`: Uses the LLM to generate responses.
+3. **State and Memory**:
+   - Uses `LangGraph` to manage chatbot states and interactions.
+   - Keeps track of conversation history with `MemorySaver`.
+4. **LangGraph Workflow**:
+   - The chatbot decides whether to use the LLM or perform a web search.
+   - The interaction flow is managed using a state machine.
+   - A **graph representation** of the workflow is generated (`chatbot_langraph_flow.png`).
+5. **Interactive Chat Mode**:
+   - Waits for user input.
+   - Processes the input using `LangGraph`.
+   - Outputs the response.
+   - Continues until the user exits.
+
+### Future Enhancements
+- Add support for multiple LLM models.
+- Improve response accuracy with better search filtering.
+- Implement a web-based interface.
 
 
 
