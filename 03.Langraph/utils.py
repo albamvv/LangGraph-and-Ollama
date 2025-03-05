@@ -117,3 +117,8 @@ def llm_search(query: str,llm_instance):
     response = llm_instance.invoke(query)  # Query the local LLaMA 3.2 model  
     return response
 
+# Define the chatbot function, which takes the current state and generates a response
+def chatbot(state: State):
+    response = llm_with_tools.invoke(state["messages"])  # Invoke the LLM with the current messages
+    return {"messages": [response]}  # Return the response as part of the state
+
