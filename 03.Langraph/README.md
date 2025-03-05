@@ -18,12 +18,17 @@ This script demonstrates how to integrate an LLM (Large Language Model) with var
 - Functions (add, multiply, etc.) are defined and bound to the LLM, allowing it to automatically call them when needed.
 - The model can interpret user queries and decide whether a tool should be used for calculations or searches.
 - https://python.langchain.com/docs/integrations/tools/ 
-### Duck
-- DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
+
+
+2. **Built-in Search Integration**
+- Includes search tools like Wikipedia, PubMed, and Tavily for retrieving information.
+- PubMed® comprises more than 35 million citations for biomedical literature from MEDLINE, life science journals, and online books.
+- DuckDuckDuck
 
 ```bash
 search = DuckDuckGoSearchRun()
 ```
+- DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
 - Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
 - Esta clase permite realizar búsquedas en la web sin rastreo, a diferencia de Google.
 
@@ -32,15 +37,6 @@ search.invoke("What is today's stock market news?")
 ```
 - Ejecuta la búsqueda con la consulta "What is today's stock market news?".
 - Retorna los resultados de la búsqueda en tiempo real.
-
-### Tavily Search
-### Wikipedia
-### PubMed
-PubMed® comprises more than 35 million citations for biomedical literature from MEDLINE, life science journals, and online books. Citations may include links to full text content from PubMed Central and publisher web sites.
-
-2. **Built-in Search Integration**
-- Includes search tools like Wikipedia, PubMed, and Tavily for retrieving information.
-- DuckDuckGo search functionality is also included for fetching stock market news or general queries.
 
 3. **Handling Tool Calls**
 - Queries are processed by checking if a tool needs to be invoked.
