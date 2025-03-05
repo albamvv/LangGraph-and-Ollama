@@ -241,7 +241,7 @@ python chatbot_langraph.py
 - Type a question, and the chatbot will respond based on the LLM or web search.
 - To exit, type `exit`, `quit`, or `q`.
 
-### Example:
+## Example:
 ```
 > Tell me about the earth in 3 points
 1. The Earth is the third planet from the Sun.
@@ -249,7 +249,7 @@ python chatbot_langraph.py
 3. About 71% of its surface is covered in water.
 ```
 
-### How It Works
+## How It Works
 1. **Initialize the LLM**: The script sets up **LLaMA 3.2** as the primary language model.
 2. **Define Tools**:
    - `internet_search(query)`: Performs a web search to retrieve real-time information.
@@ -261,13 +261,25 @@ python chatbot_langraph.py
    - The chatbot decides whether to use the LLM or perform a web search.
    - The interaction flow is managed using a state machine.
    - A **graph representation** of the workflow is generated (`chatbot_langraph_flow.png`).
+
+   ![Alt text](assets/chatbot_langraph_flow.png)
 5. **Interactive Chat Mode**:
    - Waits for user input.
    - Processes the input using `LangGraph`.
    - Outputs the response.
    - Continues until the user exits.
 
-### Future Enhancements
+## Running the Chatbot:
+- The chatbot operates in a while True loop.
+- The user can input queries, and responses are fetched using the graph-based chatbot.
+- The program exits when the user types "exit", "quit", or "q".
+## Summary
+- This chatbot integrates LangGraph for structured interactions.
+- It uses LLaMA 3.2 for AI-generated responses and TavilySearchResults for real-time web search.
+- The chatbot decides whether to answer from its own knowledge or search the internet.
+- It continuously interacts with users until they choose to exit.
+
+## Future Enhancements
 - Add support for multiple LLM models.
 - Improve response accuracy with better search filtering.
 - Implement a web-based interface.
