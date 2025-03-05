@@ -17,6 +17,26 @@ This script demonstrates how to integrate an LLM (Large Language Model) with var
 1. **Tool Creation and Invocation**
 - Functions (add, multiply, etc.) are defined and bound to the LLM, allowing it to automatically call them when needed.
 - The model can interpret user queries and decide whether a tool should be used for calculations or searches.
+- https://python.langchain.com/docs/integrations/tools/ 
+### Duck
+- DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
+
+```bash
+search = DuckDuckGoSearchRun()
+```
+- Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
+- Esta clase permite realizar búsquedas en la web sin rastreo, a diferencia de Google.
+
+```bash
+search.invoke("What is today's stock market news?")
+```
+- Ejecuta la búsqueda con la consulta "What is today's stock market news?".
+- Retorna los resultados de la búsqueda en tiempo real.
+
+### Tavily Search
+### Wikipedia
+### PubMed
+PubMed® comprises more than 35 million citations for biomedical literature from MEDLINE, life science journals, and online books. Citations may include links to full text content from PubMed Central and publisher web sites.
 
 2. **Built-in Search Integration**
 - Includes search tools like Wikipedia, PubMed, and Tavily for retrieving information.
@@ -56,24 +76,8 @@ response = llm_with_tools.invoke(messages)
 
 4. Display the final response.
 
-## Custom Tools
-## Calling In-Built 
-### DuckDuckGo Search
-- https://python.langchain.com/docs/integrations/tools/ 
-- DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
-- search = DuckDuckGoSearchRun()
-Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
-Esta clase permite realizar búsquedas en la web sin rastreo, a diferencia de Google.
 
-- search.invoke("What is today's stock market news?")
-Ejecuta la búsqueda con la consulta "What is today's stock market news?".
-Retorna los resultados de la búsqueda en tiempo real.
 
-### Tavily Search
-### Wikipedia
-### PubMed
-PubMed® comprises more than 35 million citations for biomedical literature from MEDLINE, life science journals, and online books. Citations may include links to full text content from PubMed Central and publisher web sites.
-### Tool Calling with LLM
 
 ### Generate Final Result with Tool Calling
 
