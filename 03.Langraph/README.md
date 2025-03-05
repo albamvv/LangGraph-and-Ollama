@@ -167,12 +167,17 @@ graph_builder.add_node("chatbot", chatbot)
 graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chatbot
 graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
 graph = graph_builder.compile() # Compile the graph
-response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
 ```
+
+5. **Visualizes the chatbot flow**   
 ![Alt text](assets/langraph_messages2.JPG)
 
-5. **Visualizes the chatbot flow** by generating an image `langraph_flow.png`.  
-6. **Runs a continuous chat loop** until the user decides to exit.  
+6. **Invoke**
+ ```bash
+response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
+```
+
+7. **Runs a continuous chat loop** until the user decides to exit.  
 ```bash
 while True:
     user_input = input("You: ")  # Get user input
@@ -196,8 +201,7 @@ You: exit
 Bye!
 ```
 
-## 📷 Flow Visualization
-The script generates an image `langraph_flow.png` representing the chatbot's structure in a state graph.
+
 
 ## 🏗️ Future Improvements
 - Implement conversation history storage.  
@@ -241,13 +245,27 @@ python chatbot_langraph.py
 - Type a question, and the chatbot will respond based on the LLM or web search.
 - To exit, type `exit`, `quit`, or `q`.
 
-## Example:
+## Example earth:
+
+```bash
+config = {"configurable": {"thread_id": 1}}  
+output = graph.invoke({"messages": ["Tell me about the earth in 3 points"]}, config=config)  
+tool_message = output["messages"][2]  # Accede directamente
 ```
-> Tell me about the earth in 3 points
-1. The Earth is the third planet from the Sun.
-2. It is the only known planet to support life.
-3. About 71% of its surface is covered in water.
+
+- Estructura diccionario
+```bash
+{
+    "messages": [
+        HumanMessage(...),  # Mensaje inicial del usuario
+        AIMessage(...),      # Respuesta vacía del chatbot
+        ToolMessage(...),    # Mensaje de error de la herramienta
+        AIMessage(...)       # Respuesta final corregida del chatbot
+    ]
+}
 ```
+
+
 
 ## How It Works
 1. **Initialize the LLM**: The script sets up **LLaMA 3.2** as the primary language model.

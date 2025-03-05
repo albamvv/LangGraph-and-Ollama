@@ -1,7 +1,5 @@
 from imports import *
 
-
-
 def save_and_open_graph(graph, filename="langraph_flow.png"):
     """
     Saves the graph structure as a PNG file and opens it automatically.
@@ -119,18 +117,6 @@ def llm_search(query: str,llm_instance):
     response = llm_instance.invoke(query)  # Query the local LLaMA 3.2 model  
     return response
 
-# Initialize the ChatOllama model with the specified configuration
-llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
-tools = [internet_search, llm_search]
-llm_with_tools = llm.bind_tools(tools)
 
-# Define the state structure for the chatbot
-class State(TypedDict):
-    messages: Annotated[list, add_messages]
-
-# Define the chatbot function, which takes the current state and generates a response
-def chatbot(state: State):
-    response = llm_with_tools.invoke(state["messages"])  # Invoke the LLM with the current messages
-    return {"messages": [response]}  # Return the response as part of the state
 
 
