@@ -73,7 +73,7 @@ messages.append(ai_msg) # Append AI's response to the messages
 ```
 ![Alt text](assets/messages2.JPG)
 
-5. **fffff**
+5. **Generate tool message**
 
 ```bash 
 for tool_call in ai_msg.tool_calls:
@@ -86,21 +86,16 @@ for tool_call in ai_msg.tool_calls:
 ![Alt text](assets/messages3.JPG)
 
 6. **Reinvoke the LLM with the enriched conversation.**
-```bash
-response = llm_with_tools.invoke(messages)
-```
 
 ```bash 
-# Se vuelve a invocar al LLM con la nueva información
 response = llm_with_tools.invoke(messages)
+```
+7. **Display the final response.**
+
+```bash 
 print("Response->" ,response.content)
 ```
 ![Alt text](assets/response.JPG)
-
-
-7. **Display the final response.**
-
-
 
 
 
