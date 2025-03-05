@@ -28,15 +28,15 @@ This script demonstrates how to integrate an LLM (Large Language Model) with var
 ```bash
 search = DuckDuckGoSearchRun()
 ```
-- DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
-- Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
-- Esta clase permite realizar búsquedas en la web sin rastreo, a diferencia de Google.
+- - DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
+- - Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
+- - Esta clase permite realizar búsquedas en la web sin rastreo, a diferencia de Google.
 
 ```bash
 search.invoke("What is today's stock market news?")
 ```
-- Ejecuta la búsqueda con la consulta "What is today's stock market news?".
-- Retorna los resultados de la búsqueda en tiempo real.
+- - Ejecuta la búsqueda con la consulta "What is today's stock market news?".
+- - Retorna los resultados de la búsqueda en tiempo real.
 
 3. **Handling Tool Calls**
 - Queries are processed by checking if a tool needs to be invoked.
