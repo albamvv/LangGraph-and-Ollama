@@ -44,38 +44,18 @@ search.invoke("What is today's stock market news?")
 - The LLM is reinvoked with the updated context to generate a final response.
 
 ## Workflow
-1. Define and register tools.
+1. **Define and register tools.**
 ```bash
 tools = [wikipedia_search, pubmed_search, tavily_search, multiply2]
 list_of_tools = {tool.name: tool for tool in tools}
 ```
-2. Bind tools to the LLM.
+2. **Bind tools to the LLM.**
 - bind_tools(tools) links the model (llm) with the available tools (e.g., Wikipedia search, PubMed search, Tavily search, or a multiplication function).
 - Now, the LLM can automatically decide whether a tool should be used to answer a query.
 ```bash
 llm_with_tools = llm.bind_tools(tools)
 ```
-3. Process user queries:
-- Determine if a tool is required.
-- Invoke the appropriate tool.
-```bash
-response = llm_with_tools.invoke(query5)
-```
-- Append the tool's response.
-```bash
-messages.append(tool_calls_response) 
-```
-- Reinvoke the LLM with the enriched conversation.
-```bash
-response = llm_with_tools.invoke(messages)
-```
-
-4. Display the final response.
-
-
-
-
-### Generate Final Result with Tool Calling
+3. **Define the message**
 
 ```bash 
 query = "What is medicine for lung cancer?"
@@ -83,11 +63,17 @@ messages = [HumanMessage(query)]
 ```
 ![Alt text](assets/messages1.JPG)
 
+
+4.  **Process user queries:**
+- Determine if a tool is required.
+- Invoke the appropriate tool.
 ```bash 
 ai_msg = llm_with_tools.invoke(messages)
 messages.append(ai_msg) # Append AI's response to the messages
 ```
 ![Alt text](assets/messages2.JPG)
+
+5. **fffff**
 
 ```bash 
 for tool_call in ai_msg.tool_calls:
@@ -99,10 +85,29 @@ for tool_call in ai_msg.tool_calls:
 
 ![Alt text](assets/messages3.JPG)
 
+6. **Reinvoke the LLM with the enriched conversation.**
+```bash
+response = llm_with_tools.invoke(messages)
+```
+
 ```bash 
 # Se vuelve a invocar al LLM con la nueva información
 response = llm_with_tools.invoke(messages)
 print("Response->" ,response.content)
 ```
 ![Alt text](assets/response.JPG)
+
+
+7. **Display the final response.**
+
+
+
+
+
+
+
+
+
+
+
 
