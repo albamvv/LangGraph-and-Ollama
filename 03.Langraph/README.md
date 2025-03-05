@@ -205,12 +205,15 @@ The script generates an image `langraph_flow.png` representing the chatbot's str
 - Add more nodes to the graph to handle different query types.
 
 
-# 4️⃣ Chatbot using LangGraph, LangChain, and Ollama
+# 3️⃣ Chatbot using LangGraph, LangChain, and Ollama
 
 
 ## Overview
-This script sets up a chatbot utilizing **LangGraph**, **LangChain**, and **Ollama** (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
+- This script sets up a chatbot utilizing **LangGraph**, **LangChain**, and **Ollama** (a local LLM). The chatbot is capable of answering user queries either by using an LLM or by searching the web for real-time information.
 
+- Generate api key -> https://app.tavily.com/home 
+
+![Alt text](assets/tool_explanation.JPG)
 ## Features
 - **Local LLM (LLaMA 3.2)**: The chatbot can answer general queries using a locally hosted **LLaMA 3.2 model**.
 - **Internet Search**: For real-time data such as news, stock trends, or weather, the chatbot can retrieve relevant web search results.
