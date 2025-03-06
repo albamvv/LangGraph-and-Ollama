@@ -28,6 +28,8 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 - **Error Recovery:** Handles query failures and regenerates them.
 ## Others
 
+[Smith LangChain](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
+
 ```sh
 ================================ System Message ================================
 
