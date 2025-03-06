@@ -26,7 +26,13 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 - **Intelligent Response Generation:** Uses AI to interpret and provide human-readable answers.
 - **Graph-Based Execution Flow:** Uses LangGraph to structure the process.
 - **Error Recovery:** Handles query failures and regenerates them.
-## Others
+## Aplication State or Graph State
+```python
+# Retrieve a query prompt template from Langchain hub
+query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
+print("query prompt template-> ",query_prompt_template)
+query_prompt_template.messages[0].pretty_print()
+```
 
 - [Smith LangChain](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
 
