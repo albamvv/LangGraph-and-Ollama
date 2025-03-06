@@ -12,8 +12,14 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 - Chinook database -> docs.yugabyte.com/preview/sample-data/chinook/
 
  ![Alt text](chinook-er-diagram.png)
+- Ollama model -> https://ollama.com/library/qwen2.5 
+- ollama pull qwen2.5 
 
+ ![Alt text](assets/esquema1.JPG)
+  ![Alt text](assets/esquema2.JPG)
+- smith.langchain.com/hub?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89
 
+ 
 ## Features
 - **Natural Language to SQL:** Converts user questions into SQL queries using an LLM.
 - **Database Interaction:** Executes SQL queries on the Chinook database.
