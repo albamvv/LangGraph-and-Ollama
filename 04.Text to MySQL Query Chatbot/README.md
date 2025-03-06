@@ -11,6 +11,9 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 - You can tryout this for any database sqlite or mysql or postgresql by changing the connection string
 - Chinook database -> docs.yugabyte.com/preview/sample-data/chinook/
 
+ ![Alt text](chinook-er-diagram.png)
+
+
 ## Features
 - **Natural Language to SQL:** Converts user questions into SQL queries using an LLM.
 - **Database Interaction:** Executes SQL queries on the Chinook database.

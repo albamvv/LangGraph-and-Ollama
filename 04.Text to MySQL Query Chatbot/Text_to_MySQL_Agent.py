@@ -12,20 +12,6 @@ from langchain import hub
 # Load environment variables from a .env file
 load_dotenv('../.env')
 
-# Download the Chinook database (a sample SQLite database for practice)
-url = "https://github.com/laxmimerit/All-CSV-ML-Data-Files-Download/raw/refs/heads/master/db_samples/Chinook.db"
-
-response = requests.get(url)
-
-# Save the downloaded database file if the request is successful
-if response.status_code == 200:
-    with open("Chinook.db", "wb") as file:
-        file.write(response.content)
-    print("File downloaded successfully")
-else:
-    print("Failed to download the file")
-    print(response.status_code)
-
 # Initialize SQL Database connection
 db = SQLDatabase.from_uri("sqlite:///Chinook.db")
 
