@@ -35,5 +35,34 @@ class State(TypedDict):
 
 # Retrieve a query prompt template from Langchain hub
 query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
-print("query prompt template-> ",query_prompt_template)
-query_prompt_template.messages[0].pretty_print()
+#print("query prompt template-> ",query_prompt_template)
+#query_prompt_template.messages[0].pretty_print()
+
+#-------------------- Write, Execute and Generate MySQL Response ---------------------------
+
+# Define the structured response format for the MySQL query
+# The query key must be a string (str), and it uses Annotated to provide additional metadata.
+# The annotation ..., "Syntactically correct and valid SQL query" is a description, but it doesn't affect execution.
+class QueryOutput(TypedDict):
+    """Generated SQL query"""
+    query: Annotated[str, ..., "Syntactically correct and valid SQL query"]
+
+print(QueryOutput({"query": "SELECT * FROM album LIMIT 2"}))
+print(QueryOutput.__annotations__)
+
+# NODE -> WRITE QUERY
+
+# Function to generate an SQL query from a user's question
+def write_query(state: State):
+    """Generate an SQL query to fetch information based on the user's question"""
+    prompt = query_prompt_template.invoke({
+        "dialect": db.dialect,
+        "top_k": 5,
+        "table_info": db.get_table_info(),
+        "input": state["question"]
+    })
+
+    structured_llm = llm.with_structured_output(QueryOutput)
+    result = structured_llm.invoke(prompt)
+
+    return {"query": result["query"]}
