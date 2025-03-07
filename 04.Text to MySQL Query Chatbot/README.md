@@ -9,17 +9,35 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 - We will start with simple linear flow and then add more complex flows
 - For this example, We will use Chinook database which is sample database available for sqlite
 - You can tryout this for any database sqlite or mysql or postgresql by changing the connection string
-- Chinook database -> docs.yugabyte.com/preview/sample-data/chinook/
+ 1. Chinook database 
+
+ [Chinook Sample Data - Yugabyte Docs](https://docs.yugabyte.com/preview/sample-data/chinook/)
+
+- Representation
 
  ![Alt text](chinook-er-diagram.png)
-- Ollama model -> https://ollama.com/library/qwen2.5 
-- ollama pull qwen2.5 
+
+ 2. Ollama model 
+- Information
+ [Qwen2.5 Model - Ollama Library](https://ollama.com/library/qwen2.5)
+
+
+```sh
+ollama pull qwen2.5 
+```
 
  ![Alt text](assets/esquema1.JPG)
   ![Alt text](assets/esquema2.JPG)
-- smith.langchain.com/hub?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89
--chat promp template -> https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89 
- 
+
+3. Smith Langchain
+
+[LangChain Hub - Smith](https://smith.langchain.com/hub?organizationId=5efcb3f2-4211-5c65-9df5-a364130)
+
+4. Chat prompt template
+[SQL Query System Prompt - LangChain Hub](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
+
+
+
 ## Features
 - **Natural Language to SQL:** Converts user questions into SQL queries using an LLM.
 - **Database Interaction:** Executes SQL queries on the Chinook database.
