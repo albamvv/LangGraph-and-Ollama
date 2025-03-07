@@ -86,10 +86,11 @@ python Text_to_MySQL_Agent.py
 ## Flow
 
 ![Alt text](assets/esquema1.JPG)
-![Alt text](assets/esquema2.JPG)
+
 
 ## Usage
 **Create a Python script or interactive session and run:**
+
 **1. Write the query**
 ```python
 question = "How many employees are there?"
@@ -113,8 +114,8 @@ Ouput:
 
 **3. Combine all information into a state dictionary**
 ``` python
-state = {"question": question, **query, **result}
-print("state ->",state)
+state_dict= {"question": question, **query, **result}
+print("state ->",state_dict)
 ```
 Ouput:
 ```sh
@@ -153,4 +154,24 @@ query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
 print("query prompt template-> ",query_prompt_template)
 query_prompt_template.messages[0].pretty_print()
 ```
+
+### Building the graph
+```python
+# Build the processing graph
+graph_builder = StateGraph(State)
+graph_builder.add_node("write_query", write_query)
+graph_builder.add_node("execute_query", execute_query)
+graph_builder.add_node("generate_answer", generate_answer)
+
+# Define the execution flow of the graph
+graph_builder.add_edge(START, "write_query")
+graph_builder.add_edge("write_query", "execute_query")
+graph_builder.add_edge("execute_query", "generate_answer")
+
+# Compile and visualize the graph
+graph = graph_builder.compile()
+```
+
+![Alt text](assets/esquema2.JPG)
+
 

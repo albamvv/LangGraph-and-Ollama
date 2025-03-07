@@ -14,17 +14,15 @@ result = execute_query(query)
 print("result-> ",result)
 
 # Combine all information into a state dictionary
-state = {"question": question, **query, **result}
-print("state ->",state)
+state_dict= {"question": question, **query, **result}
+print("state ->",state_dict)
 
 # Generate and print the final answer
-print("answer-> ",generate_answer(state))
+print("answer-> ",generate_answer(state_dict))
 
 # ------------ Building the graph ---------------
 
-#print("state-> ",state)
 # Build the processing graph
-'''
 graph_builder = StateGraph(State)
 graph_builder.add_node("write_query", write_query)
 graph_builder.add_node("execute_query", execute_query)
@@ -37,6 +35,5 @@ graph_builder.add_edge("execute_query", "generate_answer")
 
 # Compile and visualize the graph
 graph = graph_builder.compile()
-save_and_open_graph(graph)# Save and open the graph image
+save_and_open_graph(graph, filename="custom_graph.png") # Save and open the graph image
 
-'''

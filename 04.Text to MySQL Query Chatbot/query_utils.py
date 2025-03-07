@@ -50,6 +50,7 @@ def generate_answer(state: State):
 
     return {"answer": response.content}
 
+
 def save_and_open_graph(graph, filename="langraph_flow.png"):
     """
     Saves the graph structure as a PNG file and opens it automatically.
@@ -60,10 +61,12 @@ def save_and_open_graph(graph, filename="langraph_flow.png"):
     """
     image_bytes = graph.get_graph().draw_mermaid_png()
     
-    # Save the image as a PNG file
+    # Guardar la imagen con el nombre especificado
     with open(filename, "wb") as f:
         f.write(image_bytes)
-    
+
     # Open the image file (compatible with Windows, macOS, and Linux)
     #os.system(filename)
+    print(f"Graph saved as {filename}")
+
 
