@@ -152,24 +152,29 @@ Requests
 
 
 ## Building the graph
+
+**1. Build the processing graph**
 ```python
-# Build the processing graph
 graph_builder = StateGraph(State)
 graph_builder.add_node("write_query", write_query)
 graph_builder.add_node("execute_query", execute_query)
 graph_builder.add_node("generate_answer", generate_answer)
+```
 
-# Define the execution flow of the graph
+**2. Define the execution flow of the graph**
+```python
 graph_builder.add_edge(START, "write_query")
 graph_builder.add_edge("write_query", "execute_query")
 graph_builder.add_edge("execute_query", "generate_answer")
-
-# Compile and visualize the graph
+```
+**3. Compile and visualize the graph**
+```python
 graph = graph_builder.compile()
 ```
-
+**4. Graph schema**
 ![Alt text](assets/esquema2.JPG)
 
+**5. Example: Query to list all albums**
 ``` python
 query = {'question': 'List all the albums'}
 for step in graph.stream(query, stream_mode="updates"):
