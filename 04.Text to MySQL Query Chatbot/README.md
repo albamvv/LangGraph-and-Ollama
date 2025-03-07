@@ -172,6 +172,7 @@ graph_builder.add_edge("execute_query", "generate_answer")
 graph = graph_builder.compile()
 ```
 **4. Graph schema**
+
 ![Alt text](assets/esquema2.JPG)
 
 **5. Example: Query to list all albums**
