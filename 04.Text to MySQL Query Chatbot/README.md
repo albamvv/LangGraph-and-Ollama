@@ -50,10 +50,9 @@ Question: {input}
 **4. Chat prompt template**
 [SQL Query System Prompt - LangChain Hub](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
 
-**5. Flow**
-![Alt text](assets/esquema1.JPG)
 
-**6. Aplication State or Graph State**
+
+**5. Aplication State or Graph State**
 
 ```python
 query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
@@ -90,9 +89,21 @@ cp .env.example .env
 python Text_to_MySQL_Agent.py
 ```
 
+## Architecture
+1. **Query Generation:** The LLM generates a valid SQL query.
+2. **Execution:** The SQL query runs on the database.
+3. **Answer Generation:** The AI interprets the results and responds in natural language.
 
-## Usage
-### **Create a Python script or interactive session and run:**
+## Dependencies
+```sh
+LangChain
+Ollama
+LangGraph
+SQLAlchemy
+Requests
+```
+
+## MySQL query bot
 
 **1. Write the query**
 ```python
@@ -136,21 +147,6 @@ Ouput:
 {'answer': 'Based on the provided SQL query and result, there are 8 employees in total.'}
 ```
 
-## Architecture
-1. **Query Generation:** The LLM generates a valid SQL query.
-2. **Execution:** The SQL query runs on the database.
-3. **Answer Generation:** The AI interprets the results and responds in natural language.
-
-## Dependencies
-```sh
-LangChain
-Ollama
-LangGraph
-SQLAlchemy
-Requests
-```
-
-
 ## Building the graph
 
 **1. Build the processing graph**
@@ -175,13 +171,6 @@ graph = graph_builder.compile()
 
 START → Write SQL Query → Execute SQL Query → Generate Answer → END
 
-```mermaid
-graph TD;
-    START -->|User question| WriteSQLQuery;
-    WriteSQLQuery -->|Generate SQL statement| ExecuteSQLQuery;
-    ExecuteSQLQuery -->|Retrieve data| GenerateAnswer;
-    GenerateAnswer -->|Return final response| END;
-```
 ![Alt text](assets/esquema2.JPG)
 
 **5. Example: Query to list all albums**
@@ -215,3 +204,14 @@ for step in graph.stream(query, stream_mode="updates"):
         "answer": "It seems like you've provided a list of tracks or songs with their respective numbers and details. Would you like me to do something specific with this information, such as organize it in a certain way, find patterns, or answer a particular question about it?"
     }
 }
+```
+
+## LangGraph AGENTS: Automating query execution with AI
+
+**- Agents can:**
+- - Query the database multiple times to refine their answer.
+- - Recover from errors by detecting failed queries and regenerating them.
+- - Answer questions based on both schema structure and database content.
+
+**- Flow**
+![Alt text](assets/esquema1.JPG)
