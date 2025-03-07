@@ -53,7 +53,13 @@ Question: {input}
 **5. Flow**
 ![Alt text](assets/esquema1.JPG)
 
+**6. Aplication State or Graph State**
 
+```python
+query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
+print("query prompt template-> ",query_prompt_template)
+query_prompt_template.messages[0].pretty_print()
+```
 
 ## Features
 - **Natural Language to SQL:** Converts user questions into SQL queries using an LLM.
@@ -143,16 +149,9 @@ LangGraph
 SQLAlchemy
 Requests
 ```
-## Implementatio details
-### Aplication State or Graph State
 
-```python
-query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
-print("query prompt template-> ",query_prompt_template)
-query_prompt_template.messages[0].pretty_print()
-```
 
-### Building the graph
+## Building the graph
 ```python
 # Build the processing graph
 graph_builder = StateGraph(State)
@@ -171,4 +170,33 @@ graph = graph_builder.compile()
 
 ![Alt text](assets/esquema2.JPG)
 
+``` python
+query = {'question': 'List all the albums'}
+for step in graph.stream(query, stream_mode="updates"):
+    print(step)
+```
+**Output**
 
+```json
+{
+    "write_query": {
+        "query": "SELECT * FROM Album"
+    },
+    "execute_query": {
+        "result": [
+            [1, "For Those About To Rock We Salute You", 1],
+            [2, "Balls to the Wall", 2],
+            [3, "Restless and Wild", 2],
+            [4, "Let There Be Rock", 1],
+            [5, "Big Ones", 3],
+            [6, "Jagged Little Pill", 4],
+            [7, "Facelift", 5],
+            [8, "Warner 25 Anos", 6],
+            [9, "Plays Metallica By Four Cellos", 7],
+            [10, "Audioslave", 8]
+        ]
+    },
+    "generate_answer": {
+        "answer": "It seems like you've provided a list of tracks or songs with their respective numbers and details. Would you like me to do something specific with this information, such as organize it in a certain way, find patterns, or answer a particular question about it?"
+    }
+}
