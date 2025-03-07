@@ -172,6 +172,17 @@ graph_builder.add_edge("execute_query", "generate_answer")
 graph = graph_builder.compile()
 ```
 **4. Graph schema**
+START → Write SQL Query → Execute SQL Query → Generate Answer → END
+
+```mermaid
+graph TD;
+    START -->|User question| WriteSQLQuery;
+    WriteSQLQuery -->|Generate SQL statement| ExecuteSQLQuery;
+    ExecuteSQLQuery -->|Retrieve data| GenerateAnswer;
+    GenerateAnswer -->|Return final response| END;
+```
+
+This schema clearly defines the **flow of the MySQL Query**, ensuring that each step is logically structured and easy to understand. 🚀
 
 ![Alt text](assets/esquema2.JPG)
 
