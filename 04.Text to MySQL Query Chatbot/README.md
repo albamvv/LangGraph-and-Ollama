@@ -208,10 +208,10 @@ for step in graph.stream(query, stream_mode="updates"):
 
 ## LangGraph AGENTS: Automating query execution with AI
 
-**- Agents can:**
-- - Query the database multiple times to refine their answer.
-- - Recover from errors by detecting failed queries and regenerating them.
-- - Answer questions based on both schema structure and database content.
+- **Agents can:**
+  - Query the database multiple times to refine their answer.
+  - Recover from errors by detecting failed queries and regenerating them.
+  - Answer questions based on both schema structure and database content.
 
 **- Flow**
 ![Alt text](assets/esquema1.JPG)
