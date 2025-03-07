@@ -27,6 +27,7 @@ class State(TypedDict):
 query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
 #print("query prompt template-> ",query_prompt_template)
 #query_prompt_template.messages[0].pretty_print()
+prompt = hub.pull("langchain-ai/sql-agent-system-prompt")
 
 
 # Define the structured response format for the MySQL query

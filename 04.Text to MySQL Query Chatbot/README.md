@@ -31,6 +31,18 @@ ollama pull qwen2.5
 
 - [Smith LangChain](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
 
+
+
+**4. Chat prompt template**
+- [SQL Query System Prompt - LangChain Hub](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
+
+```python
+query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
+#print("query prompt template-> ",query_prompt_template)
+query_prompt_template.messages[0].pretty_print()
+```
+**Output:**
+
 ```sh
 ================================ System Message ================================
 
@@ -46,11 +58,33 @@ Only use the following tables:
 
 Question: {input}
 ```
+- [smith.langchain.com](https://smith.langchain.com/hub/langchain-ai/sql-agent-system-prompt?organizationId=5efcb3f2-4211-5c65-9d5f-a3641303ab89)
 
-**4. Chat prompt template**
-[SQL Query System Prompt - LangChain Hub](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
+```python
+prompt = hub.pull("langchain-ai/sql-agent-system-prompt")
+#print("query prompt template-> ",prompt)
+prompt.messages[0].pretty_print()
+```
+**Output:**
 
+```sh
+================================ System Message ================================
 
+You are an agent designed to interact with a SQL database.
+Given an input question, create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer.
+Unless the user specifies a specific number of examples they wish to obtain, always limit your query to at most {top_k} results.
+You can order the results by a relevant column to return the most interesting examples in the database.
+Never query for all the columns from a specific table, only ask for the relevant columns given the question.
+You have access to tools for interacting with the database.
+Only use the below tools. Only use the information returned by the below tools to construct your final answer.
+You MUST double check your query before executing it. If you get an error while executing a query, rewrite the query and try again.
+
+DO NOT make any DML statements (INSERT, UPDATE, DELETE, DROP etc.) to the database.
+
+To start you should ALWAYS look at the tables in the database to see what you can query.
+Do NOT skip this step.
+Then you should query the schema of the most relevant tables.
+```
 
 **5. Aplication State or Graph State**
 
@@ -212,6 +246,9 @@ for step in graph.stream(query, stream_mode="updates"):
   - Query the database multiple times to refine their answer.
   - Recover from errors by detecting failed queries and regenerating them.
   - Answer questions based on both schema structure and database content.
+  - They can query the database as many times as needed to answer the user question.
+  - They can recover from errors by running a generated query, catching the traceback and regenerating it correctly.
+  - They can answer questions based on the databases' schema as well as on the databases' content (like describing a specific table).
 
-**- Flow**
+- **Flow representation**
 ![Alt text](assets/esquema1.JPG)

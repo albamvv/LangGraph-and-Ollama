@@ -1,4 +1,5 @@
 from langchain import hub
+from config import prompt
 
 # LangGraph AGENTS: Automating query execution with AI
 '''
@@ -8,5 +9,6 @@ from langchain import hub
 # - Answer questions based on both schema structure and database content.
 '''
 
-prompt = hub.pull("langchain-ai/sql-agent-system-prompt")
 prompt.messages[0].pretty_print()
+
+
