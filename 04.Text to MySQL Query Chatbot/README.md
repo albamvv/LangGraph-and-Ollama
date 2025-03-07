@@ -25,11 +25,11 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 ollama pull qwen2.5 
 ```
 
-3. **Smith Langchain**
+**3. Smith Langchain**
 
 [LangChain Hub - Smith](https://smith.langchain.com/hub?organizationId=5efcb3f2-4211-5c65-9df5-a364130)
 
-4. **Chat prompt template**
+**4. Chat prompt template**
 [SQL Query System Prompt - LangChain Hub](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
 
 
