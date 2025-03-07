@@ -27,32 +27,7 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 - **Graph-Based Execution Flow:** Uses LangGraph to structure the process.
 - **Error Recovery:** Handles query failures and regenerates them.
 
-## Others 
-### Aplication State or Graph State
 
-```python
-query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
-print("query prompt template-> ",query_prompt_template)
-query_prompt_template.messages[0].pretty_print()
-```
-
-- [Smith LangChain](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
-
-```sh
-================================ System Message ================================
-
-Given an input question, create a syntactically correct {dialect} query to run to help find the answer. Unless the user specifies in his question a specific number of examples they wish to obtain, always limit your query to at most {top_k} results. You can order the results by a relevant column to return the most interesting examples 
-in the database.
-
-Never query for all the columns from a specific table, only ask for a the few relevant columns given the question.
-
-Pay attention to use only the column names that you can see in the schema description. Be careful to not query for columns that do not exist. Also, pay attention to which column is in which table.
-
-Only use the following tables:
-{table_info}
-
-Question: {input}
-```
 ### Write, Execute and Generate MySQL Response
 1. Write node for MySQL Query
 
@@ -82,7 +57,7 @@ question = "How many employees are there?"
 query = write_query({"question": question})
 print(query)
 ```
-- Ouput:
+Ouput:
 
 ```sh
 {'query': 'SELECT COUNT(*) AS NumberOfEmployees FROM Employee;'}
@@ -92,7 +67,7 @@ print(query)
 result = execute_query(query)
 print(result)
 ```
-- Ouput:
+Ouput:
 ```sh
 {'result': '[(8,)]'}
 ```
@@ -102,7 +77,7 @@ state = {"question": question, **query, **result}
 answer = generate_answer(state)
 print(answer)
 ```
-- Ouput:
+Ouput:
 ```sh
 {'answer': 'Based on the provided SQL query and result, there are 8 employees in total.'}
 ```
@@ -120,5 +95,30 @@ LangGraph
 SQLAlchemy
 Requests
 ```
+## Other information
+### Aplication State or Graph State
 
+```python
+query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
+print("query prompt template-> ",query_prompt_template)
+query_prompt_template.messages[0].pretty_print()
+```
+
+- [Smith LangChain](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
+
+```sh
+================================ System Message ================================
+
+Given an input question, create a syntactically correct {dialect} query to run to help find the answer. Unless the user specifies in his question a specific number of examples they wish to obtain, always limit your query to at most {top_k} results. You can order the results by a relevant column to return the most interesting examples 
+in the database.
+
+Never query for all the columns from a specific table, only ask for a the few relevant columns given the question.
+
+Pay attention to use only the column names that you can see in the schema description. Be careful to not query for columns that do not exist. Also, pay attention to which column is in which table.
+
+Only use the following tables:
+{table_info}
+
+Question: {input}
+```
 

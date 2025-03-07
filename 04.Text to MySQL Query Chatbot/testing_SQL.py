@@ -11,3 +11,5 @@ print("Tables names-> ",db.get_usable_table_names())
 print("Album-> ",db.run("SELECT * FROM album LIMIT 2")) # AlbumId, Title, ArtistId
 print("Artist-> ",db.run("SELECT * FROM artist LIMIT 2")) #ArtistId, Name
 print(db.run("SELECT * FROM Invoice AS inv JOIN Customer AS c ON inv.CustomerId=c.CustomerId LIMIT 1"))
+
+print("numero de empleados->",db.run("SELECT COUNT(*) FROM Employee"))
