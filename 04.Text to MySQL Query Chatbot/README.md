@@ -47,10 +47,11 @@ Only use the following tables:
 Question: {input}
 ```
 
-
-
 **4. Chat prompt template**
 [SQL Query System Prompt - LangChain Hub](https://smith.langchain.com/hub/langchain-ai/sql-query-system-prompt?organizationId=5efcb3f2-4211-5c65-9df5-a3641303ab89)
+
+**5. Flow**
+![Alt text](assets/esquema1.JPG)
 
 
 
@@ -83,13 +84,9 @@ cp .env.example .env
 python Text_to_MySQL_Agent.py
 ```
 
-## Flow
-
-![Alt text](assets/esquema1.JPG)
-
 
 ## Usage
-**Create a Python script or interactive session and run:**
+### **Create a Python script or interactive session and run:**
 
 **1. Write the query**
 ```python
@@ -146,7 +143,7 @@ LangGraph
 SQLAlchemy
 Requests
 ```
-## Other information
+## Implementatio details
 ### Aplication State or Graph State
 
 ```python
