@@ -77,24 +77,31 @@ python Text_to_MySQL_Agent.py
 ## Usage
 Create a Python script or interactive session and run:
 ```python
-from Text_to_MySQL_Agent import write_query, execute_query, generate_answer
-
 question = "How many employees are there?"
 query = write_query({"question": question})
 print(query)
+```
+- Ouput:
 
+```sh
+{'query': 'SELECT COUNT(*) AS NumberOfEmployees FROM Employee;'}
+```
+
+``` python
 result = execute_query(query)
 print(result)
-
+```
+- Ouput:
+```sh
+{'result': '[(8,)]'}
+```
+``` python
 state = {"question": question, **query, **result}
 answer = generate_answer(state)
 print(answer)
 ```
-
-## Example Output
+- Ouput:
 ```sh
-{'query': 'SELECT COUNT(*) AS NumberOfEmployees FROM Employee;'}
-{'result': '[(8,)]'}
 {'answer': 'Based on the provided SQL query and result, there are 8 employees in total.'}
 ```
 
