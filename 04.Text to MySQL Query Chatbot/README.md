@@ -297,6 +297,7 @@ print("toolkit context-> ",toolkit.get_context())
   - Includes the structure of several tables such as Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, and Track.
   - Contains CREATE TABLE statements detailing columns, data types, and primary/foreign keys.
 At the end of each table definition, there is a comment (/* ... */) with three sample rows.
+
 **3. BLAH BLAH**
 ``` python
 tools = toolkit.get_tools()
