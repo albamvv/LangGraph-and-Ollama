@@ -176,7 +176,7 @@ state = {"question": question, **query, **result}
 answer = generate_answer(state)
 print(answer)
 ```
-Ouput:
+**Ouput:**
 ```sh
 {'answer': 'Based on the provided SQL query and result, there are 8 employees in total.'}
 ```
@@ -251,4 +251,68 @@ for step in graph.stream(query, stream_mode="updates"):
   - They can answer questions based on the databases' schema as well as on the databases' content (like describing a specific table).
 
 - **Flow representation**
+
 ![Alt text](assets/esquema1.JPG)
+
+### **Steps**
+
+**1. BLAH BLAH**
+``` python
+system_prompt = prompt.invoke({'dialect': db.dialect, 'top_k': 5})
+print("system_prompt-> ",system_prompt)
+```
+
+```json
+
+{
+  "messages": [
+    {
+      "type": "SystemMessage",
+      "content": "You are an agent designed to interact with a SQL database.\nGiven an input question, create a syntactically correct fies a specific number of  ......  database.\n\nTo start you should ALWAYS look at the tables in the database to see what you can query.\nDo NOT skip this step.\nThen you should query the schema of the most relevant tables.",
+      "additional_kwargs": {},
+      "response_metadata": {}
+    }
+  ]
+}
+```
+**2. BLAH BLAH**
+``` python
+toolkit = SQLDatabaseToolkit(db=db, llm=llm)
+print("toolkit context-> ",toolkit.get_context())
+```
+
+**Ouput:**
+```sh
+{
+    "table_info": "..."
+    "table_names": "..."
+}
+```
+
+- Key Descriptions:
+- - table_info: Contains a large text block with SQL statements to create the database tables, including relationships (PRIMARY KEY, FOREIGN KEY) and sample data (3 rows per table).
+- - table_names: A string listing all table names in the database, separated by commas.
+
+- Content of table_info
+- - Includes the structure of several tables such as Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, and Track.
+- - Contains CREATE TABLE statements detailing columns, data types, and primary/foreign keys.
+At the end of each table definition, there is a comment (/* ... */) with three sample rows.
+**3. BLAH BLAH**
+``` python
+tools = toolkit.get_tools()
+print("tools-> ",tools)
+```
+
+**Ouput:**
+```sh
+blah blha
+```
+
+**4. BLAH BLAH**
+``` python
+##
+```
+**Ouput:**
+```sh
+blah blha
+```
