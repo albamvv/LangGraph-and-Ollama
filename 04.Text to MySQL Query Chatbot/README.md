@@ -290,12 +290,12 @@ print("toolkit context-> ",toolkit.get_context())
 ```
 
 - Key Descriptions:
-- - table_info: Contains a large text block with SQL statements to create the database tables, including relationships (PRIMARY KEY, FOREIGN KEY) and sample data (3 rows per table).
-- - table_names: A string listing all table names in the database, separated by commas.
+  - table_info: Contains a large text block with SQL statements to create the database tables, including relationships (PRIMARY KEY, FOREIGN KEY) and sample data (3 rows per table).
+  - table_names: A string listing all table names in the database, separated by commas.
 
 - Content of table_info
-- - Includes the structure of several tables such as Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, and Track.
-- - Contains CREATE TABLE statements detailing columns, data types, and primary/foreign keys.
+  - Includes the structure of several tables such as Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, and Track.
+  - Contains CREATE TABLE statements detailing columns, data types, and primary/foreign keys.
 At the end of each table definition, there is a comment (/* ... */) with three sample rows.
 **3. BLAH BLAH**
 ``` python
