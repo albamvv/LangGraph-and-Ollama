@@ -139,9 +139,11 @@ This project is a MySQL Query Bot that automatically generates, executes, and pr
 ## Usage
 1. Modify the `user_question` variable in `mysql_query_bot.py` to reflect your query.
 2. Run the script with the following command:
-   ```sh
+
+```sh
    python mysql_query_bot.py
-  ```
+```
+
 
 ## Implementation
 **1. Write the query**
