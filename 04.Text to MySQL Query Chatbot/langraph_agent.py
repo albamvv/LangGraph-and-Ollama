@@ -34,7 +34,7 @@ tools = toolkit.get_tools()
 ##----------------------- Agent coding ------------------------------------
 # Create an agent using a ReAct (Reasoning + Acting) framework, providing the language model (llm), available tools, and a system prompt to modify its state.
 agent_executor = create_react_agent(llm, tools, state_modifier=system_prompt)
-save_and_open_graph(agent_executor, filename="assets/agent_graph.png") # Save and open the graph image
+#save_and_open_graph(agent_executor, filename="assets/agent_graph.png") # Save and open the graph image
 
 
 #----------------- Define a question to analyze customer purchases by country
@@ -43,9 +43,10 @@ query = {"messages": [HumanMessage(question)]}
 
 # Stream the agent's responses step by step while processing the query
 for step in agent_executor.stream(query, stream_mode="updates"):
-    print(step)  # Print each step of the execution
+    print("step-> ",step)  # Print each step of the execution
+    print("--------------------------------")
     # The following line is commented out; it likely formats and prints the last message in the response
-    step['messages'][-1].pretty_print()
+    #step['messages'][-1].pretty_print()
 
 
 
