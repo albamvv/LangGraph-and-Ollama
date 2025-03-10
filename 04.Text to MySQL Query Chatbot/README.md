@@ -132,7 +132,19 @@ Requests
 
 # 1️⃣MySQL query bot
 
-** 1. Write the query**
+## Brief description
+
+This project is a MySQL Query Bot that automatically generates, executes, and processes database queries based on user input. It uses utility functions to generate SQL queries, execute them on a database, and format responses into readable answers.
+
+## Usage
+1. Modify the `user_question` variable in `mysql_query_bot.py` to reflect your query.
+2. Run the script with the following command:
+   ```sh
+   python mysql_query_bot.py
+  ```
+
+## Implementation
+**1. Write the query**
 ```python
 question = "How many employees are there?"
 query = write_query({"question": question})
