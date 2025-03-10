@@ -1,5 +1,5 @@
 
-# 1Text to MySQL query cahtbot
+# General: Text to MySQL query chatbot
 
 ## Description
 This project is an AI-powered MySQL query agent that allows users to interact with a database using natural language queries. It leverages LangChain, Ollama, and LangGraph to generate, execute, and interpret SQL queries from user input. The project utilizes the Chinook database, a sample SQLite database for practicing SQL operations.
@@ -130,9 +130,9 @@ SQLAlchemy
 Requests
 ```
 
-## MySQL query bot
+# 1️⃣MySQL query bot
 
-**1. Write the query**
+** 1. Write the query**
 ```python
 question = "How many employees are there?"
 query = write_query({"question": question})
@@ -174,7 +174,7 @@ print(answer)
 {'answer': 'Based on the provided SQL query and result, there are 8 employees in total.'}
 ```
 
-## Building the graph
+# 2️⃣ Building the graph
 
 **1. Build the processing graph**
 ```python
