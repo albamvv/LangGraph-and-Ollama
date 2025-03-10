@@ -277,7 +277,7 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
   - They can recover from errors by running a generated query, catching the traceback and regenerating it correctly.
   - They can answer questions based on the databases' schema as well as on the databases' content (like describing a specific table).
 
-  - **Flow representation**
+- **Flow representation**
 
 ![Alt text](assets/esquema1.JPG)
 
@@ -410,26 +410,11 @@ for step in agent_executor.stream(query, stream_mode="updates"):
 **Ouput:**
 
 **1. Agent ('agent') – The LLM (AI model) generates or processes a query.**
-```sh
-{
-    "agent": {
-        "messages": [
-            AIMessage(
-                content='',  # AI-generated response (empty when calling a tool)
-                response_metadata={  "model": "qwen2.5", ....},
-                id="run-xxxxxx",  # Unique ID of this step
-                tool_calls=[  # Tools the agent is invoking
-                    {   "name": "sql_db_list_tables",  # Tool being used
-                        "args": {},  # Parameters sent to the tool
-                        "type": "tool_call"
-                    }],
-                usage_metadata={...}
-            )
-        ]
-    }
-}
-
-```
+- messages: Una lista de mensajes generados por el agente.
+    - AIMessage: Representa un mensaje del asistente AI.
+        - content: Es el contenido del mensaje (en este caso está vacío, '').
+        - response_metadata: Contiene información sobre la ejecución del modelo (como el modelo usado, tiempos de procesamiento, etc.).
+        - tool_calls: Indica si el agente ha llamado a una herramienta para realizar una acción.
 
 **2. Tool ('tools') – The tool responds with results.**
 ```sh
