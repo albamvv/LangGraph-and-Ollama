@@ -271,14 +271,6 @@ for step in graph.stream(query, stream_mode="updates"):
 # 3️⃣ LangGraph AGENTS: Automating query execution with AI
 
 ## Overview
-blah blah
-## Files
-
-blah blah
-
-## Usage
- bla blah
-
 - **Agents can:**
   - Query the database multiple times to refine their answer.
   - Recover from errors by detecting failed queries and regenerating them.
@@ -287,11 +279,19 @@ blah blah
   - They can recover from errors by running a generated query, catching the traceback and regenerating it correctly.
   - They can answer questions based on the databases' schema as well as on the databases' content (like describing a specific table).
 
-- **Flow representation**
+  - **Flow representation**
 
 ![Alt text](assets/esquema1.JPG)
 
-### **Steps**
+## Files
+
+blah blah
+
+## Usage
+ bla blah
+
+
+## Implementation
 
 **1. BLAH BLAH**
 ``` python
