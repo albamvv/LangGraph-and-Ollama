@@ -43,10 +43,11 @@ query = {"messages": [HumanMessage(question)]}
 
 # Stream the agent's responses step by step while processing the query
 for step in agent_executor.stream(query, stream_mode="updates"):
-    #print("step-> ",step)  # Print each step of the execution
+    print("step-> ",step)  # Print each step of the execution
     print("--------------------------------")
     # The following line is commented out; it likely formats and prints the last message in the response
     #step['messages'][-1].pretty_print()
+    '''
     if 'agent' in step and 'messages' in step['agent']:
         ultimo_mensaje = step['agent']['messages'][-1]  # Último mensaje del agente
         print("Mensaje del agente:", ultimo_mensaje.content)
@@ -58,6 +59,6 @@ for step in agent_executor.stream(query, stream_mode="updates"):
     else:
         print("No se encontró un mensaje válido en step:", step)
 
-
+'''
 
 

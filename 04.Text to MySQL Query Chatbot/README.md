@@ -327,13 +327,10 @@ print("toolkit context-> ",toolkit.get_context())
 }
 ```
 
-- Key Descriptions:
+- **Key Descriptions:**
   - table_info: Contains a large text block with SQL statements to create the database tables, including relationships 
   - table_names: A string listing all table names in the database, separated by commas.
 
-- Content of table_info
-  - Includes the structure of several tables such as Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, and Track.
-  - Contains CREATE TABLE statements detailing columns, data types, and primary/foreign keys.
 
 ``` python
 tools = toolkit.get_tools()
@@ -410,34 +407,32 @@ for step in agent_executor.stream(query, stream_mode="updates"):
 **Ouput:**
 
 **1. Agent ('agent') – The LLM (AI model) generates or processes a query.**
+```sh
+step->  {'agent': {'messages': [AIMessage(content='', response_metadata={'model': 'qwen2.5', ...})]}}
+```
 
-- Mensaje del agente: 
-    - AIMessage: Representa un mensaje del asistente AI.
-        - content: Es el contenido del mensaje (en este caso está vacío, '').
-        - response_metadata: Contiene información sobre la ejecución del modelo 
-        - tool_calls: Indica si el agente ha llamado a una herramienta para realizar una acción.
+- El agente comienza con un mensaje vacío.
+- Está usando el modelo qwen2.5.
+- Ejecuta una llamada a la herramienta sql_db_list_tables para obtener la lista de tablas disponibles.
 
 **2. Tool ('tools') – The tool responds with results.**
-- Mensaje de herramienta: Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, Track
 
 ```sh
-{
-    "tools": {
-        "messages": [
-            ToolMessage(
-                content="Album, Artist, Customer, Invoice...",  # Tool output
-                name="sql_db_list_tables",  # Tool used
-            )
-        ]
-    }
-}
-
+"messages": [
+    ToolMessage(
+        content="Album, Artist, Customer, Invoice...",  # Tool output
+        name="sql_db_list_tables",  # Tool used
+    )
+]
 ```
+- Se obtiene la lista de tablas
+- Mensaje de herramienta: Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, Track
 
 **3. Agent Requests More Details – Queries schema of specific tables.**
 - Mensaje del agente: 
     - AIMessage: Representa un mensaje del asistente AI.
         - tool_calls: Indica si el agente ha llamado a una herramienta para realizar una acción.
+- Ahora, el agente quiere más detalles sobre las tablas Invoice y Customer, porque parecen relevantes para la consulta de compras por país.
 
 
 **4. Tool Responds with Schema Details.**
@@ -453,6 +448,8 @@ for step in agent_executor.stream(query, stream_mode="updates"):
     }
 }
 ```
+- El sistema responde con la estructura de las tablas `Customer` e `Invoice`.
+- También muestra tres registros de ejemplo de cada tabla, lo que ayuda al agente a entender la información.
 
 **5. Agent Checks Query Validity.**
 - Mensaje del agente: 
@@ -476,36 +473,44 @@ for step in agent_executor.stream(query, stream_mode="updates"):
     }
 }
 ```
+- Basándose en la estructura de las tablas, el agente genera la siguiente consulta SQL:
+``` sql
+SELECT Customer.Country, COUNT(*) AS purchase_count 
+FROM Invoice 
+JOIN Customer ON Invoice.CustomerId = Customer.CustomerId 
+GROUP BY Customer.Country 
+ORDER BY purchase_count DESC 
+LIMIT 5;
+```
+- Luego, pasa esta consulta al comprobador de consultas SQL para verificar si está bien escrita.
 
 **6. Tool Confirms Query is Correct.**
 
+- La herramienta confirma que la consulta es válida y no tiene errores.
 - Mensaje de herramienta: The provided SQL query does not contain any common mistakes based on the conditions you've listed. Here is the original query:
 
-```sql
-SELECT C.Country, COUNT(I.InvoiceId) AS PurchaseCount
-FROM Customer C
-JOIN Invoice I ON C.CustomerId = I.CustomerId
-GROUP BY C.Country
-ORDER BY PurchaseCount DESC
-LIMIT 5;
-```
+
 ```sh
-{
-    "tools": {
-        "messages": [
-            ToolMessage(
-                content="The provided SQL query does not contain any common mistakes...",
-                name="sql_db_query_checker",
-                id="1e3bbfb-4b02-4398-a8ed-fc972ae3e609"
-            )
-        ]
-    }
-}
+step->  {'tools': {'messages': [ToolMessage(content='The provided SQL query appears to be correctly written ...')]}}
 ```
 
-**7. tool.**
+**7. Sexto paso: Validación de la consulta.**
+
+```sh
+step->  {'tools': {'messages': [ToolMessage(content='The provided SQL query appears to be correctly written ...')]}}
+```
+- La herramienta confirma que la consulta es válida y no tiene errores.
+
+
+**8. tool.**
+
+```sh
+step->  {'tools': {'messages': [ToolMessage(content="[('USA', 91), ('Canada', 56), ('France', 35), ('Brazil', 35), ('Germany', 28)]"]}}
+```
 - Mensaje de herramienta: [('USA', 91), ('Canada', 56), ('France', 35), ('Brazil', 35), ('Germany', 28)]
-**8. Agent Generates Final Answer.**
+
+**9. Agent Generates Final Answer.**
+- Finalmente, el agente genera su respuesta:
 - Mensaje del agente: The country with the most purchases is USA, followed by Canada, France, Brazil, and Germany. Here are the top 5 countries based on the number of purchases:
 ```sh
 {
