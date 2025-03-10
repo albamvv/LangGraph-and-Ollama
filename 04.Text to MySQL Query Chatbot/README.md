@@ -489,9 +489,10 @@ step->  {'tools': {'messages': [ToolMessage(content='The provided SQL query appe
 **7.  Agent ('agent') – .**
 
 ```sh
+step->  {'agent': {'messages': [..., 'tool_calls': [{'name': 'sql_db_query', 'args': {'query': 'SELECT Customer.Country, COUNT(*) ...'}]}}
 
 ```
-
+- Como la consulta SQL es válida, el agente procede a ejecutarla.
 
 **8. Tool ('tools') – .**
 
@@ -515,3 +516,11 @@ step->  {'tools': {'messages': [ToolMessage(content="[('USA', 91), ('Canada', 56
 }
 
 ```
+
+## 🔍 Resumen de la ejecución
+- 📌 El agente descubre la base de datos (lista de tablas).
+- 🔎 Obtiene los esquemas de las tablas relevantes (Invoice y Customer).
+- 🧠 Genera una consulta SQL para contar compras por país.
+- ✅ Verifica la consulta para asegurarse de que está bien escrita.
+- ⚡ Ejecuta la consulta y obtiene los resultados.
+- 🏆 Devuelve la respuesta final: EE.UU. es el país con más compras.
