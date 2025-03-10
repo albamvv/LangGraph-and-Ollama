@@ -83,7 +83,63 @@ pdf:  ['rag-dataset\\finance\\amazon\\amazon-10-q-q3-2024.pdf', 'rag-dataset\\fi
 
 ### Document Chunking
 
-**4. blah blah**
+**1. Text splitter structure**
+```sh
+[
+    "TokenTextSplitter",
+    "TextSplitter",
+    "Tokenizer",
+    "Language",
+    "RecursiveCharacterTextSplitter",
+    "RecursiveJsonSplitter",
+    "LatexTextSplitter",
+    "PythonCodeTextSplitter",
+    "KonlpyTextSplitter",
+    "SpacyTextSplitter",
+    "NLTKTextSplitter",
+    "split_text_on_tokens",
+    "SentenceTransformersTokenTextSplitter",
+    "ElementType",
+    "HeaderType",
+    "Line
+```
+**1. blah blah**
+``` python
+```
+**Ouput:**
+```sh
+```
+
+**1. blah blah**
+``` python
+```
+**Ouput:**
+```sh
+```
+
+**1. blah blah**
+``` python
+```
+**Ouput:**
+```sh
+```
+### Document Vector Embedding
+
+**1. blah blah**
+``` python
+```
+**Ouput:**
+```sh
+```
+
+**1. blah blah**
+``` python
+```
+**Ouput:**
+```sh
+```
+
+**1. blah blah**
 ``` python
 ```
 **Ouput:**

@@ -22,7 +22,7 @@ for root, dirs, files in os.walk("rag-dataset"):
     for file in files:  
         if file.endswith(".pdf"):  # Check if the file has a ".pdf" extension  
             pdfs.append(os.path.join(root, file))  # Store the full file path  
-print("pdf: ", pdfs)  # Print the list of PDF file paths  
+#print("pdf: ", pdfs)  # Print the list of PDF file paths  
 
 
 docs = []  # Initialize an empty list to store the extracted document data
@@ -32,9 +32,28 @@ for pdf in pdfs:  # Loop through each PDF file path stored in the pdfs list
     temp = loader.load()  # Load the content of the PDF (extract text and metadata)
     docs.extend(temp)  # Add the extracted content to the docs list
 
-print("len docs-> ",len(docs))
+#print("len docs-> ",len(docs))
+#print("docs: ",docs[:2])
 
 
 #------------------------------------ DOCUMENT CHUNKING -------------------------------------------------------
+
+
+'''
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 chunks = text_splitter.split_documents(docs)
+
+len(docs), len(chunks)
+
+docs[0].metadata
+# print(docs[0].page_content)
+
+len(chunks[0].page_content)
+
+chunks[0].metadata
+chunks[1].metadata
+
+chunks[150].metadata
+'
+'''
+#-------------------------------Document Vector Embedding --------------------------
