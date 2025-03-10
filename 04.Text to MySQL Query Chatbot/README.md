@@ -204,8 +204,6 @@ This project constructs a processing graph to handle query execution using `lang
 - `config.py`: Defines the State used in the graph.
 
 ## Usage
-1. 
-2. 
 
 ```sh
    python building_graph.py
