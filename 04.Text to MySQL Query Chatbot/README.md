@@ -132,7 +132,7 @@ Requests
 
 # 1️⃣MySQL query bot
 
-## Brief description
+## Overview
 
 This project is a MySQL Query Bot that automatically generates, executes, and processes database queries based on user input. It uses utility functions to generate SQL queries, execute them on a database, and format responses into readable answers.
 
@@ -190,6 +190,29 @@ print(answer)
 
 # 2️⃣ Building the graph
 
+## Overview
+
+This project constructs a processing graph to handle query execution using `langgraph`. It defines a sequence of steps to:
+1. Write a query.
+2. Execute the query.
+3. Generate an answer from the results.
+
+## Files
+
+- `building_graph.py`: Main script to build and execute the graph.
+- `query_utils.py`: Contains helper functions for query handling.
+- `config.py`: Defines the State used in the graph.
+
+## Usage
+1. 
+2. 
+
+```sh
+   python building_graph.py
+```
+
+
+## Implementation
 **1. Build the processing graph**
 ```python
 graph_builder = StateGraph(State)
