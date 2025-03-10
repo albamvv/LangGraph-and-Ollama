@@ -68,15 +68,7 @@ prompt.messages[0].pretty_print()
 
 You are an agent designed to interact with a SQL database.
 Given an input question, create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer.
-Unless the user specifies a specific number of examples they wish to obtain, always limit your query to at most {top_k} results.
-You can order the results by a relevant column to return the most interesting examples in the database.
-Never query for all the columns from a specific table, only ask for the relevant columns given the question.
-You have access to tools for interacting with the database.
-Only use the below tools. Only use the information returned by the below tools to construct your final answer.
-You MUST double check your query before executing it. If you get an error while executing a query, rewrite the query and try again.
-
-DO NOT make any DML statements (INSERT, UPDATE, DELETE, DROP etc.) to the database.
-
+.......
 To start you should ALWAYS look at the tables in the database to see what you can query.
 Do NOT skip this step.
 Then you should query the schema of the most relevant tables.
@@ -197,6 +189,8 @@ This project constructs a processing graph to handle query execution using `lang
 2. Execute the query.
 3. Generate an answer from the results.
 
+![Alt text](assets/building_graph.JPG)
+
 ## Files
 
 - `building_graph.py`: Main script to build and execute the graph.
@@ -232,8 +226,6 @@ graph = graph_builder.compile()
 **4. Graph schema**
 
 START → Write SQL Query → Execute SQL Query → Generate Answer → END
-
-![Alt text](assets/esquema2.JPG)
 
 **5. Example: Query to list all albums**
 ``` python
