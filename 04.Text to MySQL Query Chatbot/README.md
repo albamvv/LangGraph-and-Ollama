@@ -437,16 +437,7 @@ step->  {'agent': {'messages': [AIMessage(content='', response_metadata={'model'
 
 **4. Tool ('tools') –  Tool Responds with Schema Details.**
 ```sh
-{
-    "tools": {
-        "messages": [
-            ToolMessage(
-                content="CREATE TABLE 'Customer' (\n 'CustomerId' INTEGER NOT NULL...",
-                name="sql_db_schema",
-            )
-        ]
-    }
-}
+step->  {'tools': {'messages': [ToolMessage(content='CREATE TABLE "Customer" (...), CREATE TABLE "Invoice" (...')]}}
 ```
 - El sistema responde con la estructura de las tablas `Customer` e `Invoice`.
 - También muestra tres registros de ejemplo de cada tabla, lo que ayuda al agente a entender la información.
