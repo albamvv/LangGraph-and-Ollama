@@ -1,5 +1,5 @@
 
-# 1️⃣ Text to MySQL query
+# 1Text to MySQL query cahtbot
 
 ## Description
 This project is an AI-powered MySQL query agent that allows users to interact with a database using natural language queries. It leverages LangChain, Ollama, and LangGraph to generate, execute, and interpret SQL queries from user input. The project utilizes the Chinook database, a sample SQLite database for practicing SQL operations.
@@ -7,7 +7,7 @@ This project is an AI-powered MySQL query agent that allows users to interact wi
 
  **1. Chinook database**
 
- [Chinook Sample Data - Yugabyte Docs](https://docs.yugabyte.com/preview/sample-data/chinook/)
+ - Database -> [Chinook Sample Data - Yugabyte Docs](https://docs.yugabyte.com/preview/sample-data/chinook/)
 
 - Representation
 
@@ -97,9 +97,6 @@ query_prompt_template.messages[0].pretty_print()
 - **Graph-Based Execution Flow:** Uses LangGraph to structure the process.
 - **Error Recovery:** Handles query failures and regenerates them.
 
-
-### Write, Execute and Generate MySQL Response
-1. Write node for MySQL Query
 
 ## Requirements
 ```sh
