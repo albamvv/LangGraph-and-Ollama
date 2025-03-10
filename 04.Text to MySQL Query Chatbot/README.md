@@ -442,7 +442,7 @@ step->  {'tools': {'messages': [ToolMessage(content='CREATE TABLE "Customer" (..
 - El sistema responde con la estructura de las tablas `Customer` e `Invoice`.
 - También muestra tres registros de ejemplo de cada tabla, lo que ayuda al agente a entender la información.
 
-**5. Agent Checks Query Validity.**
+**5. Agent ('agent') –  Agent Checks Query Validity.**
 - Mensaje del agente: 
 ```sh
 {
