@@ -295,14 +295,13 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
 
 ## Implementation
 
-**1. BLAH BLAH**
+### **1. System promp**
 ``` python
 system_prompt = prompt.invoke({'dialect': db.dialect, 'top_k': 5})
 print("system_prompt-> ",system_prompt)
 ```
 
 ```json
-
 {
   "messages": [
     {
@@ -314,7 +313,7 @@ print("system_prompt-> ",system_prompt)
   ]
 }
 ```
-**2. Retrieve Available Tools**
+### **2. Retrieve Available Tools**
 ``` python
 toolkit = SQLDatabaseToolkit(db=db, llm=llm)
 print("toolkit context-> ",toolkit.get_context())
@@ -329,13 +328,12 @@ print("toolkit context-> ",toolkit.get_context())
 ```
 
 - Key Descriptions:
-  - table_info: Contains a large text block with SQL statements to create the database tables, including relationships (PRIMARY KEY, FOREIGN KEY) and sample data (3 rows per table).
+  - table_info: Contains a large text block with SQL statements to create the database tables, including relationships 
   - table_names: A string listing all table names in the database, separated by commas.
 
 - Content of table_info
   - Includes the structure of several tables such as Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, and Track.
   - Contains CREATE TABLE statements detailing columns, data types, and primary/foreign keys.
-At the end of each table definition, there is a comment (/* ... */) with three sample rows.
 
 ``` python
 tools = toolkit.get_tools()
@@ -345,22 +343,10 @@ print("tools-> ",tools)
 **Ouput:**
 ```sh
 tools_dict = [
-    {
-        "name": "QuerySQLDatabaseTool",
-        "description": ("Input to this tool is a detailed and correct SQL query, output is............"),
-        "db": "<SQLDatabase object at 0x000001FAFFEACEF0>"
-    },
-    {
-        "name": "InfoSQLDatabaseTool",
-        "description": ("Input to this too-----. "),
-        "db": "<SQLDatabase object at 0x000001FAFFEACEF0>"
-    },
-    {
-        "name": "ListSQLDatabaseTool",
-        "db": "<SQLDatabase object at 0x000001FAFFEACEF0>"
-    },
-    {
-        "name": "QuerySQLCheckerTool",
+    { "name": "QuerySQLDatabaseTool",},
+    { "name": "InfoSQLDatabaseTool", },
+    { "name": "ListSQLDatabaseTool", },
+    { "name": "QuerySQLCheckerTool",
         "description":
         "db": "<SQLDatabase object at 0x000001FAFFEACEF0>",
         "llm": {
@@ -371,16 +357,12 @@ tools_dict = [
             "verbose": False,
             "prompt": {
                 "input_variables": ["dialect", "query"],
-                "input_types": {},
-                "partial_variables": {},
                 "template": (
                     "\n{query}\nDouble check the {dialect} query above for common mistakes, including:\n"
                     ....
                     "Output the final SQL query only.\n\nSQL Query: "
                 )
             },
-            "output_parser": "StrOutputParser",
-            "llm_kwargs": {}
         }
     }
 ]
@@ -391,7 +373,7 @@ tools_dict = [
 - **ListSQLDatabaseTool** – Lists all available tables in the database.
 - **QuerySQLCheckerTool** – Validates SQL queries using an LLM (qwen2.5). Detects and fixes common mistakes before execution.
 
-**3. Execute an SQL Query**
+### **3. Execute an SQL Query**
 ``` python
 # Invoke the first tool to execute an SQL query selecting two rows from the "Album" table
 tools[0].invoke("select * from Album LIMIT 2")
@@ -403,7 +385,7 @@ tools[0].invoke("select * from Album LIMIT 2")
 [(1, 'For Those About To Rock We Salute You', 1), (2, 'Balls to the Wall', 2)]
 ```
 
-**4. Create the ReAct Agent**
+### **4. Create the ReAct Agent**
 - The ReAct agent (Reasoning + Acting agent) is created using:
   - llm: A large language model (e.g., GPT).
   - tools: The available tools (including the SQL executor).
@@ -417,7 +399,7 @@ save_and_open_graph(agent_executor, filename="assets/agent_graph.png") # Save an
 
 ![Alt text](assets/agent_graph.png)
 
-**5. Define and Process a User Query**
+### **5. Define and Process a User Query**
 ``` python
 # Stream the agent's responses step by step while processing the query
 for step in agent_executor.stream(query, stream_mode="updates"):
