@@ -410,13 +410,16 @@ for step in agent_executor.stream(query, stream_mode="updates"):
 **Ouput:**
 
 **1. Agent ('agent') – The LLM (AI model) generates or processes a query.**
-- messages: Una lista de mensajes generados por el agente.
+
+- Mensaje del agente: 
     - AIMessage: Representa un mensaje del asistente AI.
         - content: Es el contenido del mensaje (en este caso está vacío, '').
-        - response_metadata: Contiene información sobre la ejecución del modelo (como el modelo usado, tiempos de procesamiento, etc.).
+        - response_metadata: Contiene información sobre la ejecución del modelo 
         - tool_calls: Indica si el agente ha llamado a una herramienta para realizar una acción.
 
 **2. Tool ('tools') – The tool responds with results.**
+- Mensaje de herramienta: Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, Track
+
 ```sh
 {
     "tools": {
@@ -432,24 +435,10 @@ for step in agent_executor.stream(query, stream_mode="updates"):
 ```
 
 **3. Agent Requests More Details – Queries schema of specific tables.**
-```sh
-{
-    "agent": {
-        "messages": [
-            AIMessage(
-                tool_calls=[
-                    {
-                        "name": "sql_db_schema",  # Request schema details
-                        "args": {"table_names": "Customer, Invoice"},  # Tables being inspected
-                        "type": "tool_call"
-                    }
-                ]
-            )
-        ]
-    }
-}
+- Mensaje del agente: 
+    - AIMessage: Representa un mensaje del asistente AI.
+        - tool_calls: Indica si el agente ha llamado a una herramienta para realizar una acción.
 
-```
 
 **4. Tool Responds with Schema Details.**
 ```sh
@@ -466,6 +455,7 @@ for step in agent_executor.stream(query, stream_mode="updates"):
 ```
 
 **5. Agent Checks Query Validity.**
+- Mensaje del agente: 
 ```sh
 {
     "agent": {
@@ -488,6 +478,17 @@ for step in agent_executor.stream(query, stream_mode="updates"):
 ```
 
 **6. Tool Confirms Query is Correct.**
+
+- Mensaje de herramienta: The provided SQL query does not contain any common mistakes based on the conditions you've listed. Here is the original query:
+
+```sql
+SELECT C.Country, COUNT(I.InvoiceId) AS PurchaseCount
+FROM Customer C
+JOIN Invoice I ON C.CustomerId = I.CustomerId
+GROUP BY C.Country
+ORDER BY PurchaseCount DESC
+LIMIT 5;
+```
 ```sh
 {
     "tools": {
@@ -502,7 +503,10 @@ for step in agent_executor.stream(query, stream_mode="updates"):
 }
 ```
 
-**7. Agent Generates Final Answer.**
+**7. tool.**
+- Mensaje de herramienta: [('USA', 91), ('Canada', 56), ('France', 35), ('Brazil', 35), ('Germany', 28)]
+**8. Agent Generates Final Answer.**
+- Mensaje del agente: The country with the most purchases is USA, followed by Canada, France, Brazil, and Germany. Here are the top 5 countries based on the number of purchases:
 ```sh
 {
     "agent": {
