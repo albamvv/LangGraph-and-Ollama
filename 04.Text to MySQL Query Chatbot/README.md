@@ -413,7 +413,7 @@ step->  {'agent': {'messages': [AIMessage(content='', response_metadata={'model'
 
 - El agente comienza con un mensaje vacío.
 - Está usando el modelo qwen2.5.
-- Ejecuta una llamada a la herramienta sql_db_list_tables para obtener la lista de tablas disponibles.
+- Ejecuta una llamada a la herramienta `sql_db_list_tables` para obtener la lista de tablas disponibles.
 
 **2. Tool ('tools') – The tool responds with results.**
 
@@ -428,14 +428,14 @@ step->  {'agent': {'messages': [AIMessage(content='', response_metadata={'model'
 - Se obtiene la lista de tablas
 - Mensaje de herramienta: Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, Track
 
-**3. Agent Requests More Details – Queries schema of specific tables.**
+**3.  Agent ('agent') – Agent Requests More Details – Queries schema of specific tables.**
 - Mensaje del agente: 
     - AIMessage: Representa un mensaje del asistente AI.
         - tool_calls: Indica si el agente ha llamado a una herramienta para realizar una acción.
 - Ahora, el agente quiere más detalles sobre las tablas Invoice y Customer, porque parecen relevantes para la consulta de compras por país.
 
 
-**4. Tool Responds with Schema Details.**
+**4. Tool ('tools') –  Tool Responds with Schema Details.**
 ```sh
 {
     "tools": {
@@ -484,7 +484,7 @@ LIMIT 5;
 ```
 - Luego, pasa esta consulta al comprobador de consultas SQL para verificar si está bien escrita.
 
-**6. Tool Confirms Query is Correct.**
+**6. Tool ('tools') – Tool Confirms Query is Correct.**
 
 - La herramienta confirma que la consulta es válida y no tiene errores.
 - Mensaje de herramienta: The provided SQL query does not contain any common mistakes based on the conditions you've listed. Here is the original query:
@@ -493,23 +493,23 @@ LIMIT 5;
 ```sh
 step->  {'tools': {'messages': [ToolMessage(content='The provided SQL query appears to be correctly written ...')]}}
 ```
-
-**7. Sexto paso: Validación de la consulta.**
-
-```sh
-step->  {'tools': {'messages': [ToolMessage(content='The provided SQL query appears to be correctly written ...')]}}
-```
 - La herramienta confirma que la consulta es válida y no tiene errores.
 
+**7.  Agent ('agent') – .**
 
-**8. tool.**
+```sh
+
+```
+
+
+**8. Tool ('tools') – .**
 
 ```sh
 step->  {'tools': {'messages': [ToolMessage(content="[('USA', 91), ('Canada', 56), ('France', 35), ('Brazil', 35), ('Germany', 28)]"]}}
 ```
 - Mensaje de herramienta: [('USA', 91), ('Canada', 56), ('France', 35), ('Brazil', 35), ('Germany', 28)]
 
-**9. Agent Generates Final Answer.**
+**9.  Agent ('agent') –  Agent Generates Final Answer.**
 - Finalmente, el agente genera su respuesta:
 - Mensaje del agente: The country with the most purchases is USA, followed by Canada, France, Brazil, and Germany. Here are the top 5 countries based on the number of purchases:
 ```sh
