@@ -46,7 +46,7 @@ for step in agent_executor.stream(query, stream_mode="updates"):
     print("step-> ",step)  # Print each step of the execution
     print("--------------------------------")
     # The following line is commented out; it likely formats and prints the last message in the response
-    #step['messages'][-1].pretty_print()
+    step['messages'][-1].pretty_print()
 
 
 

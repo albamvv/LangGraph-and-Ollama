@@ -4,18 +4,14 @@
 ## Description
 This project is an AI-powered MySQL query agent that allows users to interact with a database using natural language queries. It leverages LangChain, Ollama, and LangGraph to generate, execute, and interpret SQL queries from user input. The project utilizes the Chinook database, a sample SQLite database for practicing SQL operations.
 
-- This simple agent responds to a text message with a MySQL query execution result.
-- he agent is built using LangGraph
-- We will start with simple linear flow and then add more complex flows
-- For this example, We will use Chinook database which is sample database available for sqlite
-- You can tryout this for any database sqlite or mysql or postgresql by changing the connection string
+
  **1. Chinook database**
 
  [Chinook Sample Data - Yugabyte Docs](https://docs.yugabyte.com/preview/sample-data/chinook/)
 
 - Representation
 
- ![Alt text](chinook-er-diagram.png)
+ ![Alt text](assets/chinook-er-diagram.png)
 
  **2. Ollama model** 
 - Information
@@ -398,13 +394,10 @@ for step in agent_executor.stream(query, stream_mode="updates"):
                 response_metadata={  "model": "qwen2.5", ....},
                 id="run-xxxxxx",  # Unique ID of this step
                 tool_calls=[  # Tools the agent is invoking
-                    {
-                        "name": "sql_db_list_tables",  # Tool being used
+                    {   "name": "sql_db_list_tables",  # Tool being used
                         "args": {},  # Parameters sent to the tool
-                        "id": "dfa49c97-4ddd-459e-9089-29d3fade430e",  # Unique tool execution ID
                         "type": "tool_call"
-                    }
-                ],
+                    }],
                 usage_metadata={...}
             )
         ]
@@ -413,5 +406,102 @@ for step in agent_executor.stream(query, stream_mode="updates"):
 
 ```
 
+**2. Tool ('tools') – The tool responds with results.**
+```sh
+{
+    "tools": {
+        "messages": [
+            ToolMessage(
+                content="Album, Artist, Customer, Invoice...",  # Tool output
+                name="sql_db_list_tables",  # Tool used
+            )
+        ]
+    }
+}
 
+```
 
+**3. Agent Requests More Details – Queries schema of specific tables.**
+```sh
+{
+    "agent": {
+        "messages": [
+            AIMessage(
+                tool_calls=[
+                    {
+                        "name": "sql_db_schema",  # Request schema details
+                        "args": {"table_names": "Customer, Invoice"},  # Tables being inspected
+                        "type": "tool_call"
+                    }
+                ]
+            )
+        ]
+    }
+}
+
+```
+
+**4. Tool Responds with Schema Details.**
+```sh
+{
+    "tools": {
+        "messages": [
+            ToolMessage(
+                content="CREATE TABLE 'Customer' (\n 'CustomerId' INTEGER NOT NULL...",
+                name="sql_db_schema",
+            )
+        ]
+    }
+}
+```
+
+**5. Agent Checks Query Validity.**
+```sh
+{
+    "agent": {
+        "messages": [
+            AIMessage(
+                tool_calls=[
+                    {
+                        "name": "sql_db_query_checker",
+                        "args": {
+                            "query": "SELECT C.Country, COUNT(I.InvoiceId) AS PurchaseCount FROM Customer C INNER JOIN Invoice I ON C.CustomerId = I.CustomerId GROUP BY C.Country ORDER BY PurchaseCount DESC LIMIT 5"
+                        },
+                        "id": "478e4a57-016d-4b2f-b5bc-d861398e0f85",
+                        "type": "tool_call"
+                    }
+                ]
+            )
+        ]
+    }
+}
+```
+
+**6. Tool Confirms Query is Correct.**
+```sh
+{
+    "tools": {
+        "messages": [
+            ToolMessage(
+                content="The provided SQL query does not contain any common mistakes...",
+                name="sql_db_query_checker",
+                id="1e3bbfb-4b02-4398-a8ed-fc972ae3e609"
+            )
+        ]
+    }
+}
+```
+
+**7. Agent Generates Final Answer.**
+```sh
+{
+    "agent": {
+        "messages": [
+            AIMessage(
+                content="The country with the most purchases is USA, followed by Canada, France, Brazil, and Germany. Here are the top 5 countries based on purchase count:\n\n1. USA - 91 purchases\n2. Canada - 56 purchases\n3. France - 35 purchases\n4. Brazil - 35 purchases\n5. Germany - 28 purchases"
+            )
+        ]
+    }
+}
+
+```
