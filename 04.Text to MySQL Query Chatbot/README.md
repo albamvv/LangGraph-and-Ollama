@@ -275,7 +275,7 @@ print("system_prompt-> ",system_prompt)
   ]
 }
 ```
-**2. BLAH BLAH**
+**2. Retrieve Available Tools**
 ``` python
 toolkit = SQLDatabaseToolkit(db=db, llm=llm)
 print("toolkit context-> ",toolkit.get_context())
@@ -298,7 +298,6 @@ print("toolkit context-> ",toolkit.get_context())
   - Contains CREATE TABLE statements detailing columns, data types, and primary/foreign keys.
 At the end of each table definition, there is a comment (/* ... */) with three sample rows.
 
-**3. BLAH BLAH**
 ``` python
 tools = toolkit.get_tools()
 print("tools-> ",tools)
@@ -306,14 +305,91 @@ print("tools-> ",tools)
 
 **Ouput:**
 ```sh
-blah blha
+tools_dict = [
+    {
+        "name": "QuerySQLDatabaseTool",
+        "description": ("Input to this tool is a detailed and correct SQL query, output is............"),
+        "db": "<SQLDatabase object at 0x000001FAFFEACEF0>"
+    },
+    {
+        "name": "InfoSQLDatabaseTool",
+        "description": ("Input to this too-----. "),
+        "db": "<SQLDatabase object at 0x000001FAFFEACEF0>"
+    },
+    {
+        "name": "ListSQLDatabaseTool",
+        "db": "<SQLDatabase object at 0x000001FAFFEACEF0>"
+    },
+    {
+        "name": "QuerySQLCheckerTool",
+        "description":
+        "db": "<SQLDatabase object at 0x000001FAFFEACEF0>",
+        "llm": {
+            "model": "qwen2.5",
+            "base_url": "http://localhost:11434"
+        },
+        "llm_chain": {
+            "verbose": False,
+            "prompt": {
+                "input_variables": ["dialect", "query"],
+                "input_types": {},
+                "partial_variables": {},
+                "template": (
+                    "\n{query}\nDouble check the {dialect} query above for common mistakes, including:\n"
+                    ....
+                    "Output the final SQL query only.\n\nSQL Query: "
+                )
+            },
+            "output_parser": "StrOutputParser",
+            "llm_kwargs": {}
+        }
+    }
+]
+
+```
+- **QuerySQLDatabaseTool** – Executes SQL queries and handles errors. If a query fails, it suggests corrections.
+- **InfoSQLDatabaseTool** – Retrieves table schemas and sample data. Ensures tables exist before querying.
+- **ListSQLDatabaseTool** – Lists all available tables in the database.
+- **QuerySQLCheckerTool** – Validates SQL queries using an LLM (qwen2.5). Detects and fixes common mistakes before execution.
+
+**3. Execute an SQL Query**
+``` python
+# Invoke the first tool to execute an SQL query selecting two rows from the "Album" table
+tools[0].invoke("select * from Album LIMIT 2")
+# The following line is commented out; it seems to be invoking another tool with table names
+# print(tools[1].invoke("Album,Customer"))
+```
+**Ouput:**
+```sh
+[(1, 'For Those About To Rock We Salute You', 1), (2, 'Balls to the Wall', 2)]
 ```
 
-**4. BLAH BLAH**
+**4. Create the ReAct Agent**
+- The ReAct agent (Reasoning + Acting agent) is created using:
+  - llm: A large language model (e.g., GPT).
+  - tools: The available tools (including the SQL executor).
+  - system_prompt: A predefined prompt that guides the agent’s behavior.
+- This agent is designed to reason about a query and take the appropriate action.
+
 ``` python
-##
+agent_executor = create_react_agent(llm, tools, state_modifier=system_prompt)
+save_and_open_graph(agent_executor, filename="assets/agent_graph.png") # Save and open the graph image
+```
+
+![Alt text](assets/agent_graph.png)
+
+**5. Define and Process a User Query**
+``` python
+# Stream the agent's responses step by step while processing the query
+for step in agent_executor.stream(query, stream_mode="updates"):
+    print(step)  # Print each step of the execution
+    #prints the last message in the response
+    step['messages'][-1].pretty_print()
 ```
 **Ouput:**
 ```sh
 blah blha
 ```
+
+
+
