@@ -263,6 +263,12 @@ for step in graph.stream(query, stream_mode="updates"):
 # 3️⃣ LangGraph AGENTS: Automating query execution with AI
 
 ## Overview
+
+This project uses LangGraph and LangChain to build an AI-powered agent capable of querying an SQL database intelligently. The agent can:
+- Perform iterative database queries to refine results.
+- Detect and recover from query errors.
+- Answer questions based on the database structure and content.
+
 - **Agents can:**
   - Query the database multiple times to refine their answer.
   - Recover from errors by detecting failed queries and regenerating them.
@@ -277,11 +283,15 @@ for step in graph.stream(query, stream_mode="updates"):
 
 ## Files
 
-blah blah
+- `langraph_agent.py`: The main script that sets up and executes the AI agent.
+- `config.py`: Defines database and prompt configurations.
+- `query_utils.py`: Contains helper functions for query handling.
 
 ## Usage
- bla blah
 
+```sh
+   python langraph_agent.py
+```
 
 ## Implementation
 

@@ -15,7 +15,7 @@ graph_builder.add_edge("execute_query", "generate_answer")
 
 # Compile and visualize the graph
 graph = graph_builder.compile()
-#save_and_open_graph(graph, filename="custom_graph.png") # Save and open the graph image
+#save_and_open_graph(graph, filename="building_graph.png") # Save and open the graph image
 
 # Example: Query to list all albums
 query = {'question': 'List all the albums'}
