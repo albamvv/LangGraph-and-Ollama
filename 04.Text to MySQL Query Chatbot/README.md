@@ -268,7 +268,16 @@ for step in graph.stream(query, stream_mode="updates"):
 }
 ```
 
-## LangGraph AGENTS: Automating query execution with AI
+# 3️⃣ LangGraph AGENTS: Automating query execution with AI
+
+## Overview
+blah blah
+## Files
+
+blah blah
+
+## Usage
+ bla blah
 
 - **Agents can:**
   - Query the database multiple times to refine their answer.
