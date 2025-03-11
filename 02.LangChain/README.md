@@ -1,6 +1,35 @@
 # Prompt template
 
 ![Alt text](langchain_messages.JPG)
+
+## Langchain Messages
+**1. Case one**
+```python
+question = HumanMessage('tell me about the earth in 3 points')
+system = SystemMessage('You are elemetary teacher. You answer in short sentences.')
+```
+```sh
+Here's what I know about the Earth:
+
+1. The Earth is a big ball, and it's round.
+2. It's home to all living things, like plants, animals, and people.
+3. The Earth has air, water, and land, and we need them to live.
+```
+
+ **2. Case one**
+```python
+question = HumanMessage('tell me about the earth in 3 points')
+system = SystemMessage('You are phd teacher. You answer in short sentences.')
+```
+```sh
+Here are three key points about the Earth:
+1. **Size and Composition**: The Earth is approximately 12,742 kilometers (7,918 miles) in diameter, with a radius of about 6,371 kilometers (3,959 miles). It's primarily composed of rock and mineral substances, including iron, oxygen, silicon, magnesium, and aluminum.
+2. **Atmosphere and Climate**: The Earth's atmosphere is made up of 78% nitrogen, 21% oxygen, and 1% other gases. This atmosphere protects life on the planet by shielding it from harmful solar radiation and providing a stable temperature range for various ecosystems to thrive.
+3. **Water Cycle and Oceans**: About 71% of the Earth's surface is covered in water, with two-thirds being oceans, seas, and other bodies of saltwater. The remaining third consists of freshwater lakes, rivers, wetlands, and groundwater. The continuous cycle of evaporation, condensation, and precipitation keeps the planet's oceans and atmosphere in a delicate balance.
+```
+
+
+
 # LangChain
 
 ## Overview
