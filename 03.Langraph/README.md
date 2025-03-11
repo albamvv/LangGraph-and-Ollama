@@ -14,48 +14,45 @@ This script demonstrates how to integrate an LLM (Large Language Model) with var
 ![Alt text](assets/tool_calling.JPG)
 
 ## Key Features
-1. **Tool Creation and Invocation**
+**1. Tool Creation and Invocation**
 - Functions (add, multiply, etc.) are defined and bound to the LLM, allowing it to automatically call them when needed.
 - The model can interpret user queries and decide whether a tool should be used for calculations or searches.
 - https://python.langchain.com/docs/integrations/tools/ 
 
 
-2. **Built-in Search Integration**
+**2. Built-in Search Integration**
 - Includes search tools like Wikipedia, PubMed, and Tavily for retrieving information.
-- PubMed® comprises more than 35 million citations for biomedical literature from MEDLINE, life science journals, and online books.
-- DuckDuckDuck
-
-```bash
-search = DuckDuckGoSearchRun()
-```
+- **DuckDuckDuck**
    - DuckDuckGoSearchRun, una herramienta de búsqueda en línea basada en el motor de DuckDuckGo
    - Crea una instancia de DuckDuckGoSearchRun, que es una clase utilizada en LangChain para ejecutar búsquedas en DuckDuckGo.
    - Esta clase permite realizar búsquedas en la web sin rastreo, a diferencia de Google.
 
-```bash
+```python
+search = DuckDuckGoSearchRun()
 search.invoke("What is today's stock market news?")
 ```
+- Search
    - Ejecuta la búsqueda con la consulta "What is today's stock market news?".
    - Retorna los resultados de la búsqueda en tiempo real.
 
-3. **Handling Tool Calls**
+**3. Handling Tool Calls**
 - Queries are processed by checking if a tool needs to be invoked.
 - The script extracts the required tool's name, executes it, and appends the results to the conversation.
 - The LLM is reinvoked with the updated context to generate a final response.
 
 ## Workflow
-1. **Define and register tools.**
+**1. Define and register tools.**
 ```bash
 tools = [wikipedia_search, pubmed_search, tavily_search, multiply2]
 list_of_tools = {tool.name: tool for tool in tools}
 ```
-2. **Bind tools to the LLM.**
+**2. Bind tools to the LLM.**
 - bind_tools(tools) links the model (llm) with the available tools (e.g., Wikipedia search, PubMed search, Tavily search, or a multiplication function).
 - Now, the LLM can automatically decide whether a tool should be used to answer a query.
 ```bash
 llm_with_tools = llm.bind_tools(tools)
 ```
-3. **Define the message**
+**3. Define the message**
 
 ```bash 
 query = "What is medicine for lung cancer?"
@@ -64,7 +61,7 @@ messages = [HumanMessage(query)]
 ![Alt text](assets/messages1.JPG)
 
 
-4.  **Process user queries:**
+**4.  Process user queries:**
 - Determine if a tool is required.
 - Invoke the appropriate tool.
 ```bash 
@@ -73,7 +70,7 @@ messages.append(ai_msg) # Append AI's response to the messages
 ```
 ![Alt text](assets/messages2.JPG)
 
-5. **Generate tool message**
+**5. Generate tool message**
 
 ```bash 
 for tool_call in ai_msg.tool_calls:
@@ -85,12 +82,12 @@ for tool_call in ai_msg.tool_calls:
 
 ![Alt text](assets/messages3.JPG)
 
-6. **Reinvoke the LLM with the enriched conversation.**
+**6. Reinvoke the LLM with the enriched conversation.**
 
 ```bash 
 response = llm_with_tools.invoke(messages)
 ```
-7. **Display the final response.**
+**7. Display the final response.**
 
 ```bash 
 print("Response->" ,response.content)
