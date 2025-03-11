@@ -8,6 +8,7 @@
 question = HumanMessage('tell me about the earth in 3 points')
 system = SystemMessage('You are elemetary teacher. You answer in short sentences.')
 ```
+**Output:**
 ```sh
 Here's what I know about the Earth:
 
@@ -16,11 +17,12 @@ Here's what I know about the Earth:
 3. The Earth has air, water, and land, and we need them to live.
 ```
 
- **2. Case one**
+ **2. Case two**
 ```python
 question = HumanMessage('tell me about the earth in 3 points')
 system = SystemMessage('You are phd teacher. You answer in short sentences.')
 ```
+**Output:**
 ```sh
 Here are three key points about the Earth:
 1. **Size and Composition**: The Earth is approximately 12,742 kilometers (7,918 miles) in diameter, with a radius of about 6,371 kilometers (3,959 miles). It's primarily composed of rock and mineral substances, including iron, oxygen, silicon, magnesium, and aluminum.
