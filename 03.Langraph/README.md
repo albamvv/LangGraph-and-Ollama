@@ -40,21 +40,22 @@ search.invoke("What is today's stock market news?")
 - The script extracts the required tool's name, executes it, and appends the results to the conversation.
 - The LLM is reinvoked with the updated context to generate a final response.
 
-## Workflow
+## Implementation
 **1. Define and register tools.**
-```bash
+```python
 tools = [wikipedia_search, pubmed_search, tavily_search, multiply2]
 list_of_tools = {tool.name: tool for tool in tools}
 ```
 **2. Bind tools to the LLM.**
-- bind_tools(tools) links the model (llm) with the available tools (e.g., Wikipedia search, PubMed search, Tavily search, or a multiplication function).
+- `bind_tools(tools)` links the model (llm) with the available tools (e.g., Wikipedia search, PubMed search, Tavily search, or a multiplication function).
 - Now, the LLM can automatically decide whether a tool should be used to answer a query.
-```bash
+
+```python
 llm_with_tools = llm.bind_tools(tools)
 ```
 **3. Define the message**
 
-```bash 
+```python 
 query = "What is medicine for lung cancer?"
 messages = [HumanMessage(query)]
 ```
@@ -64,7 +65,8 @@ messages = [HumanMessage(query)]
 **4.  Process user queries:**
 - Determine if a tool is required.
 - Invoke the appropriate tool.
-```bash 
+
+```python 
 ai_msg = llm_with_tools.invoke(messages)
 messages.append(ai_msg) # Append AI's response to the messages
 ```
@@ -72,7 +74,7 @@ messages.append(ai_msg) # Append AI's response to the messages
 
 **5. Generate tool message**
 
-```bash 
+```python 
 for tool_call in ai_msg.tool_calls:
     name = tool_call['name'].lower()  # Get the tool name
     selected_tool = list_of_tools[name]  # Find the tool from the dictionary
@@ -84,12 +86,12 @@ for tool_call in ai_msg.tool_calls:
 
 **6. Reinvoke the LLM with the enriched conversation.**
 
-```bash 
+```python 
 response = llm_with_tools.invoke(messages)
 ```
 **7. Display the final response.**
 
-```bash 
+```python 
 print("Response->" ,response.content)
 ```
 ![Alt text](assets/response.JPG)
