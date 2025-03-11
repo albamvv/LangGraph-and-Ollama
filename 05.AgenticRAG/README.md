@@ -149,10 +149,13 @@ vector_store = FAISS(
 
 ``` python
 ids = vector_store.add_documents(documents=chunks)
-)
 ```
 
 **6. Busqueda de documentos relevantes**
+
+- Busca los 5 documentos más similares a la pregunta `"how to gain muscle mass?"`.
+- `search_type='similarity'`: Usa similitud de coseno o producto interno para recuperar los documentos más cercanos semánticamente.
+
 ``` python
 question = "how to gain muscle mass?"
 result = vector_store.search(query=question, k=5, search_type='similarity')
