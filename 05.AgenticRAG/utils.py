@@ -54,3 +54,109 @@ def grade_documents(state) -> Literal["generate", "rewrite"]:
         print("---DECISION: DOCS NOT RELEVANT---")
         print(score)
         return "rewrite"
+    
+
+# ------------------ Agent node ----------------------------
+
+def agent(state):
+    """
+    Invokes the agent model to generate a response based on the current state. Given
+    the question, it will decide to retrieve using the retriever tool, or simply end.
+    Args:
+        state (messages): The current state
+    Returns:
+        dict: The updated state with the agent response appended to messages
+    """
+    print("---CALL AGENT---")
+    messages = state["messages"]
+
+    llm_with_tools = llm.bind_tools(tools, tool_choice="required")
+    response = llm_with_tools.invoke(messages)
+    # We return a list, because this will get added to the existing list
+    return {"messages": [response]}
+
+#---------------------- rewrite node -------------
+
+def rewrite(state):
+    """
+    Transform the query to produce a better question.
+
+    Args:
+        state (messages): The current state
+
+    Returns:
+        dict: The updated state with re-phrased question
+    """
+
+    print("---TRANSFORM QUERY---")
+    messages = state["messages"]
+    question = messages[0].content
+
+    msg = [
+        HumanMessage(
+            content=f""" \n 
+    Look at the input and try to reason about the underlying semantic intent / meaning. \n 
+    Here is the initial question:
+    \n ------- \n
+    {question} 
+    \n ------- \n
+    Formulate an improved question: """,
+        )
+    ]
+
+    # Grader
+    response = llm.invoke(msg)
+    return {"messages": [response]}
+
+#----------------------------- generate node ------------------------------
+
+def generate(state):
+    """
+    Generate answer
+
+    Args:
+        state (messages): The current state
+
+    Returns:
+         dict: The updated state with re-phrased question
+    """
+    print("---GENERATE---")
+    messages = state["messages"]
+    question = messages[0].content
+    last_message = messages[-1]
+
+    docs = last_message.content
+
+    # Prompt
+    prompt = hub.pull("rlm/rag-prompt")
+
+    # Post-processing
+    def format_docs(docs):
+        return "\n\n".join(doc.page_content for doc in docs)
+
+    # Chain
+    rag_chain = prompt | llm | StrOutputParser()
+
+    # Run
+    response = rag_chain.invoke({"context": docs, "question": question})
+    return {"messages": [response]}
+
+#-------------------- GRAPH -------------------
+
+def save_and_open_graph(graph, filename="langraph_flow.png"):
+    """
+    Saves the graph structure as a PNG file and opens it automatically.
+    
+    Parameters:
+    - graph: The LangGraph graph object.
+    - filename: The name of the output image file (default: "langraph_flow.png").
+    """
+    image_bytes = graph.get_graph().draw_mermaid_png()
+    
+    # Guardar la imagen con el nombre especificado
+    with open(filename, "wb") as f:
+        f.write(image_bytes)
+
+    # Open the image file (compatible with Windows, macOS, and Linux)
+    #os.system(filename)
+    print(f"Graph saved as {filename}")

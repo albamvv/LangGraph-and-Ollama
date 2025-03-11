@@ -1,8 +1,6 @@
 from imports import*
-from config import llm, embeddings,db_name
-
-
-
+from config import llm, embeddings,db_name, State
+from utils import grade_documents, agent,rewrite, generate, save_and_open_graph
 # -------------------- Retriever ------------------------
 
 vector_store = FAISS.load_local(db_name, embeddings, allow_dangerous_deserialization=True)
@@ -23,4 +21,32 @@ retriever_tool = create_retriever_tool(
 )
 
 tools = [retriever_tool]
-print("tools-> ",tools)
+#print("tools-> ",tools)
+
+# -------------------- Graph ------------------------
+
+graph_builder = StateGraph(State)
+graph_builder.add_node("agent", agent)
+retriever = ToolNode([retriever_tool])
+graph_builder.add_node("retriever", retriever)
+graph_builder.add_node("rewrite", rewrite)
+graph_builder.add_node("generate", generate)
+graph_builder.add_edge(START, "agent")
+graph_builder.add_conditional_edges( 
+    "agent",
+    tools_condition,
+    {
+        "tools": "retriever",
+        END: END
+    }
+)
+
+graph_builder.add_conditional_edges(
+    "retriever",
+    grade_documents
+)
+
+graph_builder.add_edge("generate", END)
+graph_builder.add_edge("rewrite", "agent")
+graph = graph_builder.compile()
+save_and_open_graph(graph, filename="assets/agent_tool_graph.png") # Save and open the graph image

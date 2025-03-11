@@ -309,7 +309,7 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
 ## Implementation
 
 
-### **1. Retrieve**
+### Retrieve**
 
 - **Load vector**
     - `FAISS.load_local(db_name, embeddings)`:
@@ -344,7 +344,7 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
     )
     tools = [retriever_tool]
 ```
-### **2. Agent**
+### Agent**
 - **Flow** : we can lay out an agentic RAG graph like this
     - The state is a set of messages
     - Each node will update (append to) state
@@ -353,7 +353,19 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
 ![Alt text](assets/agent_flow.png)
 
 
-### **3. blah blaht**
+**1. Document grader**
+**2. Agent Node**
+**3. Rewrite Node**
+**1. Generate Node**
 
 
-### **4. blah blah**
+### **Graph**
+**1. Introduction**
+- Start with an agent, call_model
+- Agent make a decision to call a function
+- If so, then action to call tool (retriever)
+-Then call agent with the tool output added to messages (state) 
+
+- ![Alt text](assets/agent_tool_graph.png)
+
+
