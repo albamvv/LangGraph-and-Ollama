@@ -1,5 +1,11 @@
 import os
 import warnings
 from dotenv import load_dotenv
-from langchain_community.document_loaders import PyMuPDFLoader
+import faiss
+from langchain_community.vectorstores import FAISS 
+from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+import json
+from langchain_ollama import ChatOllama, OllamaEmbeddings
+from langchain.tools.retriever import create_retriever_tool
+from langchain_community.document_loaders import PyMuPDFLoader

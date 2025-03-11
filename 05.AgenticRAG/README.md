@@ -1,8 +1,9 @@
 
-# General: Text to MySQL query chatbot
+# General: Argentic RAG
 
 ## Description
 
+ollama pull nomic-embed-text
 ## Features
 
 ## Requirements
@@ -60,6 +61,8 @@ loader.load()
     - `page`: The specific page number this `Document` represents.
 
 **2. PDFs**
+- Buscar PDFs en el directorio "rag-dataset"
+
 ``` python
 pdfs = []  # Initialize an empty list to store PDF file paths
 
@@ -80,31 +83,27 @@ Ouput:
 ```sh
 pdf:  ['rag-dataset\\finance\\amazon\\amazon-10-q-q3-2024.pdf', 'rag-dataset\\finance\\facebook\\Earnings-Presentation-Q3-2024.pdf', 'rag-dataset\\finance\\facebook\\Meta-09-30-2024-Exhibit-99-1_FINAL.pdf', 'rag-dataset\\finance\\facebook\\META-Q3-2024-Earnings-Call-Transcript.pdf', 'rag-dataset\\finance\\facebook\\META-Q3-2024-Follow-Up-Call-Transcript.pdf', 'rag-dataset\\finance\\google\\goog-10-q-q3-2024.pdf', 'rag-dataset\\gym supplements\\1. Analysis of Actual Fitness Supplement.pdf', 'rag-dataset\\gym supplements\\2. High Prevalence of Supplement Intake.pdf', 'rag-dataset\\health supplements\\1. dietary supplements - for whom.pdf', 'rag-dataset\\health supplements\\2. Nutraceuticals research.pdf', 'rag-dataset\\health supplements\\3.health_supplements_side_effects.pdf']
 ```
+- Cargar cada PDF con PyMuPDFLoader 
 
+``` python
+docs = []
+for pdf in pdfs:  # Loop through each PDF file path stored in the pdfs list
+    loader = PyMuPDFLoader(pdf)  # Create a PDF loader using PyMuPDFLoader
+    temp = loader.load()  # Load the content of the PDF (extract text and metadata)
+    docs.extend(temp)  # Add the extracted content to the docs list
+```   
 ### Document Chunking
 
 **1. Text splitter structure**
 ```sh
-[
-    "TokenTextSplitter",
-    "TextSplitter",
-    "Tokenizer",
-    "Language",
-    "RecursiveCharacterTextSplitter",
-    "RecursiveJsonSplitter",
-    "LatexTextSplitter",
-    "PythonCodeTextSplitter",
-    "KonlpyTextSplitter",
-    "SpacyTextSplitter",
-    "NLTKTextSplitter",
-    "split_text_on_tokens",
-    "SentenceTransformersTokenTextSplitter",
-    "ElementType",
-    "HeaderType",
-    "Line
+    "TokenTextSplitter", "TextSplitter", "Tokenizer", "Language", "RecursiveCharacterTextSplitter", "RecursiveJsonSplitter",
+    "LatexTextSplitter", "PythonCodeTextSplitter", "KonlpyTextSplitter", "SpacyTextSplitter", "NLTKTextSplitter", 
+    "split_text_on_tokens", "SentenceTransformersTokenTextSplitter", "ElementType", "HeaderType", "Line
 ```
 **1. blah blah**
 ``` python
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+chunks = text_splitter.split_documents(docs)
 ```
 **Ouput:**
 ```sh
@@ -125,28 +124,20 @@ pdf:  ['rag-dataset\\finance\\amazon\\amazon-10-q-q3-2024.pdf', 'rag-dataset\\fi
 ```
 ### Document Vector Embedding
 
-**1. blah blah**
 ``` python
-```
-**Ouput:**
-```sh
+embeddings = OllamaEmbeddings(
+    model="nomic-embed-text",
+    base_url='http://localhost:11434'
+)
+vector = embeddings.embed_query(chunks[0].page_content)
 ```
 
-**1. blah blah**
-``` python
-```
-**Ouput:**
-```sh
-```
+### Storing embedding in a vector 
 
-**1. blah blah**
 ``` python
-```
-**Ouput:**
-```sh
-```
 
-# 2️⃣ Building the graph
+``` 
+# 2️⃣ Argentic RAG
 
 ## Overview
 
@@ -171,7 +162,7 @@ This project constructs a processing graph to handle query execution using `lang
 
 
 ## Implementation
-**1. Build the processing graph**
+**1. Argentic RAG**
 ```python
 graph_builder = StateGraph(State)
 graph_builder.add_node("write_query", write_query)
