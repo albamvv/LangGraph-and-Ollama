@@ -25,7 +25,6 @@ Requests
 
 ## Overview
 
-
 ## Usage
 ¡
 
@@ -41,7 +40,6 @@ python 1.Vector_Stores_and_Retrievals.py
 - Agrega los vectores de los fragmentos al índice.
 - Realiza una búsqueda semántica basada en una consulta.
 - Guarda el índice FAISS localmente.
-
 ## Implementation
 
 ### Document Loader
@@ -203,84 +201,12 @@ This project constructs a processing graph to handle query execution using `lang
 3. Generate an answer from the results.
 
 ![Alt text](assets/building_graph.JPG)
-
-## Files
-
-- `building_graph.py`: Main script to build and execute the graph.
-- `query_utils.py`: Contains helper functions for query handling.
-- `config.py`: Defines the State used in the graph.
-
 ## Usage
 
 ```sh
    python 2.ArgenticRAG.py
 ```
-
-
-## Implementation
-**1. Argentic RAG**
-```python
-graph_builder = StateGraph(State)
-graph_builder.add_node("write_query", write_query)
-graph_builder.add_node("execute_query", execute_query)
-graph_builder.add_node("generate_answer", generate_answer)
-```
-
-**2. Define the execution flow of the graph**
-```python
-graph_builder.add_edge(START, "write_query")
-graph_builder.add_edge("write_query", "execute_query")
-graph_builder.add_edge("execute_query", "generate_answer")
-```
-**3. Compile and visualize the graph**
-```python
-graph = graph_builder.compile()
-```
-**4. Graph schema**
-
-START → Write SQL Query → Execute SQL Query → Generate Answer → END
-
-**5. Example: Query to list all albums**
-``` python
-query = {'question': 'List all the albums'}
-for step in graph.stream(query, stream_mode="updates"):
-    print(step)
-```
-**Output**
-
-```json
-{
-    "write_query": {
-        "query": "SELECT * FROM Album"
-    },
-    "execute_query": {
-        "result": [
-            [1, "For Those About To Rock We Salute You", 1],
-            [2, "Balls to the Wall", 2],
-            [3, "Restless and Wild", 2],
-            [4, "Let There Be Rock", 1],
-            [5, "Big Ones", 3],
-            [6, "Jagged Little Pill", 4],
-            [7, "Facelift", 5],
-            [8, "Warner 25 Anos", 6],
-            [9, "Plays Metallica By Four Cellos", 7],
-            [10, "Audioslave", 8]
-        ]
-    },
-    "generate_answer": {
-        "answer": "It seems like you've provided a list of tracks or songs with their respective numbers and details. Would you like me to do something specific with this information, such as organize it in a certain way, find patterns, or answer a particular question about it?"
-    }
-}
-```
-
-# 3️⃣ LangGraph AGENTS: Automating query execution with AI
-
-## Overview
-
-This project uses LangGraph and LangChain to build an AI-powered agent capable of querying an SQL database intelligently. The agent can:
-- Perform iterative database queries to refine results.
-- Detect and recover from query errors.
-- Answer questions based on the database structure and content.
+## Resume
 
 - **Agents can:**
   - Query the database multiple times to refine their answer.
@@ -293,18 +219,11 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
 - **Flow representation**
 
 ![Alt text](assets/esquema1.JPG)
-
 ## Files
 
 - `langraph_agent.py`: The main script that sets up and executes the AI agent.
 - `config.py`: Defines database and prompt configurations.
 - `query_utils.py`: Contains helper functions for query handling.
-
-## Usage
-
-```sh
-   python langraph_agent.py
-```
 
 ## Implementation
 
@@ -344,7 +263,7 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
     )
     tools = [retriever_tool]
 ```
-### Agent**
+### **Agent**
 - **Flow** : we can lay out an agentic RAG graph like this
     - The state is a set of messages
     - Each node will update (append to) state
@@ -354,10 +273,12 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
 
 
 **1. Document grader**
+ 
 **2. Agent Node**
-**3. Rewrite Node**
-**1. Generate Node**
 
+**3. Rewrite Node**
+
+**1. Generate Node**
 
 ### **Graph**
 **1. Introduction**
