@@ -32,7 +32,15 @@ Requests
 ```sh
 
 ```
+## Resume
 
+- Carga y extrae texto de PDFs en rag-dataset.
+- Divide el texto en fragmentos (chunks) de 1000 caracteres con solapamiento.
+- Convierte los fragmentos en vectores mediante embeddings.
+- Crea un índice FAISS para almacenar los vectores.
+- Agrega los vectores de los fragmentos al índice.
+- Realiza una búsqueda semántica basada en una consulta.
+- Guarda el índice FAISS localmente.
 
 ## Implementation
 
@@ -92,7 +100,7 @@ for pdf in pdfs:  # Loop through each PDF file path stored in the pdfs list
 ```   
 - `docs` contendrá todos los textos extraídos de los PDFs.
 
-### Document Chunking
+### Document Chunking and embedding
 
 **1. Text splitter structure**
 ```sh
@@ -112,9 +120,16 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=10
 chunks = text_splitter.split_documents(docs)
 ```
 
+- **Ejemplo conceptual**
+``` python
+chunks[0].page_content = "Protein is essential for muscle growth. A diet rich in lean meats, eggs, and legumes helps build muscle mass."
+chunks[1].page_content = "A diet rich in lean meats, eggs, and legumes helps build muscle mass. Strength training also plays a key role."
+```
+
 **3. Vectorización de documentos**
 - Convierte el texto del primer fragmento (`chunks[0].page_content`) en un vector numérico.
-- `vector` representa el contenido semántico del texto en una matriz de números.
+- `vector` representa el contenido semántico del texto en una matriz de números, es la representación matemática de un `chunk` en un espacio de alta dimensión.
+    - `vector = [0.234, -0.875, 0.562, 1.134, -0.782, ...] `
 ``` python
 vector = embeddings.embed_query(chunks[0].page_content)
 ```
@@ -123,6 +138,8 @@ vector = embeddings.embed_query(chunks[0].page_content)
 - `faiss.IndexFlatIP(d)`:
     - Crea un índice FAISS basado en el Producto Interno (`IP` = Inner Product).
     - `len(vector)`: Dimensión del vector de embeddings.
+- FAISS necesita un espacio vectorial uniforme: Todos los vectores en el índice deben tener la misma cantidad de dimensiones.
+- Si las dimensiones no coinciden, FAISS generará un error.
 
 ``` python
 index = faiss.IndexFlatIP(len(vector))
@@ -145,16 +162,24 @@ vector_store = FAISS(
 ```
 - Agregar documentos al indice FAISS
     - Agrega los fragmentos (`chunks`) al índice FAISS.
+    - Genera un ID único para cada fragmento agregado.
     - Devuelve una lista de IDs (`ids`) asignados a cada documento agregado.
 
 ``` python
 ids = vector_store.add_documents(documents=chunks)
 ```
 
+**Output**
+``` python
+ids-> ['doc_1', 'doc_2', 'doc_3', ..., 'doc_N']
+```
+
 **6. Busqueda de documentos relevantes**
 
 - Busca los 5 documentos más similares a la pregunta `"how to gain muscle mass?"`.
 - `search_type='similarity'`: Usa similitud de coseno o producto interno para recuperar los documentos más cercanos semánticamente.
+- FAISS devuelve los IDs de los 5 fragmentos más relevantes.
+- Con esos IDs, podemos recuperar el contenido original de los fragmentos.
 
 ``` python
 question = "how to gain muscle mass?"
@@ -168,12 +193,6 @@ result = vector_store.search(query=question, k=5, search_type='similarity')
 vector_store.save_local(db_name)
 ```
 
-**1. blah blah**
-``` python
-```
-**Ouput:**
-```sh
-```
 ### Document Vector Embedding
 
 ``` python
