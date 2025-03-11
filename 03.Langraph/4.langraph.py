@@ -32,11 +32,11 @@ graph_builder.add_node("chatbot", chatbot)# Add a chatbot node to handle message
 graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chatbot
 graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
 graph = graph_builder.compile() # Compile the graph
-save_and_open_graph(graph)# Save and open the graph image
+save_and_open_graph(graph, filename="assets/4.langraph_flow.png") # Save and open the graph image
 
 # Invoke the graph with initial messages. Response is a dictionary with a 'messages' key that contains a list of HumanMessage and AIMessage objects.
 response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
-print(response)
+#print(response)
 AIMessages = response["messages"][-1].content  # Extraer la respuesta del asistente
 #print("AIMessages-> ",AIMessages)  # Imprime solo el texto de la respuesta
 

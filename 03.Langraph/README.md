@@ -104,7 +104,7 @@ print("Response->" ,response.content)
 This repository contains a Python script that implements a chatbot using **LangChain**, **LangGraph**, and the **Ollama (llama3.2:3b)** model.  
 The chatbot manages conversations using a state graph and allows continuous interaction with the user.
 
-## 📌 Requirements
+## Requirements
 
 Before running the script, make sure you have the following dependencies installed:
 
@@ -140,6 +140,7 @@ Also, the **Ollama** server must be running at `http://localhost:11434`.
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
 response = llm.invoke("tell me something about the sea in 5 lines")
    ```
+**Output**
 ![Alt text](assets/langraph_messages1.JPG)
 
 **Response content:**
@@ -147,9 +148,11 @@ response = llm.invoke("tell me something about the sea in 5 lines")
 response->  The sea is a vast and mysterious body of saltwater that covers over 70% of the Earth's surface. It plays a crucial role in regulating the planet's climate and weather patterns. The sea also supports an incredible array of marine life, from tiny plankton to massive blue whales. Its depth ranges from just a few meters to over 11,000 meters in the Mariana Trench. The sea has been a source of inspiration for humans throughout history, influencing art, literature, and mythology.
 ```
 
-**3. Defines the chatbot state** using `TypedDict`.  
-State is a TypedDict that defines a chatbot's state. messages is a list processed using add_messages
-Annotated[list, add_messages] is a hint that messages should be modified by add_messages.
+**3. Defines the chatbot state using `TypedDict`.** 
+- `State` is a `TypedDict` that defines a chatbot's state. 
+-  `messages` is a list processed using add_messages
+-  `Annotated[list, add_messages]` is a hint that messages should be modified by add_messages.
+
  ```python
 class State(TypedDict):
     #{"message":"your message"}
@@ -159,10 +162,11 @@ def chatbot(state: State):
     return {"messages": [response]}  # Return the response as part of the state
 ```
 4. **Creates a state graph** with `LangGraph`:  
-   - The chatbot processes messages and maintains conversation history.  
-   - Responses are generated using `ChatOllama`.  
+- The chatbot processes messages and maintains conversation history.  
+- Responses are generated using `ChatOllama`.  
    graph_builder = StateGraph(State)
- ```bash
+   
+ ```python
 # Add a chatbot node to handle messages
 graph_builder.add_node("chatbot", chatbot)
 # Define edges (transitions) between different states # START --> chatbot --> END
@@ -204,13 +208,6 @@ Bye!
 ```
 
 
-
-## 🏗️ Future Improvements
-- Implement conversation history storage.  
-- Integrate with an external API to enhance responses.  
-- Add more nodes to the graph to handle different query types.
-
-
 # 3️⃣ Chatbot using LangGraph, LangChain, and Ollama
 
 
@@ -240,7 +237,7 @@ To run this script, you need the following dependencies:
 ### 1. Start the chatbot
 Run the script in a terminal:
 ```bash
-python chatbot_langraph.py
+python 5.chatbot_langraph.py
 ```
 
 ### 2. Query the chatbot
