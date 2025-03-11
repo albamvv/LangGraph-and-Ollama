@@ -174,7 +174,8 @@ graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chat
 graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
 graph = graph_builder.compile() # Compile the graph
 ```
-
+ ![Alt text](assets/4.langraph_flow.png)
+ 
 **5. Visualizes the chatbot flow**   
 ![Alt text](assets/langraph_messages2.JPG)
 
