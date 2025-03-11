@@ -75,6 +75,7 @@ llm = ChatOllama(
 )
 print("llm-> ", llm)
 ```
+**Output:**
 ```bash 
 llm->  model='llama3.2:1b' num_predict=256 temperature=0.8 base_url='http://localhost:11434'
 ```
