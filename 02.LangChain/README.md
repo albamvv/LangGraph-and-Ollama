@@ -1,6 +1,6 @@
 # Prompt template
 
-![Alt text](prompt_templates.JPG)
+![Alt text](langchain_messages.JPG)
 # LangChain
 
 ## Overview
