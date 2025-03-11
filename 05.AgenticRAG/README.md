@@ -334,11 +334,26 @@ This project uses LangGraph and LangChain to build an AI-powered agent capable o
     question = "how to gain muscle mass?"
     retriever.invoke(question)
 ```
+- **Retrieval as a tool**
 
-### **3. Execute an SQL Query**
+```python
+    retriever_tool = create_retriever_tool(
+    retriever,
+    "health_supplements",
+    "Search and retrun information about the Health Supplements for workout and gym",
+    )
+    tools = [retriever_tool]
+```
+### **2. Agent**
+- **Flow** : we can lay out an agentic RAG graph like this
+    - The state is a set of messages
+    - Each node will update (append to) state
+    - Conditional edges decide which node to visit next
+
+![Alt text](assets/agent_flow.png)
 
 
-### **4. Create the ReAct Agent**
+### **3. blah blaht**
 
 
-### **5. Define and Process a User Query**
+### **4. blah blah**

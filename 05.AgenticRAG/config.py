@@ -10,3 +10,6 @@ embeddings = OllamaEmbeddings(
 
 # Name of the database where the vectors will be stored
 db_name = "health_supplements"
+
+class State(TypedDict):
+    messages: Annotated[Sequence[BaseMessage], add_messages]
