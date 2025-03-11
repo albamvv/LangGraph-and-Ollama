@@ -26,8 +26,6 @@ Requests
 ## Overview
 
 ## Usage
-¡
-
 ```sh
 python 1.Vector_Stores_and_Retrievals.py
 ```
@@ -45,7 +43,7 @@ python 1.Vector_Stores_and_Retrievals.py
 ### Document Loader
 **1. Vector Stores and Retrievals**
 
-- ![Alt text](assets/tool_document_ingestion.png)
+- ![Alt text](assets/document_ingestion.png)
 
 ``` python
 loader = PyMuPDFLoader(r"rag-dataset\gym supplements\1. Analysis of Actual Fitness Supplement.pdf")
@@ -200,7 +198,6 @@ This project constructs a processing graph to handle query execution using `lang
 2. Execute the query.
 3. Generate an answer from the results.
 
-![Alt text](assets/building_graph.JPG)
 ## Usage
 
 ```sh
