@@ -1,20 +1,68 @@
 # LangChain
 
+## Overview
+This Python script integrates with the **LangChain** framework using **Ollama** to process natural language queries. It initializes a local **Ollama** language model (LLaMA 3.2) and generates responses to user-provided queries.
 - https://pytorch.org/get-started/locally/
 - Reference to the ChatOllama documentation:
 https://python.langchain.com/api_reference/ollama/chat_models/langchain_ollama.chat_models.ChatOllama.html#langchain_ollama.chat_models.ChatOllama
 
+## Requirements
+Ensure you have the following dependencies installed before running the script:
 
-This Python code sets up and uses the LangChain Ollama library to interact with a local instance of the LLaMA 3.2 (1B) model for generating responses to user queries. Here's a breakdown of what it does:
+- Python 3.x
+- `langchain_ollama` (LangChain integration for Ollama models)
+- `dotenv` (For loading environment variables)
+- An **Ollama** server running locally
 
+## Installation
+1. Clone the repository or copy the script to your local machine.
+2. Install the required Python packages:
+   ```sh
+   pip install langchain_ollama python-dotenv
+   ```
+3. Set up an `.env` file in the same directory (if needed) with the following optional environment variables:
+   ```ini
+   LANGCHAIN_API_KEY=your_api_key_here
+   LANGCHAIN_ENDPOINT=your_endpoint_here
+   LANGSMITH_TRACING=false
+   ```
+4. Ensure the **Ollama** server is running locally at `http://localhost:11434`.
 
-## Set up the model parameters:
+## Usage
+Run the script using:
+```sh
+python 1.langchain.py
+```
 
-- The local server URL for Ollama is defined as http://localhost:11434.
-- The specific LLaMA model used is "llama3.2:1b".
-- A link to LangChain's documentation for ChatOllama is included as a comment.
+The script sends the query:
+```
+"What are the causes and consequences of climate change?"
+```
+to the language model and prints the response.
 
-## Initialize the language model (llm):
+## Configuration
+The following parameters are defined in the script:
+- **Model**: `llama3.2:1b`
+- **Temperature**: `0.8` (Controls randomness; higher values generate more creative responses)
+- **Response Length**: Limited to `256` tokens
+
+To modify the query, update the `sentence` variable in the script.
+
+## Streaming Option
+A commented-out section at the bottom of the script demonstrates how to process streamed responses from the model. Uncomment and modify as needed.
+
+## License
+This project is open-source. Feel free to modify and adapt it to your needs.
+
+---
+
+### Notes
+- Ensure that the **Ollama** server is running before executing the script.
+- Modify the base URL, model, and parameters as needed for different configurations.
+
+## Implementation
+
+### Initialize the language model (llm):
 
 - **The ChatOllama class is instantiated with:**
     - base_url: The URL where the Ollama server is running.
@@ -26,7 +74,7 @@ This Python code sets up and uses the LangChain Ollama library to interact with 
 print("llm-> ", llm)
 ```
 llm->  model='llama3.2:1b' num_predict=256 temperature=0.8 base_url='http://localhost:11434'
-## Generate a response from the model:
+### Generate a response from the model:
 
 - A query is assigned to sentence.
 - The model is invoked with llm.invoke(sentence), generating a response.
@@ -39,7 +87,7 @@ response = llm.invoke(sentence)
 # Print the model's response to the console
 print(response.content)
 ```
-## Key Takeaways:
+### Key Takeaways:
 - The script connects to a locally hosted Ollama instance.
 - It uses the LLaMA 3.2 (1B) model to process and respond to queries.
 - The .env variables are loaded but not actively used in the script.
