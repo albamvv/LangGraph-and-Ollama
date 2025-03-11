@@ -35,7 +35,7 @@ graph_builder.add_edge("tools", "chatbot")
 graph_builder.set_entry_point("chatbot")  # Define the starting point  
 graph = graph_builder.compile() # Compile the graph
 #graph = graph_builder.compile(checkpointer=memory) # Compile the graph and enable memory tracking  
-save_and_open_graph(graph)# Save and open the graph image
+save_and_open_graph(graph, filename="assets/5.chatbot_flow.png") # Save and open the graph image
 
 #------------------------------------------------------------------------------------------
 

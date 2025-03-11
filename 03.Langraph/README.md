@@ -161,12 +161,12 @@ def chatbot(state: State):
     response = llm.invoke(state["messages"])  # Invoke the LLM with the current messages
     return {"messages": [response]}  # Return the response as part of the state
 ```
-4. **Creates a state graph** with `LangGraph`:  
+**4. Creates a state graph** with `LangGraph`:  
 - The chatbot processes messages and maintains conversation history.  
 - Responses are generated using `ChatOllama`.  
-   graph_builder = StateGraph(State)
    
  ```python
+graph_builder = StateGraph(State)
 # Add a chatbot node to handle messages
 graph_builder.add_node("chatbot", chatbot)
 # Define edges (transitions) between different states # START --> chatbot --> END
@@ -174,16 +174,16 @@ graph_builder.add_edge(START, "chatbot")  # Start the conversation with the chat
 graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot responds
 graph = graph_builder.compile() # Compile the graph
 ```
- ![Alt text](assets/4.langraph_flow.png)
- 
+
+
 **5. Visualizes the chatbot flow**   
-![Alt text](assets/langraph_messages2.JPG)
+![Alt text](assets/4.langraph_flow.png)
 
 **6. Invoke**
  ```python
 response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
 ```
-
+![Alt text](assets/langraph_messages2.JPG)
 **7. Runs a continuous chat loop** until the user decides to exit.  
 ```bash
 while True:
@@ -224,7 +224,6 @@ Bye!
 - **State Management**: Uses **LangGraph** for managing chatbot interactions.
 - **Tool Integration**: LLM and web search tools are seamlessly integrated.
 - **Interactive Mode**: Runs a chatbot loop that continuously accepts user input.
-
 ## Requirements
 To run this script, you need the following dependencies:
 - **Python 3.8+**
@@ -266,41 +265,47 @@ tool_message = output["messages"][2]  # Accede directamente
 ```
 
 
-
 ## How It Works
 1. **Initialize the LLM**: The script sets up **LLaMA 3.2** as the primary language model.
+
+```python
+llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
+```
 2. **Define Tools**:
-   - `internet_search(query)`: Performs a web search to retrieve real-time information.
-   - `llm_search(query)`: Uses the LLM to generate responses.
+- `internet_search(query)`: Performs a web search to retrieve real-time information.
+- `llm_search(query)`: Uses the LLM to generate responses.
+
+```python
+tools = [internet_search, llm_search]
+llm_with_tools = llm.bind_tools(tools)
+```
 3. **State and Memory**:
    - Uses `LangGraph` to manage chatbot states and interactions.
    - Keeps track of conversation history with `MemorySaver`.
 4. **LangGraph Workflow**:
    - The chatbot decides whether to use the LLM or perform a web search.
    - The interaction flow is managed using a state machine.
-   - A **graph representation** of the workflow is generated (`chatbot_langraph_flow.png`).
+   - A **graph representation** of the workflow is generated.
+```python 
+graph_builder = StateGraph(State)  # Add chatbot processing node  
+graph_builder.add_node("chatbot", chatbot)  
+tool_node = ToolNode(tools=tools)  # Create a node for handling external tools (LLM and web search)  
+graph_builder.add_node("tools", tool_node)  
+graph_builder.add_conditional_edges("chatbot", tools_condition) # Define conditions for switching between chatbot and tools  
+# Set up the interaction flow between nodes  
+graph_builder.add_edge("tools", "chatbot")  
+graph_builder.set_entry_point("chatbot")  # Define the starting point  
+graph = graph_builder.compile() # Compile the graph
+```
+   ![Alt text](assets/5.chatbot_flow.png)
 
-   ![Alt text](assets/chatbot_langraph_flow.png)
 5. **Interactive Chat Mode**:
    - Waits for user input.
    - Processes the input using `LangGraph`.
    - Outputs the response.
    - Continues until the user exits.
 
-## Running the Chatbot:
-- The chatbot operates in a while True loop.
-- The user can input queries, and responses are fetched using the graph-based chatbot.
-- The program exits when the user types "exit", "quit", or "q".
-## Summary
-- This chatbot integrates LangGraph for structured interactions.
-- It uses LLaMA 3.2 for AI-generated responses and TavilySearchResults for real-time web search.
-- The chatbot decides whether to answer from its own knowledge or search the internet.
-- It continuously interacts with users until they choose to exit.
 
-## Future Enhancements
-- Add support for multiple LLM models.
-- Improve response accuracy with better search filtering.
-- Implement a web-based interface.
 
 
 
