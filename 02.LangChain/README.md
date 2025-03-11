@@ -31,7 +31,7 @@ Ensure you have the following dependencies installed before running the script:
 ## Usage
 Run the script using:
 ```sh
-python 1.langchain.py
+python langchain.py
 ```
 
 The script sends the query:
@@ -48,13 +48,6 @@ The following parameters are defined in the script:
 
 To modify the query, update the `sentence` variable in the script.
 
-## Streaming Option
-A commented-out section at the bottom of the script demonstrates how to process streamed responses from the model. Uncomment and modify as needed.
-
-## License
-This project is open-source. Feel free to modify and adapt it to your needs.
-
----
 
 ### Notes
 - Ensure that the **Ollama** server is running before executing the script.
@@ -62,19 +55,32 @@ This project is open-source. Feel free to modify and adapt it to your needs.
 
 ## Implementation
 
-### Initialize the language model (llm):
+**1. Initialize the language model (llm):**
 
 - **The ChatOllama class is instantiated with:**
-    - base_url: The URL where the Ollama server is running.
-    - model: The specific LLaMA model version.
-    - temperature: Set to 0.8, meaning responses will have a moderate level of randomness.
-    - num_predict: Limited to 256 tokens for response generation.
-    - Other parameters (not explicitly defined in the code).
-```bash 
+  
+```python
+# Define the base URL for the local Ollama server
+base_url = "http://localhost:11434"
+# Specify the language model to use
+model = 'llama3.2:1b'
+
+# Initialize the Ollama-based language model (LLM) with specific parameters
+llm = ChatOllama(
+    base_url=base_url,  # The URL where the Ollama server is running
+    model=model,  # The specific LLaMA model being used
+    temperature=0.8,  # Controls response randomness (higher value = more creative)
+    num_predict=256,  # Limits the response to 256 tokens
+    # Additional parameters can be added here...
+)
 print("llm-> ", llm)
 ```
+```bash 
 llm->  model='llama3.2:1b' num_predict=256 temperature=0.8 base_url='http://localhost:11434'
-### Generate a response from the model:
+```
+
+
+**2. Generate a response from the model:**
 
 - A query is assigned to sentence.
 - The model is invoked with llm.invoke(sentence), generating a response.
@@ -87,7 +93,7 @@ response = llm.invoke(sentence)
 # Print the model's response to the console
 print(response.content)
 ```
-### Key Takeaways:
+## Key Takeaways:
 - The script connects to a locally hosted Ollama instance.
 - It uses the LLaMA 3.2 (1B) model to process and respond to queries.
 - The .env variables are loaded but not actively used in the script.
