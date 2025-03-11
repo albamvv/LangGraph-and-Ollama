@@ -3,6 +3,9 @@
 ## 📌 Description
 This repository contains multiple AI-driven projects for interacting with SQL databases. Each folder represents a standalone project with its own functionality.
 
+1. 
+2. 
+
 ## 📂 Repository Structure
 ```plaintext
 AI-Powered-SQL-Tools/
