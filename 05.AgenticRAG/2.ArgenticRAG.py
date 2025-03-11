@@ -1,27 +1,7 @@
 from imports import*
-from config import llm, embeddings,db_name, State
+from config import llm, embeddings,db_name, State,retriever_tool
 from utils import grade_documents, agent,rewrite, generate, save_and_open_graph
-# -------------------- Retriever ------------------------
 
-vector_store = FAISS.load_local(db_name, embeddings, allow_dangerous_deserialization=True)
-retriever = vector_store.as_retriever(search_type="similarity", search_kwargs = {'k': 5})
-question = "how to gain muscle mass?"
-response=retriever.invoke(question)
-'''
-for doc in response:
-    print(f"📄 Source: {doc.metadata['source']} (Page {doc.metadata['page']})")
-    print(f"📌 Content: {doc.page_content}\n")
-
-'''
-
-retriever_tool = create_retriever_tool(
-    retriever,
-    "health_supplements", # tool name
-    "Search and return information about the Health Supplements for workout and gym",
-)
-
-tools = [retriever_tool]
-#print("tools-> ",tools)
 
 # -------------------- Graph ------------------------
 
@@ -49,4 +29,20 @@ graph_builder.add_conditional_edges(
 graph_builder.add_edge("generate", END)
 graph_builder.add_edge("rewrite", "agent")
 graph = graph_builder.compile()
-save_and_open_graph(graph, filename="assets/agent_tool_graph.png") # Save and open the graph image
+#save_and_open_graph(graph, filename="assets/agent_tool_graph.png") # Save and open the graph image
+
+#------------------- Example ---------------
+
+# query = {"messages": [HumanMessage("How to gain muscle mass?")]}
+query = {"messages": [HumanMessage("what are the risks of taking too much protein?")]}
+# query = {"messages": [HumanMessage("tell me about the langchain")]}
+
+# graph.invoke(query)
+
+for output in graph.stream(query):
+    for key, value in output.items():
+        pprint(f"Output from node '{key}':")
+        pprint("----")
+        pprint(value, indent=4, width=120)
+
+    pprint("\n------\n")
