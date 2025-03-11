@@ -25,14 +25,12 @@ Requests
 
 ## Overview
 
-This project is a MySQL Query Bot that automatically generates, executes, and processes database queries based on user input. It uses utility functions to generate SQL queries, execute them on a database, and format responses into readable answers.
 
 ## Usage
-1. Modify the `user_question` variable in `mysql_query_bot.py` to reflect your query.
-2. Run the script with the following command:
+¡
 
 ```sh
-   python mysql_query_bot.py
+
 ```
 
 
@@ -92,6 +90,8 @@ for pdf in pdfs:  # Loop through each PDF file path stored in the pdfs list
     temp = loader.load()  # Load the content of the PDF (extract text and metadata)
     docs.extend(temp)  # Add the extracted content to the docs list
 ```   
+- `docs` contendrá todos los textos extraídos de los PDFs.
+
 ### Document Chunking
 
 **1. Text splitter structure**
@@ -100,20 +100,69 @@ for pdf in pdfs:  # Loop through each PDF file path stored in the pdfs list
     "LatexTextSplitter", "PythonCodeTextSplitter", "KonlpyTextSplitter", "SpacyTextSplitter", "NLTKTextSplitter", 
     "split_text_on_tokens", "SentenceTransformersTokenTextSplitter", "ElementType", "HeaderType", "Line
 ```
-**1. blah blah**
+**2. Chunking**
+
+-   RecursiveCharacterTextSplitter:
+    - Divide los documentos en fragmentos de 1000 caracteres.
+    - Se superponen 100 caracteres entre fragmentos para contexto.
+- `chunks` contendrá los fragmentos generados
+
 ``` python
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 chunks = text_splitter.split_documents(docs)
 ```
-**Ouput:**
-```sh
+
+**3. Vectorización de documentos**
+- Convierte el texto del primer fragmento (`chunks[0].page_content`) en un vector numérico.
+- `vector` representa el contenido semántico del texto en una matriz de números.
+``` python
+vector = embeddings.embed_query(chunks[0].page_content)
 ```
 
-**1. blah blah**
+**4. Creación de un índice FAISS**
+- `faiss.IndexFlatIP(d)`:
+    - Crea un índice FAISS basado en el Producto Interno (`IP` = Inner Product).
+    - `len(vector)`: Dimensión del vector de embeddings.
+
 ``` python
+index = faiss.IndexFlatIP(len(vector))
 ```
-**Ouput:**
-```sh
+
+**5. Creación de FAISS Vector Store**
+- Se crea un almacén de vectores `FAISS` con:
+    - `embedding_function=embeddings`: Función de embeddings para convertir textos en vectores.
+    - `index=index`: Índice FAISS donde se almacenarán los vectores.
+    - `docstore=InMemoryDocstore()`: Almacén de documentos en memoria.
+    - `index_to_docstore_id={}`: Diccionario vacío para mapear IDs de FAISS a documentos.
+
+``` python
+vector_store = FAISS(
+    embedding_function=embeddings,
+    index=index,
+    docstore=InMemoryDocstore(),
+    index_to_docstore_id={}
+)
+```
+- Agregar documentos al indice FAISS
+    - Agrega los fragmentos (`chunks`) al índice FAISS.
+    - Devuelve una lista de IDs (`ids`) asignados a cada documento agregado.
+
+``` python
+ids = vector_store.add_documents(documents=chunks)
+)
+```
+
+**6. Busqueda de documentos relevantes**
+``` python
+question = "how to gain muscle mass?"
+result = vector_store.search(query=question, k=5, search_type='similarity')
+```
+
+**7. Guarda el indice FAISS**
+- Guarda el índice FAISS en una base de datos para uso futuro.
+
+``` python
+vector_store.save_local(db_name)
 ```
 
 **1. blah blah**
