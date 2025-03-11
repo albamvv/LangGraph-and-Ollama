@@ -59,6 +59,8 @@ llm_with_tools = llm.bind_tools(tools)
 query = "What is medicine for lung cancer?"
 messages = [HumanMessage(query)]
 ```
+**Output:**
+
 ![Alt text](assets/messages1.JPG)
 
 
@@ -88,18 +90,17 @@ for tool_call in ai_msg.tool_calls:
 
 ```python 
 response = llm_with_tools.invoke(messages)
-```
-**7. Display the final response.**
-
-```python 
 print("Response->" ,response.content)
 ```
+**Ouput:**
+
 ![Alt text](assets/response.JPG)
 
 
 
 # 2️⃣ LanGraph 🦜🕸️ 
-
+ 
+## Overview
 This repository contains a Python script that implements a chatbot using **LangChain**, **LangGraph**, and the **Ollama (llama3.2:3b)** model.  
 The chatbot manages conversations using a state graph and allows continuous interaction with the user.
 
@@ -124,17 +125,17 @@ Also, the **Ollama** server must be running at `http://localhost:11434`.
 
 2. **Run the script**:
    ```bash
-   python 3.langraph.py
+   python 4.langraph.py
    ```
 
 3. **Interact with the chatbot**:  
    - Type a message to get a response from the bot.  
    - To exit, enter `q`, `quit`, or `exit`.  
 
-## 🛠️ Script Functionality
+## Implementation
 
-1. **Loads environment variables**.  
-2. **Initializes the language model** `llama3.2:3b`.  
+**1. Loads environment variables**.  
+**2. Initializes the language model** `llama3.2:3b`.  
  ```bash
 llm = ChatOllama(model="llama3.2:3b", base_url="http://localhost:11434")
 response = llm.invoke("tell me something about the sea in 5 lines")
@@ -142,12 +143,14 @@ response = llm.invoke("tell me something about the sea in 5 lines")
 ![Alt text](assets/langraph_messages1.JPG)
 
 **Response content:**
+ ```bash
 response->  The sea is a vast and mysterious body of saltwater that covers over 70% of the Earth's surface. It plays a crucial role in regulating the planet's climate and weather patterns. The sea also supports an incredible array of marine life, from tiny plankton to massive blue whales. Its depth ranges from just a few meters to over 11,000 meters in the Mariana Trench. The sea has been a source of inspiration for humans throughout history, influencing art, literature, and mythology.
+```
 
-3. **Defines the chatbot state** using `TypedDict`.  
+**3. Defines the chatbot state** using `TypedDict`.  
 State is a TypedDict that defines a chatbot's state. messages is a list processed using add_messages
 Annotated[list, add_messages] is a hint that messages should be modified by add_messages.
- ```bash
+ ```python
 class State(TypedDict):
     #{"message":"your message"}
     messages: Annotated[list, add_messages]
@@ -168,15 +171,15 @@ graph_builder.add_edge("chatbot", END)  # End conversation after the chatbot res
 graph = graph_builder.compile() # Compile the graph
 ```
 
-5. **Visualizes the chatbot flow**   
+**5. Visualizes the chatbot flow**   
 ![Alt text](assets/langraph_messages2.JPG)
 
-6. **Invoke**
- ```bash
+**6. Invoke**
+ ```python
 response=graph.invoke({"messages": ["tell me something about the sea in ten words"]})
 ```
 
-7. **Runs a continuous chat loop** until the user decides to exit.  
+**7. Runs a continuous chat loop** until the user decides to exit.  
 ```bash
 while True:
     user_input = input("You: ")  # Get user input
