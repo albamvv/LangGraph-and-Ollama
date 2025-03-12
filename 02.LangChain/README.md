@@ -89,12 +89,10 @@ Here's what I know about the sun:
    - Chain Runnables
    - Custom Chain (Runnable Sequence)
 ## StrOutParser
-## StrOutputParser in LangChain
-
 - `StrOutputParser` is a class in **LangChain**, a Python library used for building AI applications based on language models.
 - `StrOutputParser` is responsible for **converting the output of a language model into a plain string (`str`)**. In simple terms, it ensures that the model's response is returned as a clean text output.
 
-
+![Alt text](assets/chain_esquema2.JPG)
 
 # LangChain
 
