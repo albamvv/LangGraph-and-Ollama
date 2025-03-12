@@ -37,4 +37,4 @@ analysis_prompt = ChatPromptTemplate.from_template('''analyze the following text
 
 fact_check_chain = analysis_prompt | llm | StrOutputParser()
 output = fact_check_chain.invoke({'response': response3})
-print(output)
+#print(output)
