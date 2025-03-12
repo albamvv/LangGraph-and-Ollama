@@ -1,7 +1,5 @@
 # Import necessary libraries
-from dotenv import load_dotenv  # Used to load environment variables from a .env file
-from langchain_ollama import ChatOllama  # LangChain integration for Ollama models
-import os  # Provides functions to interact with the operating system
+from imports import*
 
 # Load environment variables from the .env file
 load_dotenv()

@@ -1,6 +1,5 @@
+from imports import*
 
-from langchain_core.messages import SystemMessage, HumanMessage
-from langchain_ollama import ChatOllama 
 
 #-------------------- Langchain message ---------------------
 base_url = "http://localhost:11434"
@@ -21,12 +20,7 @@ response = llm.invoke(messages)
 
 #---------------------------- Langchain Prompt Templates----------------------
 
-from langchain_core.prompts import (
-                                        SystemMessagePromptTemplate,
-                                        HumanMessagePromptTemplate,
-                                        PromptTemplate,
-                                        ChatPromptTemplate
-                                        )
+
 system = SystemMessagePromptTemplate.from_template('You are {school} teacher. You answer in short sentences.')
 question = HumanMessagePromptTemplate.from_template('tell me about the {topics} in {points} points')
 #print("system-> ",system)
