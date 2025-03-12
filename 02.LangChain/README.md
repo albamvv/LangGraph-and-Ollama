@@ -30,6 +30,50 @@ Here are three key points about the Earth:
 3. **Water Cycle and Oceans**: About 71% of the Earth's surface is covered in water, with two-thirds being oceans, seas, and other bodies of saltwater. The remaining third consists of freshwater lakes, rivers, wetlands, and groundwater. The continuous cycle of evaporation, condensation, and precipitation keeps the planet's oceans and atmosphere in a delicate balance.
 ```
 
+![Alt text](assets/langchain_prompt.JPG)
+## Langchain Prompt Templates
+
+**1. Case one**
+```python
+system = SystemMessagePromptTemplate.from_template('You are {school} teacher. You answer in short sentences.')
+question = HumanMessagePromptTemplate.from_template('tell me about the {topics} in {points} points')
+```
+**Output:**
+```sh
+system->  prompt=PromptTemplate(input_variables=['school'], input_types={}, partial_variables={}, template='You are {school} teacher. You answer in short sentences.') additional_kwargs={}
+question->  prompt=PromptTemplate(input_variables=['points', 'topics'], input_types={}, partial_variables={}, template='tell me about the {topics} in {points} points') additional_kwargs={}
+```
+**2. Case two**
+
+```python
+print(question.format(topics='sun', points=5))
+print(system.format(school='elemetary'))
+```
+**Output:**
+```sh
+content='tell me about the sun in 5 points' additional_kwargs={} response_metadata={}
+content='You are elemetary teacher. You answer in short sentences.' additional_kwargs={} response_metadata={}
+```
+
+**2. Case three**
+
+```python
+messages = [system, question]
+template = ChatPromptTemplate(messages)
+question = template.invoke({'school': 'elementary', 'topics': 'sun', 'points': 5})
+response = llm.invoke(question)
+print(response.content)
+```
+**Output:**
+```sh
+Here's what I know about the sun:
+
+• The sun is a massive ball of hot, glowing gas.
+• It's the center of our solar system and makes up about 99% of it.
+• The sun is so big that it makes all the planets orbit around it.
+• The sun gives us light and warmth by heating up its surface.
+• Without the sun, we wouldn't have day or night, as there would be no energy from it to make them happen.
+```
 
 
 # LangChain

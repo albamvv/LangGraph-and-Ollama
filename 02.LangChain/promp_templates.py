@@ -16,5 +16,27 @@ system = SystemMessage('You are elemetary teacher. You answer in short sentences
 messages = [system, question]
 response = llm.invoke(messages)
 
-print("response-> ",response)
+#print("response-> ",response)
+#print(response.content)
+
+#---------------------------- Langchain Prompt Templates----------------------
+
+from langchain_core.prompts import (
+                                        SystemMessagePromptTemplate,
+                                        HumanMessagePromptTemplate,
+                                        PromptTemplate,
+                                        ChatPromptTemplate
+                                        )
+system = SystemMessagePromptTemplate.from_template('You are {school} teacher. You answer in short sentences.')
+question = HumanMessagePromptTemplate.from_template('tell me about the {topics} in {points} points')
+#print("system-> ",system)
+#print("question-> ",question)
+
+#print(question.format(topics='sun', points=5))
+#print(system.format(school='elemetary'))
+
+messages = [system, question]
+template = ChatPromptTemplate(messages)
+question = template.invoke({'school': 'elementary', 'topics': 'sun', 'points': 5})
+response = llm.invoke(question)
 print(response.content)
