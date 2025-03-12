@@ -1,6 +1,6 @@
 # Prompt template
 
-![Alt text](langchain_messages.JPG)
+![Alt text](assets/langchain_messages.JPG)
 
 ## Langchain Messages
 **1. Case one**
