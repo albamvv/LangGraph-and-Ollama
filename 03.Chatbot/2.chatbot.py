@@ -14,6 +14,11 @@ def get_session_history(session_id):
 
 
 
+if st.button("Start New Conversation"):
+    st.session_state.chat_history = []
+    history = get_session_history(user_id)
+    history.clear()
+
 ### LLM Setup
 llm = ChatOllama(base_url=base_url, model=model)
 
