@@ -50,3 +50,11 @@ while True:
     response = graph.invoke({"messages": [user_input]})  # Process user input through the graph
     print("Assistant:", response["messages"][-1].content)  # Print the chatbot's response
 
+
+while True:
+    user_input = input("You: ")  
+    if user_input in ['q', 'quit', 'exit']:  
+        print("Bye!")
+        break   
+    response = graph.invoke({"messages": [user_input]})  
+    print("Assistant:", response["messages"][-1].content)  

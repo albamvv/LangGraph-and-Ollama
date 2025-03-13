@@ -18,8 +18,8 @@ class State(TypedDict):
 # Define the chatbot function, which takes the current state and generates a response
 def chatbot(state: State):
     response = llm_with_tools.invoke(state["messages"])  # Invoke the LLM with the current messages
-    print("response chatbot: ",response)
-    print("----------------------------")
+    #print("response chatbot: ",response)
+    #print("----------------------------")
     return {"messages": [response]}  # Return the response as part of the state
 
 #memory = MemorySaver()  # Initialize memory for tracking conversations  
@@ -42,13 +42,12 @@ save_and_open_graph(graph, filename="assets/5.chatbot_flow.png") # Save and open
 # Example: Query the chatbot about Earth  
 config = {"configurable": {"thread_id": 1}}  
 #output = graph.invoke({"messages": ["Tell me about the earth in 3 points"]}, config=config)  
-output = graph.invoke({"messages": ["Tell me about the earth in 3 points"]})  
+output = graph.invoke({"messages": ["Tell me about the earth in seven words"]})  
 last_ai_message = output["messages"][-1]  # Último mensaje en la lista de 'messages'
-#print("Contenido del AIMessage:", last_ai_message.content)
+print("Contenido del AIMessage:", last_ai_message.content)
 
 
 # -----------------------------------------------------------------------------------------
-
 
 # Start an interactive chatbot loop  
 while True:
@@ -58,5 +57,6 @@ while True:
         break  
     output = graph.invoke({"messages": [user_input]}, config=config)  # Get chatbot response  
     print(output)  # Display the response  
+
 
 
