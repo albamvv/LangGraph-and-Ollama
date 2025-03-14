@@ -22,14 +22,18 @@ for message in st.session_state["messages"]:
         st.write(message["content"])
 
 
+# Input field for user messages
+prompt = st.chat_input("What is up?")
+
 # Entrada de usuario
-if prompt := st.chat_input("Escribe tu mensaje aquí..."):
-    # Agregar mensaje del usuario al historial
-    st.session_state["messages"].append({"role": "user", "content": prompt})
+if prompt:
 
     # Mostrar mensaje del usuario en el chat
     with st.chat_message("user"):
         st.write(prompt)
+
+    # Agregar mensaje del usuario al historial
+    st.session_state["messages"].append({"role": "user", "content": prompt})
 
     # Generar respuesta con Ollama
     response = ollama.chat(model="llama3.2:3b", messages=st.session_state["messages"])
@@ -42,6 +46,4 @@ if prompt := st.chat_input("Escribe tu mensaje aquí..."):
     with st.chat_message("assistant"):
         st.write(bot_reply)      
 
-# Pie de página
-st.markdown("---")
-st.markdown("📌 Creado con ❤️ usando Streamlit.")
+   
