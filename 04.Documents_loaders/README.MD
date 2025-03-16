@@ -9,17 +9,11 @@
 This script is designed for **Question Answering (QA) from PDF documents** using **LangChain** and **Ollama**.  
 It loads PDFs, extracts text, and allows users to ask questions based on the extracted content.  
 
----
 
-## 📥 1. Importing Necessary Modules  
-```python
-from imports import*
-```
-- This line imports all required dependencies, including **PyMuPDF**, **tiktoken**, **LangChain**, and **Ollama**.  
 
 ---
 
-## 📁 2. Loading a Single PDF File  
+##  1. Loading a Single PDF File  
 ```python
 loader = PyMuPDFLoader("rag-dataset/health supplements/1. dietary supplements - for whom.pdf")
 docs = loader.load()
@@ -29,7 +23,7 @@ docs = loader.load()
 
 ---
 
-## 📂 3. Reading All PDFs from a Directory  
+## 2. Reading All PDFs from a Directory  
 ```python
 pdfs = []
 for root, dirs, files in os.walk("rag-dataset"):
