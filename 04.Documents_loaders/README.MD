@@ -33,7 +33,7 @@ for root, dirs, files in os.walk("rag-dataset"):
 ```
 - This **scans** the `rag-dataset` directory for **all PDF files** and stores their file paths in `pdfs`.  
 
-### 💡 Example of `pdfs` List:  
+###  Example of `pdfs` List:  
 ```python
 pdfs= [
     "rag-dataset/document1.pdf",
@@ -43,7 +43,7 @@ pdfs= [
 
 ---
 
-## 📚 4. Loading and Storing Text from All PDFs  
+## 3. Loading and Storing Text from All PDFs  
 ```python
 docs = []
 for pdf in pdfs:
@@ -53,7 +53,7 @@ for pdf in pdfs:
 ```
 - Iterates through **all PDFs**, loads their content, and **stores** the extracted text & metadata in `docs`.  
 
-### 💡 Example Structure of `docs`:  
+### Example Structure of `docs`:  
 ```python
 [
     Document(page_content="Text from PDF 1...", metadata={'source': 'rag-dataset/doc1.pdf'}),
@@ -63,7 +63,7 @@ for pdf in pdfs:
 
 ---
 
-## 📝 5. Formatting Extracted Documents  
+## 4. Formatting Extracted Documents  
 ```python
 def format_docs(docs):
     return "\n\n".join([x.page_content for x in docs])
@@ -74,7 +74,7 @@ context = format_docs(docs)
 
 ---
 
-## 📅 6. Tokenizing Text for GPT-4o-mini  
+## 5. Tokenizing Text for GPT-4o-mini  
 ```python
 encoding = tiktoken.encoding_for_model("gpt-4o-mini")
 ```
