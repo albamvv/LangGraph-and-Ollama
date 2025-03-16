@@ -80,7 +80,7 @@ encoding = tiktoken.encoding_for_model("gpt-4o-mini")
 ```
 - Uses **OpenAI’s tokenizer** (`tiktoken`) to encode text before sending it to the AI model.  
 
-### 💡 Example Tokenization:  
+###  Example Tokenization:  
 ```python
 print(encoding.encode("congratulations"))  
 # Output: [542, 111291, 14571]
@@ -88,7 +88,7 @@ print(encoding.encode("congratulations"))
 
 ---
 
-## 🤖 7. Setting Up the LLM Model (Ollama)  
+##  6. Setting Up the LLM Model (Ollama)  
 ```python
 base_url = "http://localhost:11434"
 model = 'llama3.2:3b'
@@ -99,7 +99,7 @@ llm = ChatOllama(base_url=base_url, model=model)
 
 ---
 
-## 💬 8. Defining the System Message (AI Behavior)  
+## 7. Defining the System Message (AI Behavior)  
 ```python
 system = SystemMessagePromptTemplate.from_template("""
     You are a helpful AI assistant who answers user questions based on the provided context.
@@ -111,7 +111,7 @@ system = SystemMessagePromptTemplate.from_template("""
 
 ---
 
-## 💡 9. Creating a Human Message Template  
+## 8. Creating a Human Message Template  
 ```python
 prompt = """Answer user question based on the provided context ONLY!
             If you do not know the answer, just say "I don't know".
@@ -130,7 +130,7 @@ prompt = HumanMessagePromptTemplate.from_template(prompt)
 
 ---
 
-## 🛠️ 10. Combining the AI Pipeline  
+## 9. Combining the AI Pipeline  
 ```python
 messages = [system, prompt]
 template = ChatPromptTemplate(messages)
@@ -139,7 +139,7 @@ template = ChatPromptTemplate(messages)
 
 ---
 
-## 👉 11. Creating a Q&A Chain  
+## 10. Creating a Q&A Chain  
 ```python
 qna_chain = template | llm | StrOutputParser()
 ```
@@ -150,7 +150,7 @@ qna_chain = template | llm | StrOutputParser()
 
 ---
 
-## ❓ 12. Running Sample Questions  
+## 11. Running Sample Questions  
 ```python
 response = qna_chain.invoke({'context': context, 'question': "How to gain muscle mass?", 'words': 50})
 print(response)
