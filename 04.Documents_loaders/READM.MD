@@ -1,2 +1,0 @@
--   Documents loaders : https://python.langchain.com/docs/integrations/document_loaders/
--   PymuPDF : https://python.langchain.com/docs/integrations/document_loaders/pymupdf/
