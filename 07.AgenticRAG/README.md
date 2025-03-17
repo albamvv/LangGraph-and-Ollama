@@ -21,7 +21,7 @@ SQLAlchemy
 Requests
 ```
 
-# 1️⃣Vector Stores an Retrieve
+# 1️⃣ Vector Stores an Retrieve
 
 ## Overview
 
@@ -188,8 +188,11 @@ result = vector_store.search(query=question, k=5, search_type='similarity')
 ``` python
 vector_store.save_local(db_name)
 ```
+# 2️⃣ Retrieval
+# 3️⃣ Agent
 
-# 2️⃣ Argentic RAG
+- ![Alt text](assets/3.agent.JPG)
+# 4️⃣ Argentic RAG
 
 ## Overview
 

@@ -1,6 +1,7 @@
 from imports import*
 from config import embeddings,db_name, vector_store
-
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
+load_dotenv()
 
 # ----------------- Health Supplements Retriever -------------
 query= "what is the best supplement for muscle gain?"
