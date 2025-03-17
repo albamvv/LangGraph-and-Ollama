@@ -157,7 +157,7 @@ print(response)
 ```
 - Sends a **query** through the `qna_chain` and **prints** the AI’s response.  
 
-### 💡 Other Sample Questions:  
+### Other Sample Questions:  
 ```python
 response = qna_chain.invoke({'context': context, 'question': "How to reduce weight?", 'words': 50})
 print(response)
@@ -194,5 +194,59 @@ Would you like help modifying or optimizing it further? 🚀
 
 # Project 2: PDF Document Summarization
 
+
+## **1. Define the System Message***
+```python
+system = SystemMessagePromptTemplate.from_template("""
+You are a helpful AI assistant who works as a document summarizer. 
+You must not hallucinate or provide any false information.
+""")
+```
+
+## **2. Create the Prompt Template**
+
+```python
+prompt = """Summarize the given context in {words}.
+            ### Context:
+            {context}
+
+            ### Summary:"""
+prompt = HumanMessagePromptTemplate.from_template(prompt)
+```
+- Defines a structured prompt with placeholders:
+    - `{words}` → Summary word limit.
+    - `{context}` → Text to summarize.
+- Converts the string into a dynamic prompt template.
+
+
+## **3. Create the Chat Prompt Template**
+
+```python
+messages = [system, prompt]
+template = ChatPromptTemplate(messages)
+```
+- Combines the system message and the user prompt into a structured chat template
+
+## **4. Build the Summarization Chain**
+```python
+summary_chain = template | llm | StrOutputParser()
+```
+-   Chains multiple components:
+    - `template` → Structured chat prompt.
+    - `llm` → The language model.     
+    - `StrOutputParser()` → Converts the output into plain text.
+
+## **5. Generate Summaries**
+```python
+response = summary_chain.invoke({'context': context, 'words': 50})
+print("response-> ", response)
+
+response = summary_chain.invoke({'context': context, 'words': 500})
+#print("response-> ", response)
+```
+-   Calls `summary_chain.invoke()` with:
+    - `'context': context` → The text to summarize.
+    - `'words': 50` → Generates a 50-word summary.
+-    Calls again for a 500-word summary (output is commented out).
 
 # Project 3: Report Generation from PDF Document

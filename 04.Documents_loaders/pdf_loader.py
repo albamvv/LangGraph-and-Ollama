@@ -70,25 +70,45 @@ prompt = HumanMessagePromptTemplate.from_template(prompt)
 messages = [system, prompt]
 template = ChatPromptTemplate(messages)
 
-# template
-# template.invoke({'context': context, 'question': "How to gain muscle mass?", 'words': 50})
-
 qna_chain = template | llm | StrOutputParser()
-print("qna chain-> ",qna_chain)
+#print("qna chain-> ",qna_chain)
 response = qna_chain.invoke({'context': context, 'question': "How to gain muscle mass?", 'words': 50})
-print(response)
+#print(response)
 
 response = qna_chain.invoke({'context': context, 'question': "How to reduce the weight?", 'words': 50})
-print(response)
+#print(response)
 
 response = qna_chain.invoke({'context': context, 'question': "How to do weight loss?", 'words': 50})
-print(response)
+#print(response)
 
 response = qna_chain.invoke({'context': context, 'question': "How many planets are there outside of our solar system?", 'words': 50})
-print(response)
+#print(response)
 
 
 # Project 2: PDF Document Summarization
+
+system = SystemMessagePromptTemplate.from_template("""You are helpful AI assistant who works as document summarizer. 
+                                                   You must not hallucinate or provide any false information.""")
+
+prompt = """Summarize the given context in {words}.
+            ### Context:
+            {context}
+
+            ### Summary:"""
+
+prompt = HumanMessagePromptTemplate.from_template(prompt)
+
+messages = [system, prompt]
+template = ChatPromptTemplate(messages)
+
+summary_chain = template | llm | StrOutputParser()
+#print("summary chain-> ",summary_chain)
+
+response = summary_chain.invoke({'context': context, 'words': 50})
+print("response-> ",response)
+
+response = summary_chain.invoke({'context': context, 'words': 500})
+#print("response-> ",response)
 
 # Project 3: Report Generation from PDF Document
 
