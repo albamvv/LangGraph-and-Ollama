@@ -2,6 +2,43 @@ from imports import*
 from config import llm,tools
 
 
+# ----------------------- LOAD PDFs -------------------------------
+
+def load_pdfs_from_directory(directory_path):
+    """
+    Loads all PDFs from the specified directory and its subdirectories.
+
+    Args:
+        directory_path (str): The root directory to search for PDFs.
+
+    Returns:
+        list: A list of documents loaded from the PDFs.
+    """
+    # List to store the paths of all PDF files
+    pdfs = []
+    # os.walk() iterates through all directories and files inside "rag-dataset"
+    # root -> The current folder being scanned  
+    # dirs -> List of subdirectories in the current folder  
+    # files -> List of files in the current folder  
+
+    # Walk through the directory and find all PDF files
+    for root, dirs, files in os.walk(directory_path):
+        for file in files:
+            if file.endswith(".pdf"):
+                pdfs.append(os.path.join(root, file))
+
+    # List to store the loaded documents
+    docs = []
+
+    # Load documents from each PDF
+    for pdf in pdfs:
+        loader = PyMuPDFLoader(pdf)
+        temp = loader.load()
+        docs.extend(temp)
+
+    return docs
+
+
 # ---------------------- Document grader ---------------------------
 
 def grade_documents(state) -> Literal["generate", "rewrite"]:

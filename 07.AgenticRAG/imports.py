@@ -23,3 +23,4 @@ from langgraph.prebuilt import ToolNode
 from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import ToolNode
 from pprint import pprint
+from langchain.text_splitter import RecursiveCharacterTextSplitter
