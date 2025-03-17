@@ -183,7 +183,7 @@ print(response)
 
 ---
 
-## ✅ Final Thoughts  
+##  Final Thoughts  
 This script is **a complete PDF-based Question Answering system**. It:  
 📄 **Extracts text from PDFs**  
 🤖 **Uses a local AI model (Ollama) to answer questions**  
@@ -250,3 +250,5 @@ response = summary_chain.invoke({'context': context, 'words': 500})
 -    Calls again for a 500-word summary (output is commented out).
 
 # Project 3: Report Generation from PDF Document
+
+The code executes a Q&A processing chain (`qna_chain`), passing a context (input text) and a question asking for a detailed 2000-word report in Markdown format. The response is stored in `response`, but printing is commented out.
