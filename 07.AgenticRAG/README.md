@@ -192,6 +192,7 @@ vector_store.save_local(db_name)
 # 3️⃣ Agent
 
 - ![Alt text](assets/3.agent.JPG)
+
 # 4️⃣ Argentic RAG
 
 ## Overview

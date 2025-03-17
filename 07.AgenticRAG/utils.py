@@ -218,3 +218,15 @@ def search(query: str) -> str:
     )
     response = search.invoke(query)
     return response
+
+#-------------------------- Health supplements --------------------
+@tool
+def health_supplements(query: str, retriever) -> str:
+    """Search for information about Health Supplements.
+    For any questions about Health and Gym Supplements, you must use this tool!,
+
+    Args:
+        query: The search query.
+    """
+    response = retriever.invoke(query)
+    return response
