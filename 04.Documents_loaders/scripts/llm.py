@@ -24,3 +24,4 @@ qna_chain = template | llm | StrOutputParser()
 
 def ask_llm(context,question):
     return qna_chain.invoke({'context':context ,'question':question})
+
