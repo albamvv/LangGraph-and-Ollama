@@ -37,7 +37,7 @@ def load_pdfs_from_directory(directory_path):
         docs.extend(temp)
 
     return docs
-
+ 
 
 # ---------------------- Document grader ---------------------------
 
@@ -198,3 +198,23 @@ def save_and_open_graph(graph, filename="langraph_flow.png"):
     # Open the image file (compatible with Windows, macOS, and Linux)
     #os.system(filename)
     print(f"Graph saved as {filename}")
+
+#-------------------------- Tavily --------------------
+@tool
+def search(query: str) -> str:
+    """
+    Search the web for realtime and latest information.
+    for examples, news, stock market, weather updates etc.
+    
+    Args:
+    query: The search query
+    """
+    
+    search = TavilySearchResults(
+        max_results=5,
+        search_depth="advanced",
+        include_answer=True,
+        include_raw_content=True,
+    )
+    response = search.invoke(query)
+    return response

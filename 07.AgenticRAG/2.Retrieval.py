@@ -14,7 +14,7 @@ question = "how to lose weight?"
 response=retriever.invoke(question)
 #--------------------------------
 retriever = vector_store.as_retriever(search_type = 'similarity_score_threshold', search_kwargs = {'k': 3, 'score_threshold': 0.1})
-response= retriever.invoke(question)
+retriever.invoke(question)
 #--------------------------------
 retriever = vector_store.as_retriever(search_type = 'mmr', search_kwargs = {'k': 3, 'fetch_k': 20, 'lambda_mult': 1})
 response = retriever.invoke(question)

@@ -11,6 +11,8 @@ This script demonstrates how to integrate an LLM (Large Language Model) with var
 - It is one of the essential requirements of the Agent
 - Not all LLM supports tool calling.
 
+![Alt text](assets/bind_tool.JPG)
+
 ![Alt text](assets/tool_calling.JPG)
 
 ## Key Features

@@ -24,3 +24,5 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import ToolNode
 from pprint import pprint
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.tools import TavilySearchResults
+from langchain_core.tools import tool
