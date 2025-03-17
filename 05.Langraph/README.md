@@ -13,6 +13,8 @@ This script demonstrates how to integrate an LLM (Large Language Model) with var
 
 ![Alt text](assets/bind_tool.JPG)
 
+![Alt text](assets/bind_tool2.JPG)
+
 ![Alt text](assets/tool_calling.JPG)
 
 ## Key Features
