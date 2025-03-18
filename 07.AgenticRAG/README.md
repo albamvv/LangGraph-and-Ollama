@@ -189,6 +189,22 @@ result = vector_store.search(query=question, k=5, search_type='similarity')
 vector_store.save_local(db_name)
 ```
 # 2️⃣ Retrieval
+
+## Usage
+```sh
+python 2.Retrieval.py
+```
+## 🔹 What does `retriever.invoke(query)` do?
+
+The `invoke(query)` method in a **retriever** from LangChain performs a search in a vector database based on semantic similarity.
+
+### Basically, it does the following:
+1. **Converts** the `query` into a numeric vector (using the model with which the database was indexed).  
+2. **Searches the vector database** for the most similar documents to the query.  
+3. **Returns the relevant documents**, usually ordered by similarity.  
+
+
+
 # 3️⃣ Agent
 
 - ![Alt text](assets/3.agent.JPG)
