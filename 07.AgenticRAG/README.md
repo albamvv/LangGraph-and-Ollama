@@ -192,6 +192,8 @@ vector_store.save_local(db_name)
 # 3️⃣ Agent
 
 - ![Alt text](assets/3.agent.JPG)
+- **Agent** : [hwchase17/openai-functions-agent](https://smith.langchain.com/hub/hwchase17/openai-functions-agent)
+
 
 # 4️⃣ Argentic RAG
 
