@@ -259,16 +259,23 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 - You define a question about the side effects of too much vitamin D and invoke the agent to get a response.
 ```python
 question = "What is the best supplement for muscle gain?"
-question = "what's weather in New York?"
-question = "What are the side effects of taking too much vitamin D?"
+#question = "what's weather in New York?"
+# = "What are the side effects of taking too much vitamin D?"
 response = agent_executor.invoke({'input': question})
 ```
 
 **Output:**
+- `health_supplements` is the tool
+-Reformulated the query
 ```sh
-Invoking: `health_supplements` with `{'query': 'side effects of taking too much vitamin D'}`
+Invoking: `health_supplements` with `{'query': 'muscle gain supplements'}`
 ```
+- These are the document which it has extracted from the database.
+![Alt text](assets/3.document_extracted.JPG)
 
+- Output from de LLM
+
+![alt text](3.output_llm.JPG)
 # 4️⃣ Argentic RAG
 
 ## Overview

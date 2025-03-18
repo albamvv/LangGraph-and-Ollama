@@ -32,7 +32,8 @@ prompt = hub.pull("hwchase17/openai-functions-agent")
 tools = [search, health_supplements]
 agent = create_tool_calling_agent(llm, tools, prompt)
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-#question = "What is the best supplement for muscle gain?"
+question = "What is the best supplement for muscle gain?"
 #question = "what's weather in New York?"
-question = "What are the side effects of taking too much vitamin D?"
+#question = "What are the side effects of taking too much vitamin D?"
 response = agent_executor.invoke({'input': question})
+print("responseeeeeeeeeeeeeeeeeeeeee!!! ",response)
