@@ -18,20 +18,21 @@ def health_supplements(query: str) -> str:
     response = retriever.invoke(query)
     return response
 response=health_supplements.invoke("what is the best supplement for muscle gain?")
+'''
 for doc in response:
     print(f"📄 Source: {doc.metadata['source']} (Page {doc.metadata['page']})")
     print(f"📌 Content: {doc.page_content}\n")
-
+'''
 
 # ----------------- Agent -------------
 prompt = hub.pull("hwchase17/openai-functions-agent")
-pprint(prompt.messages, indent=2, width=80)
+#pprint(prompt.messages, indent=2, width=80)
 # https://smith.langchain.com/hub
 
 tools = [search, health_supplements]
 agent = create_tool_calling_agent(llm, tools, prompt)
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-question = "What is the best supplement for muscle gain?"
-question = "what's weather in New York?"
+#question = "What is the best supplement for muscle gain?"
+#question = "what's weather in New York?"
 question = "What are the side effects of taking too much vitamin D?"
 response = agent_executor.invoke({'input': question})

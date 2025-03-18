@@ -216,25 +216,59 @@ python 3.Agent.py
 ```
 ## Implementation:
 
+**1. Prompt Pulling**
+- You fetch a predefined prompt from LangChain Hub, which will guide how the agent interacts with tools.
+- This line pulls a pre-defined prompt from the LangChain Hub. LangChain Hub is a collection of reusable code and models. In this case, you're pulling a specific prompt or agent from the hub, identified by `hwchase17/openai-functions-agent`. This prompt will guide how the agent interacts with the tools you provide it.
 
-```sh
+-   `hub.pull()` is a method to fetch or download a model or prompt from the LangChain Hub, which contains predefined setups and tools.
+
+```python
 prompt = hub.pull("hwchase17/openai-functions-agent")
 pprint(prompt.messages, indent=2, width=80)
 ```
-
-
+**Output:**
 ```sh
+[ SystemMessagePromptTemplate(prompt=PromptTemplate(input_variables=[], input_types={}, partial_variables={}, template='You are a helpful assistant'), additional_kwargs={}),
+  MessagesPlaceholder(variable_name='chat_history', optional=True),
+  HumanMessagePromptTemplate(prompt=PromptTemplate(input_variables=['input'], input_types={}, partial_variables={}, template='{input}'), additional_kwargs={}),
+  MessagesPlaceholder(variable_name='agent_scratchpad')]
+```
+**2. Tools Definition:**
+-   You define the tools (search and health_supplements) that the agent can use to gather information.
+    - **search**: Likely a tool that allows searching a database or external source.
+    - **health_supplements**: Likely a tool specifically designed to handle queries about health supplements.
+
+```python
 tools = [search, health_supplements]
+```
+**3. Agent creation:**
+- You create an agent that can call these tools with the help of a language model.
+- `create_tool_calling_agent()` is a function that sets up an agent capable of using the defined tools. It essentially enables the agent to call these tools in response to user queries.
+- The `llm` represents the language model (for example, GPT-3 or GPT-4), which processes the queries and generates responses.
+- The `` defines how the agent should interact with the tools.
+```python
 agent = create_tool_calling_agent(llm, tools, prompt)
+```
+**4. Agent execution:**
+- The agent's execution process is managed by `AgentExecutor`, which ensures the tools are used to answer the question.
+- The `AgentExecutor` coordinates the agent, ensures that the tools are correctly used, and handles the execution flow.
+```python
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 ```
-
-```sh
+**5. Question processing:**
+- You define a question about the side effects of too much vitamin D and invoke the agent to get a response.
+```python
 question = "What is the best supplement for muscle gain?"
 question = "what's weather in New York?"
 question = "What are the side effects of taking too much vitamin D?"
 response = agent_executor.invoke({'input': question})
 ```
+
+**Output:**
+```sh
+Invoking: `health_supplements` with `{'query': 'side effects of taking too much vitamin D'}`
+```
+
 # 4️⃣ Argentic RAG
 
 ## Overview
