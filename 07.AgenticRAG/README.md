@@ -206,11 +206,35 @@ The `invoke(query)` method in a **retriever** from LangChain performs a search i
 
 
 # 3️⃣ Agent
-
+## Overview
 - ![Alt text](assets/3.agent.JPG)
 - **Agent** : [hwchase17/openai-functions-agent](https://smith.langchain.com/hub/hwchase17/openai-functions-agent)
 
+## Usage
+```sh
+python 3.Agent.py
+```
+## Implementation:
 
+
+```sh
+prompt = hub.pull("hwchase17/openai-functions-agent")
+pprint(prompt.messages, indent=2, width=80)
+```
+
+
+```sh
+tools = [search, health_supplements]
+agent = create_tool_calling_agent(llm, tools, prompt)
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+```
+
+```sh
+question = "What is the best supplement for muscle gain?"
+question = "what's weather in New York?"
+question = "What are the side effects of taking too much vitamin D?"
+response = agent_executor.invoke({'input': question})
+```
 # 4️⃣ Argentic RAG
 
 ## Overview
