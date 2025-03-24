@@ -62,6 +62,12 @@ When running `3.chains.py`, a sample response could be:
 ## Implementation
 ### Langchain Messages
 ![Alt text](assets/langchain_messages.JPG)
+**0. Configuration**
+```python
+base_url = "http://localhost:11434"
+model = 'llama3.2:1b'
+llm = ChatOllama(base_url=base_url, model=model)
+```
 
 **1. Case one**
 ```python
@@ -93,12 +99,7 @@ Here are three key points about the Earth:
 ### Langchain Prompt Templates
 
 ![Alt text](assets/langchain_prompt.JPG)
-**0. Configuration**
-```python
-base_url = "http://localhost:11434"
-model = 'llama3.2:1b'
-llm = ChatOllama(base_url=base_url, model=model)
-```
+
 
 **1. Case one**
 ```python
