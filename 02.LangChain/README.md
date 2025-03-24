@@ -57,7 +57,7 @@ When running `3.chains.py`, a sample response could be:
 
 
 
-# Prompt template
+# 1️⃣ Prompt template
 
 ## Usage
 
@@ -145,7 +145,7 @@ Here's what I know about the sun:
 • Without the sun, we wouldn't have day or night, as there would be no energy from it to make them happen.
 ```
 
-# Chains
+# 2️⃣ Chains
 
 ## Usage
 
