@@ -93,12 +93,25 @@ Here are three key points about the Earth:
 ### Langchain Prompt Templates
 
 ![Alt text](assets/langchain_prompt.JPG)
+**0. Configuration**
+```python
+base_url = "http://localhost:11434"
+model = 'llama3.2:1b'
+llm = ChatOllama(base_url=base_url, model=model)
+```
 
 **1. Case one**
 ```python
 system = SystemMessagePromptTemplate.from_template('You are {school} teacher. You answer in short sentences.')
 question = HumanMessagePromptTemplate.from_template('tell me about the {topics} in {points} points')
 ```
+- Invoke
+
+```python
+messages = [system, question]
+response = llm.invoke(messages)
+```
+
 **Output:**
 ```sh
 system->  prompt=PromptTemplate(input_variables=['school'], input_types={}, partial_variables={}, template='You are {school} teacher. You answer in short sentences.') additional_kwargs={}
