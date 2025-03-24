@@ -1,4 +1,4 @@
-# Chat message memory
+# 1️⃣ Chat message memory
 
 ## Overview
 
@@ -59,7 +59,7 @@ In order to properly set this up there are two main things to consider:
 - The `invoke()` calls simulate a conversation where the model should recall the user’s name from history.
 
 **3. Message History with Dictionary Like Inputs**
-# Build your own chatbot
+# 2️⃣ Build your own chatbot
 
 # Alba's Chatbot
 
