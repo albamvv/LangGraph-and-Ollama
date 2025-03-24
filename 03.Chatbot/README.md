@@ -209,8 +209,6 @@ st.session_state.chat_history.append({'role': 'assistant', 'content': response})
 
 # 3️⃣ Chatbot basic
 
-# README: Implementing Alba's Chatbot in Streamlit
-
 ## Overview
 This project is a chatbot implemented using Streamlit and the Ollama API. The chatbot allows users to select different AI models, send messages, and receive responses via streaming.
 
@@ -260,6 +258,8 @@ if "selected_model" not in st.session_state:
 ```
 Initializes available models and sets a default selection.
 
+![Alt text](assets/albaschatbo1.JPG)
+
 ### 3. Chat Activation and Reset
 ```python
 if not st.session_state["chat_active"]:
@@ -278,6 +278,8 @@ if st.session_state["chat_active"]:
         st.rerun()
 ```
 Allows clearing the chat history.
+
+![Alt text](assets/albaschatbo2.JPG)
 
 ### 4. Streaming Response Handling
 ```python
@@ -315,10 +317,6 @@ Handles assistant response streaming and updates the UI.
 ## Conclusion
 This chatbot provides a simple yet powerful interface for interacting with AI models. It maintains chat history, supports multiple models, and delivers real-time responses.
 
-
-![Alt text](assets/albaschatbo1.JPG)
-
-![Alt text](assets/albaschatbo2.JPG)
 
 ![Alt text](assets/albaschatbo3.JPG)
 
