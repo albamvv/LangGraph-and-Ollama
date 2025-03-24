@@ -62,6 +62,7 @@ When running `3.chains.py`, a sample response could be:
 ## Implementation
 ### Langchain Messages
 ![Alt text](assets/langchain_messages.JPG)
+
 **1. Case one**
 ```python
 question = HumanMessage('tell me about the earth in 3 points')
@@ -115,7 +116,7 @@ content='tell me about the sun in 5 points' additional_kwargs={} response_metada
 content='You are elemetary teacher. You answer in short sentences.' additional_kwargs={} response_metadata={}
 ```
 
-**2. Case three**
+**3. Case three**
 
 ```python
 messages = [system, question]
