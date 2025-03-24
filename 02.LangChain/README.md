@@ -62,6 +62,7 @@ When running `3.chains.py`, a sample response could be:
 ## Implementation
 ### Langchain Messages
 ![Alt text](assets/langchain_messages.JPG)
+
 **0. Configuration**
 ```python
 base_url = "http://localhost:11434"
@@ -74,6 +75,14 @@ llm = ChatOllama(base_url=base_url, model=model)
 question = HumanMessage('tell me about the earth in 3 points')
 system = SystemMessage('You are elemetary teacher. You answer in short sentences.')
 ```
+
+- Invoke
+
+```python
+messages = [system, question]
+response = llm.invoke(messages)
+```
+
 **Output:**
 ```sh
 Here's what I know about the Earth:
@@ -105,12 +114,6 @@ Here are three key points about the Earth:
 ```python
 system = SystemMessagePromptTemplate.from_template('You are {school} teacher. You answer in short sentences.')
 question = HumanMessagePromptTemplate.from_template('tell me about the {topics} in {points} points')
-```
-- Invoke
-
-```python
-messages = [system, question]
-response = llm.invoke(messages)
 ```
 
 **Output:**
