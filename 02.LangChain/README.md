@@ -1,4 +1,75 @@
+# LangChain with Ollama Integration
+
+## Overview
+This project integrates LangChain with an Ollama-based language model to process and generate text using various prompt templates and chains. It provides functionalities for structured AI-generated responses with different levels of complexity.
+
+## Features
+- Uses **LangChain** to structure prompts and interact with the **Ollama** language model.
+- Implements **prompt templates** for flexible query generation.
+- Supports **sequential chains** to refine responses.
+- Allows **text analysis** using chained runnables.
+
+## Requirements
+Ensure you have the following dependencies installed:
+
+```bash
+pip install langchain ollama python-dotenv
+```
+
+Additionally, set up a `.env` file with the necessary API keys if required.
+
+## File Structure
+
+- `1.promp_templates.py`  
+  Defines prompt templates for structured AI queries.
+- `2.langchain.py`  
+  Initializes and invokes the LangChain model with sample queries.
+- `3.chains.py`  
+  Demonstrates sequential and chained prompt execution.
+
+## Usage
+
+1. Start an Ollama server locally (if applicable).
+2. Run any of the Python scripts to test the functionality:
+   
+   ```bash
+   python 2.langchain.py
+   ```
+   
+   ```bash
+   python 3.chains.py
+   ```
+3. Modify the scripts to customize prompts and chains as needed.
+
+## Example Output
+When running `3.chains.py`, a sample response could be:
+
+```
+'The solar system consists of 8 planets. The Sun is at the center. Earth is the third planet. Jupiter is the largest. The solar system is vast.'
+```
+
+## Customization
+- Modify `model` in each script to switch between different LLaMA models.
+- Adjust **temperature** and **num_predict** for varying response styles.
+- Extend prompt templates to fit different query scenarios.
+
+
+
+
+
 # Prompt template
+
+## Usage
+
+1. Start an Ollama server locally (if applicable).
+2. Run any of the Python scripts to test the functionality:
+   
+   ```bash
+   python 1.promp_templates.py
+   ```
+
+3. Modify the scripts to customize prompts and chains as needed.
+
 
 ![Alt text](assets/langchain_messages.JPG)
 
@@ -75,6 +146,16 @@ Here's what I know about the sun:
 ```
 
 # Chains
+
+## Usage
+
+1. Start an Ollama server locally (if applicable).
+2. Run any of the Python scripts to test the functionality:
+   
+   ```bash
+   python 2.langchain.py
+   ```
+3. Modify the scripts to customize prompts and chains as needed.
 
 ![Alt text](assets/chain_esquema.JPG)
 
