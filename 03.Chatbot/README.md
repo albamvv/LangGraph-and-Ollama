@@ -209,6 +209,113 @@ st.session_state.chat_history.append({'role': 'assistant', 'content': response})
 
 # 3️⃣ Chatbot basic
 
+# README: Implementing Alba's Chatbot in Streamlit
+
+## Overview
+This project is a chatbot implemented using Streamlit and the Ollama API. The chatbot allows users to select different AI models, send messages, and receive responses via streaming.
+
+## Prerequisites
+Before running the chatbot, ensure you have the following installed:
+- Python 3.8+
+- `streamlit` for UI rendering
+- `ollama` for AI responses
+- Required dependencies (listed in `requirements.txt` if available)
+
+## Installation
+1. Clone the repository or copy the script.
+2. Install the required dependencies:
+   ```bash
+   pip install streamlit ollama
+   ```
+3. Ensure you have access to the Ollama models.
+
+## Running the Chatbot
+Run the following command in the terminal:
+```bash
+streamlit run 3.chatbot_basic.py
+```
+
+## Features
+- **Model Selection**: Choose from models like `llama3.2:3b`, `mistral`, `gemma:2b`, `codellama`, and `phi3`.
+- **Chat Session Management**:
+  - Start a conversation.
+  - Clear chat history.
+  - Maintain conversation state.
+- **Streaming Responses**: Messages are displayed in real-time as they are generated.
+
+## Code Breakdown
+### 1. Page Configuration
+```python
+st.set_page_config(page_title="Mi Template en Streamlit", layout="wide")
+st.title("🚀 Alba's Chatbot")
+st.subheader("Bienvenido a la aplicación")
+```
+Sets up the Streamlit page layout and title.
+
+### 2. Model Selection
+```python
+available_models = ["llama3.2:3b", "mistral", "gemma:2b", "codellama", "phi3"]
+if "selected_model" not in st.session_state:
+    st.session_state["selected_model"] = available_models[0]
+```
+Initializes available models and sets a default selection.
+
+### 3. Chat Activation and Reset
+```python
+if not st.session_state["chat_active"]:
+    if st.button("🟢 Iniciar Chat"):
+        st.session_state["chat_active"] = True
+        st.rerun()
+```
+Handles chat session activation.
+
+```python
+if st.session_state["chat_active"]:
+    if st.button("🗑️ Borrar Chat"):
+        st.session_state["messages"] = []
+        st.session_state["chat_active"] = False
+        st.success("✅ Chat borrado correctamente.")
+        st.rerun()
+```
+Allows clearing the chat history.
+
+### 4. Streaming Response Handling
+```python
+def stream_ollama_response(messages, model):
+    try:
+        response_stream = ollama.chat(model=model, messages=messages, stream=True)
+        for chunk in response_stream:
+            yield chunk["message"]["content"]
+    except Exception as e:
+        st.error(f"❌ Error al generar respuesta: {str(e)}")
+```
+Handles API calls and streaming responses.
+
+### 5. Chat Display & Interaction
+```python
+prompt = st.chat_input("Enter your question")
+if prompt:
+    st.session_state["messages"].append({"role": "user", "content": prompt})
+    
+    with st.chat_message("user"):
+        st.markdown(prompt)
+```
+Captures and displays user input.
+
+```python
+with st.chat_message("assistant"):
+    response_container = st.empty()
+    full_response = ""
+    for chunk in stream_ollama_response(st.session_state["messages"], selected_model):
+        full_response += chunk
+        response_container.markdown(full_response)
+```
+Handles assistant response streaming and updates the UI.
+
+## Conclusion
+This chatbot provides a simple yet powerful interface for interacting with AI models. It maintains chat history, supports multiple models, and delivers real-time responses.
+
+
 ![Alt text](assets/albaschatbo1.JPG)
 
 ![Alt text](assets/albaschatbo2.JPG)
