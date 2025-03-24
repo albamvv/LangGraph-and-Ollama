@@ -89,8 +89,10 @@ Here are three key points about the Earth:
 2. **Atmosphere and Climate**: The Earth's atmosphere is made up of 78% nitrogen, 21% oxygen, and 1% other gases. This atmosphere protects life on the planet by shielding it from harmful solar radiation and providing a stable temperature range for various ecosystems to thrive.
 3. **Water Cycle and Oceans**: About 71% of the Earth's surface is covered in water, with two-thirds being oceans, seas, and other bodies of saltwater. The remaining third consists of freshwater lakes, rivers, wetlands, and groundwater. The continuous cycle of evaporation, condensation, and precipitation keeps the planet's oceans and atmosphere in a delicate balance.
 ```
+
+### Langchain Prompt Templates
+
 ![Alt text](assets/langchain_prompt.JPG)
-## Langchain Prompt Templates
 
 **1. Case one**
 ```python
