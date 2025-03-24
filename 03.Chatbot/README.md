@@ -11,7 +11,7 @@
 ## Usage
 
 ```sh
-   python chat_message_memory.py
+   python 1.chat_message_memory.py
 ```
 
 ## Implementation
@@ -19,7 +19,7 @@
 **1. Simple chain**
 
 ```python
-   base_url = "http://localhost:11434"
+base_url = "http://localhost:11434"
 model = 'llama3.2:3b' # Specify the model to be used (Llama 3.2 with 3 billion parameters)
 llm = ChatOllama(base_url=base_url, model=model) # Initialize the ChatOllama model with the base URL and model
 
