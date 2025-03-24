@@ -1,4 +1,4 @@
-# LangChain with Ollama Integration
+# 0️⃣ LangChain with Ollama Integration
 
 ## Overview
 This project integrates LangChain with an Ollama-based language model to process and generate text using various prompt templates and chains. It provides functionalities for structured AI-generated responses with different levels of complexity.
@@ -73,7 +73,8 @@ When running `3.chains.py`, a sample response could be:
 
 ![Alt text](assets/langchain_messages.JPG)
 
-## Langchain Messages
+## Implementation
+### Langchain Messages
 **1. Case one**
 ```python
 question = HumanMessage('tell me about the earth in 3 points')
@@ -175,7 +176,7 @@ Here's what I know about the sun:
 
 ![Alt text](assets/chain_esquema2.JPG)
 
-# LangChain
+# 3️⃣ LangChain
 
 ## Overview
 This Python script integrates with the **LangChain** framework using **Ollama** to process natural language queries. It initializes a local **Ollama** language model (LLaMA 3.2) and generates responses to user-provided queries.
