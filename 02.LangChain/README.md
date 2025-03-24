@@ -59,10 +59,9 @@ When running `3.chains.py`, a sample response could be:
 3. Modify the scripts to customize prompts and chains as needed.
 
 
-![Alt text](assets/langchain_messages.JPG)
-
 ## Implementation
 ### Langchain Messages
+![Alt text](assets/langchain_messages.JPG)
 **1. Case one**
 ```python
 question = HumanMessage('tell me about the earth in 3 points')
