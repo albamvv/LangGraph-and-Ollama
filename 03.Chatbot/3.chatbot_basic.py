@@ -1,6 +1,5 @@
-import streamlit as st
-import ollama
-# streamlit run 03.Chatbot/3.streamlit_chatbot_template.py 
+from imports import*
+# streamlit run 03.Chatbot/3.chatbot_basic.py 
 
 # Configuración de la página
 st.set_page_config(
