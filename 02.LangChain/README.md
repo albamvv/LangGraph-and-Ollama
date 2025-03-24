@@ -27,19 +27,7 @@ Additionally, set up a `.env` file with the necessary API keys if required.
 - `3.chains.py`  
   Demonstrates sequential and chained prompt execution.
 
-## Usage
 
-1. Start an Ollama server locally (if applicable).
-2. Run any of the Python scripts to test the functionality:
-   
-   ```bash
-   python 2.langchain.py
-   ```
-   
-   ```bash
-   python 3.chains.py
-   ```
-3. Modify the scripts to customize prompts and chains as needed.
 
 ## Example Output
 When running `3.chains.py`, a sample response could be:
@@ -209,7 +197,7 @@ Ensure you have the following dependencies installed before running the script:
 ## Usage
 Run the script using:
 ```sh
-python langchain.py
+python 3.langchain.py
 ```
 
 The script sends the query:
